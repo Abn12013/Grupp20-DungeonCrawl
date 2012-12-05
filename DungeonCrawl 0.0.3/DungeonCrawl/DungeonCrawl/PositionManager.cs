@@ -7,7 +7,5 @@ namespace DungeonCrawl
         public int iteration; //iterationsnummer för objektet
         public int hp; //hälsa av objekt
         //Lägg till fler värden efter behov
-
-
     }
 }
