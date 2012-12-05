@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Character.cs" />
     <Compile Include="GameObj.cs" />
+    <Compile Include="LevelManager.cs" />
     <Compile Include="MovingGameObj.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="PositionManager.cs" />

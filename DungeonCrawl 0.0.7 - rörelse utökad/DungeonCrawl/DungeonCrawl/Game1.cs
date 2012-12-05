@@ -22,6 +22,12 @@ namespace DungeonCrawl
         SpriteBatch spriteBatch;
 
         PositionManager[, ,] positionManager = new PositionManager[50, 32, 3]; //[x koordinat, y koordinat, våning]
+        List<GameObj> floortiles = new List<GameObj>();
+        List<GameObj> walls = new List<GameObj>();
+        List<GameObj> chest = new List<GameObj>();
+        List<GameObj> upstairs = new List<GameObj>();
+        List<GameObj> downstairs = new List<GameObj>();
+        GameObj entry;
 
         Vector2 cursorPos; //muspekar pos
         protected MouseState prevMs1; //håller koll på musens förra state
