@@ -1,2 +1,0 @@
-Content\Namnlös.xnb
-Content\level.xnb
