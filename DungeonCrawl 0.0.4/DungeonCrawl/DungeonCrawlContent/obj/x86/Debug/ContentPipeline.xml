@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>F:\Dropbox\DungeonCrawl\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Namnlös.xnb</Output>
+      <Output>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Namnlös.xnb</Output>
       <Time>2012-12-04T14:17:00+01:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>F:\Dropbox\DungeonCrawl\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\level.xnb</Output>
+      <Output>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\level.xnb</Output>
       <Time>2012-09-06T10:54:19+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
@@ -25,10 +25,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>F:\Dropbox\DungeonCrawl\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawlContent\</RootDirectory>
-      <LoggerRootDirectory>F:\Dropbox\DungeonCrawl\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\</LoggerRootDirectory>
-      <IntermediateDirectory>F:\Dropbox\DungeonCrawl\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>F:\Dropbox\DungeonCrawl\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawlContent\</RootDirectory>
+      <LoggerRootDirectory>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\</LoggerRootDirectory>
+      <IntermediateDirectory>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
