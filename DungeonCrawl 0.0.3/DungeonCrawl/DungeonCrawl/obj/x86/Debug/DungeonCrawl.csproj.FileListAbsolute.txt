@@ -18,19 +18,6 @@ C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.1\Du
 C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.1\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb
 C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.1\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Namnlös.xnb
 C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.1\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\level.xnb
-C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Namnlös.xnb
-C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\level.xnb
-C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.exe
-C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.pdb
-C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
-C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb
-F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Namnlös.xnb
-F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\level.xnb
-F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.exe
-F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.pdb
-F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\obj\x86\Debug\ResolveAssemblyReference.cache
-F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
-F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.4\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb
+F:\Dropbox\DungeonCrawl\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\Dropbox\DungeonCrawl\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+F:\Dropbox\DungeonCrawl\DungeonCrawl 0.0.3\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
