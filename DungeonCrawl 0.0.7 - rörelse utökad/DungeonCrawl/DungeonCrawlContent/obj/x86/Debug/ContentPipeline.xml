@@ -2,31 +2,13 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>Namnlös.png</Source>
-      <Name>Namnlös</Name>
+      <Source>tiles_completed.png</Source>
+      <Name>tiles_completed</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Namnlös.xnb</Output>
-      <Time>2012-12-04T14:17:00+01:00</Time>
-    </Item>
-    <Item>
-      <Source>level.png</Source>
-      <Name>level</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\level.xnb</Output>
-      <Time>2012-09-06T10:54:19+02:00</Time>
-    </Item>
-    <Item>
-      <Source>char_test.png</Source>
-      <Name>char_test</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\char_test.xnb</Output>
-      <Time>2012-12-03T05:55:06+01:00</Time>
+      <Output>F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\tiles_completed.xnb</Output>
+      <Time>2012-12-03T04:33:23+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -34,10 +16,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\</RootDirectory>
-      <LoggerRootDirectory>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\</LoggerRootDirectory>
-      <IntermediateDirectory>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\</RootDirectory>
+      <LoggerRootDirectory>F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\</LoggerRootDirectory>
+      <IntermediateDirectory>F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

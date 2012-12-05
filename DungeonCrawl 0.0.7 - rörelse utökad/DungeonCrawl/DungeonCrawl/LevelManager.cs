@@ -118,7 +118,7 @@ namespace DungeonCrawl
                         case 'C':
                             positionManager[(int)temp.X, (int)temp.Y, floor] = new PositionManager
                             {
-                                type = "Chest",
+                                type = "chest",
                                 floor = true
                             };
                             temp.X++;
@@ -126,7 +126,8 @@ namespace DungeonCrawl
                         case 'E':
                             positionManager[(int)temp.X, (int)temp.Y, floor] = new PositionManager
                             {
-                                type = "Entry"
+                                type = "wall",
+                                entry = true
                             };
                             temp.X++;
                             break;
@@ -161,13 +162,11 @@ namespace DungeonCrawl
         }
 
         public void ChangeFloor(int floor, ref PositionManager[, ,] positionManager, ref List<GameObj> floortiles,
-            ref List<GameObj> walls, ref List<GameObj> chests, ref List<GameObj> upstairs, ref List<GameObj> downstairs, ref GameObj entry)
+            ref List<GameObj> walls, ref List<GameObj> objects, ref GameObj entry)
         {
             floortiles.Clear();
             walls.Clear();
-            chests.Clear();
-            upstairs.Clear();
-            downstairs.Clear();
+            objects.Clear();
             entry.Position = new Vector2(-50, -50);
 
             string currentObject;
@@ -183,14 +182,157 @@ namespace DungeonCrawl
                     if (positionManager[x, y, floor].floor == true)
                     {
                         floortiles.Add(new GameObj()
-                        {
-                            Position = currentPosition
-                        });
+                            {
+                                Frame = 17,
+                                Position = currentPosition
+                            });
+                    }
+
+                    if (positionManager[x, y, floor].entry == true)
+                    {
+                        entry.Position = currentPosition;
                     }
 
                     switch (currentObject)
                     {
-
+                        case "empty":
+                            break;
+                        case "wall":
+                            if (positionManager[x - 1, y, floor].type == "wall")
+                                if (positionManager[x + 1, y, floor].type == "wall")
+                                    if (positionManager[x, y - 1, floor].type == "wall")
+                                        if (positionManager[x, y + 1, floor].type == "wall")
+                                            walls.Add(new GameObj()
+                                            {
+                                                Frame = 7,
+                                                Position = currentPosition
+                                            });
+                                        else
+                                            walls.Add(new GameObj()
+                                            {
+                                                Frame = 10,
+                                                Position = currentPosition
+                                            });
+                                    else if (positionManager[x, y + 1, floor].type == "wall")
+                                        walls.Add(new GameObj()
+                                        {
+                                            Frame = 15,
+                                            Position = currentPosition
+                                        });
+                                    else
+                                        walls.Add(new GameObj()
+                                        {
+                                            Frame = 2,
+                                            Position = currentPosition
+                                        });
+                                else if (positionManager[x, y + 1, floor].type == "wall")
+                                    if (positionManager[x, y - 1, floor].type == "wall")
+                                        walls.Add(new GameObj()
+                                        {
+                                            Frame = 12,
+                                            Position = currentPosition
+                                        });
+                                    else
+                                        walls.Add(new GameObj()
+                                        {
+                                            Frame = 16,
+                                            Position = new Vector2(x, y)
+                                        });
+                                else if (positionManager[x, y - 1, floor].type == "wall")
+                                    walls.Add(new GameObj()
+                                    {
+                                        Frame = 11,
+                                        Position = currentPosition
+                                    });
+                                else
+                                    walls.Add(new GameObj()
+                                    {
+                                        Frame = 3,
+                                        Position = currentPosition
+                                    });
+                            else if (positionManager[x + 1, y, floor].type == "wall")
+                                if (positionManager[x, y + 1, floor].type == "wall")
+                                    if (positionManager[x, y - 1, floor].type == "wall")
+                                        walls.Add(new GameObj()
+                                        {
+                                            Frame = 13,
+                                            Position = currentPosition
+                                        });
+                                    else
+                                        walls.Add(new GameObj()
+                                        {
+                                            Frame = 15,
+                                            Position = currentPosition
+                                        });
+                                else if (positionManager[x,y-1,floor].type == "wall")
+                                    walls.Add(new GameObj()
+                                    {
+                                        Frame = 9,
+                                        Position = currentPosition
+                                    });
+                                else
+                                    walls.Add(new GameObj()
+                                    {
+                                        Frame = 1,
+                                        Position = currentPosition
+                                    });
+                            else if (positionManager[x,y-1,floor].type == "wall")
+                                if (positionManager[x - 1, y - 1, floor].type == "wall")
+                                {
+                                    if (positionManager[x + 1, y - 1, floor].type == "wall")
+                                        walls.Add(new GameObj()
+                                        {
+                                            Frame = 8,
+                                            Position = currentPosition
+                                        });
+                                }
+                                else if (positionManager[x, y + 1, floor].type == "wall")
+                                    walls.Add(new GameObj()
+                                    {
+                                        Frame = 5,
+                                        Position = currentPosition
+                                    });
+                                else
+                                    walls.Add(new GameObj()
+                                    {
+                                        Frame = 6,
+                                        Position = currentPosition
+                                    });
+                            else if (positionManager[x,y+1,floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 4,
+                                    Position = currentPosition
+                                });
+                            else
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 0,
+                                    Position = currentPosition
+                                });
+                            break;
+                        case "chest":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 18,
+                                Position = currentPosition
+                            });
+                            positionManager[x,y,floor].iteration = objects.Count();
+                            break;
+                        case "upstairs":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 20,
+                                Position = currentPosition
+                            });
+                            break;
+                        case "downstairs":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 21,
+                                Position = currentPosition
+                            });
+                            break;
                         default:
                             break;
                     }

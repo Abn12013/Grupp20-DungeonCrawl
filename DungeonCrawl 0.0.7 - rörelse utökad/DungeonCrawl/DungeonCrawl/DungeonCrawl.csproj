@@ -93,7 +93,6 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -111,7 +110,6 @@
     <Compile Include="Character.cs" />
     <Compile Include="GameObj.cs" />
     <Compile Include="LevelManager.cs" />
-    <Compile Include="MovingGameObj.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="PositionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

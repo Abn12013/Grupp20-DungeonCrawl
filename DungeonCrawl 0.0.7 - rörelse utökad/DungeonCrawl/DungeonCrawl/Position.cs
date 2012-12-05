@@ -16,8 +16,5 @@ namespace DungeonCrawl
 {
     class Position : Character
     {
-
-        
-
     }
 }

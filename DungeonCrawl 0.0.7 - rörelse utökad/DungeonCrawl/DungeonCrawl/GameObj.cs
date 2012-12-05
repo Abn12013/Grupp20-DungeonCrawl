@@ -33,11 +33,17 @@ namespace DungeonCrawl
             set;
         }
 
+        public int Frame //Nuvarande bild från grafik
+        {
+            get;
+            set;
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)
         {
             spriteBatch.Draw(Gfx,
-                Position - DrawOffset + new Vector2(400, 350), null,
-                Color.White, Angle + (float)Math.PI / 2,
+                Position - DrawOffset + new Vector2(400, 300), null,
+                Color.White, 0,
                 new Vector2(Gfx.Width / 2, Gfx.Height / 2), 1.0f,
                 SpriteEffects.None, layer);
         }
