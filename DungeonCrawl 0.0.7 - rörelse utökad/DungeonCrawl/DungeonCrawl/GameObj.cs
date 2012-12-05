@@ -17,11 +17,17 @@ namespace DungeonCrawl
     class GameObj
     {
 
-        public Vector2 Position //Objektets position
+        public Vector2 Position //Objektets koordinat
         {
             get;
             set;
         }
+        public Vector2 DrawPosition //Objektets ritposition
+        {
+            get;
+            set;
+        }
+
         public Texture2D Gfx //Objektets grafik
         {
             get;
@@ -41,8 +47,9 @@ namespace DungeonCrawl
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)
         {
+            Rectangle temp = new Rectangle(Frame*64, 0, 64, 110);
             spriteBatch.Draw(Gfx,
-                Position - DrawOffset + new Vector2(400, 300), null,
+                DrawPosition - DrawOffset + new Vector2(400, 300), temp,
                 Color.White, 0,
                 new Vector2(Gfx.Width / 2, Gfx.Height / 2), 1.0f,
                 SpriteEffects.None, layer);

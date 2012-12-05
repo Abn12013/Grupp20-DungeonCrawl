@@ -19,11 +19,21 @@ namespace DungeonCrawl
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        PositionManager[, ,] positionManager = new PositionManager[50, 32, 3]; //[x koordinat, y koordinat, våning]
+        enum GameState { LoadGame, Game }
+        GameState currentGameState = GameState.LoadGame;
+        Character player = new Character();
+        Texture2D tileset;
+
+        PositionManager[, ,] positionManager = new PositionManager[52, 34, 3]; //[x koordinat, y koordinat, våning]
         List<GameObj> floortiles = new List<GameObj>();
         List<GameObj> walls = new List<GameObj>();
         List<GameObj> objects = new List<GameObj>();
-        GameObj entry;
+        GameObj entry = new GameObj()
+        {
+            Position = new Vector2(0,0),
+            Frame = 23
+        };
+        LevelManager levelManager = new LevelManager();
 
         public Game1()
         {
@@ -58,6 +68,8 @@ namespace DungeonCrawl
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            tileset = Content.Load<Texture2D>("tiles_completed");
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -80,9 +92,38 @@ namespace DungeonCrawl
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            switch (currentGameState)
+            {
+                case GameState.LoadGame:
+                    levelManager.BuildGame(ref positionManager);
+                    levelManager.ChangeFloor(0, ref positionManager, ref floortiles, ref walls, ref objects, ref entry);
+                    foreach (GameObj tile in floortiles)
+                    {
+                        tile.Gfx = tileset;
+                        tile.DrawPosition = new Vector2(tile.Position.X * 64, tile.Position.Y * 64);
+                    }
+                    foreach (GameObj wall in walls)
+                    {
+                        wall.Gfx = tileset;
+                        wall.DrawPosition = new Vector2(wall.Position.X * 64, wall.Position.Y * 64);
+                    }
+                    foreach (GameObj item in objects)
+                    {
+                        item.Gfx = tileset;
+                        item.DrawPosition = new Vector2(item.Position.X * 64, item.Position.Y * 64);
+                    }
+                    entry.Gfx = tileset;
+                    entry.DrawPosition = new Vector2(entry.Position.X * 64, entry.Position.Y * 64);
 
-            positionManager[3, 6, 1].type = "wall";
-            positionManager[3, 5, 1] = positionManager[3, 6, 1];
+                    Vector2 temporary = entry.Position;
+                    temporary.Y += 1;
+                    player.Position = temporary;
+                    player.DrawPosition = new Vector2(temporary.X * 64, temporary.Y * 64);
+                    currentGameState = GameState.Game;
+                    break;
+                case GameState.Game:
+                    break;
+            }
             
             // TODO: Add your update logic here
 
@@ -95,10 +136,30 @@ namespace DungeonCrawl
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 
+            switch (currentGameState)
+            {
+                case GameState.LoadGame:
+                    break;
+                case GameState.Game:
+                    foreach (GameObj tile in floortiles)
+                    {
+                        tile.Draw(spriteBatch, player.DrawPosition,0);
+                    }
+                    foreach (GameObj wall in walls)
+                    {
+                        float temp;
+                        if (wall.Position.Y == 0)
+                            temp = 0.5f;
+                        else
+                            temp = wall.Position.Y;
+                        wall.Draw(spriteBatch, player.DrawPosition, 1);
+                    }
+                    break;
+            }
             spriteBatch.End();
             // TODO: Add your drawing code here
 

@@ -11,11 +11,11 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 
 namespace DungeonCrawl
 {
-    class Character : MovingGameObj
+    class Character : GameObj
     {
 
 
@@ -51,8 +51,6 @@ namespace DungeonCrawl
             Totstr = RaceStr + ClassStr;
             Totdex = RaceDex + ClassDex;
             TotalHp = RaceHp + ClassHp;
-
-            Position = new Vector2(300, 300);
 
             Level = 1;
             Xp = 0;
@@ -245,7 +243,7 @@ namespace DungeonCrawl
             Position = new Vector2(Position.X, ypos += 4);  //positionen för karaktären ökar med 4 för varje tick av gametime
         }
 
-        public override void Update(GameTime gameTime) 
+        /*public override void Update(GameTime gameTime) 
         {
             if (moveCharRight == true)  //Om knappen för att röra sig till höger har tryckts ner, blir boolen true och metoden för att röra sig körs för varje tick av gametime
             { MoveRight(); }
@@ -260,7 +258,7 @@ namespace DungeonCrawl
             { MoveDown(); }
 
             base.Update(gameTime);
-        }
+        }*/
 
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)

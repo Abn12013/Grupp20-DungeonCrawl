@@ -30,3 +30,17 @@ F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCraw
 F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
 F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb
+C:\Users\Antti\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.csprojResolveAssemblyReference.cache
+C:\Users\Antti\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Antti\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
+C:\Users\Antti\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb
+C:\Users\Antti\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\tiles_completed.xnb
+C:\Users\Antti\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.exe
+C:\Users\Antti\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.pdb
+C:\Users\Antti\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\tiles_completed.xnb
+C:\Users\Antti\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.exe
+C:\Users\Antti\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.pdb
+C:\Users\Antti\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.csprojResolveAssemblyReference.cache
+C:\Users\Antti\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Antti\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
+C:\Users\Antti\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb

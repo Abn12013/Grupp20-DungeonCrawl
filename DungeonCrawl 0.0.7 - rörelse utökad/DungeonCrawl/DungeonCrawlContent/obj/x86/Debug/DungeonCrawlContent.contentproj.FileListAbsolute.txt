@@ -3,3 +3,5 @@ C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.0\Du
 C:\Users\Anttichama\Desktop\DungeonCrawl 0.0.1\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
 F:\Dropbox\DVA105_grupp20\Projektet\DungeonCrawl 0.0.6b\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
 F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Antti\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\DungeonCrawlContent.contentprojResolveAssemblyReference.cache
+C:\Users\Antti\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\DungeonCrawlContent.contentprojResolveAssemblyReference.cache
