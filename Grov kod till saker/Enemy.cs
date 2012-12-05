@@ -38,9 +38,9 @@ namespace DungeonCrawl
             // kolla om spelaren är tillräckligt nära för att fienden ska vara Active, 4*4 ruta runt spelaren.
             // Detta gör den varje gång spelaren rör sig.   
         }
-        public void Update()
+        public void Update() // detta ska ligga i update i Game1
         {
-            while (Active) // Fienden är aktiv och går mot spelaren samt attackerar om den kan.
+            while (Enemy.Active()) // Fienden är aktiv och går mot spelaren samt attackerar om den kan.
             {   // Enemy går mot spelaren om den är tillräckligt när för att attackera så gör den det istället.
                 if ()//ska kolla om det är kortast till spelaren från Enemy på x kordinaten eller om avståndet är lika.        
                 {
