@@ -4,4 +4,5 @@ Content\char_test.xnb
 Content\hpbar.xnb
 Content\tiles_completed.xnb
 Content\test_a_animation.xnb
+Content\gameinterface.xnb
 Content\hpfont.xnb

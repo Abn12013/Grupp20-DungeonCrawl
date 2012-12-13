@@ -149,7 +149,7 @@ namespace DungeonCrawl
 
 
 
-        public void LevelUp()
+        public void LevelUp(ref int hpbarbredd)
         {
             Level++;
             switch (playerClass)
@@ -174,6 +174,7 @@ namespace DungeonCrawl
             maximumHp = TotalHp;
             Xp = Xp - XpToLevel;
             XpToLevel = XpToLevel + 10 * Level;
+            hpbarbredd = 412;
         }
 
         //Hålle koll på vilken knapp som har tryckts på, och åt vilket håll karaktären ska röra sig

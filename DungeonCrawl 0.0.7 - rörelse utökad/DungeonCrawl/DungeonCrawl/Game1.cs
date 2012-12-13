@@ -60,6 +60,8 @@ namespace DungeonCrawl
 
             SpriteFont hpText;
 
+            Texture2D interface_ingame;
+
 
         protected KeyboardState prevKs;
 
@@ -111,7 +113,9 @@ namespace DungeonCrawl
             attack2.Gfx = Content.Load<Texture2D>("test_a_animation");
 
             hpBarGfx = Content.Load<Texture2D>("hpbar");
-            hpBarPos = new Rectangle(400, 400, 300, 20);
+            hpBarPos = new Rectangle(400, 400, 412, 11);
+
+            interface_ingame = Content.Load<Texture2D>("gameinterface");
 
 
             hpText = Content.Load<SpriteFont>("hpfont");
@@ -357,9 +361,9 @@ namespace DungeonCrawl
                                        player.Xp += 60;
                                        if (player.Xp >= player.XpToLevel)
                                        {
-                                           player.LevelUp();
+                                           player.LevelUp(ref hpBarPos.Width);
                                            MessageBox.Show("Level up");
-                                           hpBarPos.Width = 300;
+                                           
                                        }
                                    }
                                }
@@ -416,9 +420,9 @@ namespace DungeonCrawl
                                         player.Xp += 60;
                                         if (player.Xp >= player.XpToLevel)
                                         {
-                                            player.LevelUp();
+                                            player.LevelUp(ref hpBarPos.Width);
                                             MessageBox.Show("Level up");
-                                            hpBarPos.Width = 300;
+                                          
                                         }
                                     }
                                 }
@@ -478,9 +482,9 @@ namespace DungeonCrawl
                                         player.Xp += 60;
                                         if (player.Xp >= player.XpToLevel)
                                         {
-                                            player.LevelUp();
+                                            player.LevelUp(ref hpBarPos.Width);
                                             MessageBox.Show("Level up");
-                                            hpBarPos.Width = 300;
+                                           
                                         }
                                     }
                                 }
@@ -540,9 +544,9 @@ namespace DungeonCrawl
                                         player.Xp += 60;
                                         if (player.Xp >= player.XpToLevel)
                                         {
-                                            player.LevelUp();
+                                            player.LevelUp(ref hpBarPos.Width);
                                             MessageBox.Show("Level up");
-                                            hpBarPos.Width = 300;
+                                            
                                         }
                                     }
                                 }
@@ -741,11 +745,14 @@ namespace DungeonCrawl
             }
 
             //Ritar ut hpbar
-            spriteBatch.Draw(hpBarGfx, new Vector2(250, 600), hpBarPos, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.95f);
+            spriteBatch.Draw(hpBarGfx, new Vector2(195, 624), hpBarPos, Color.LawnGreen, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.95f);
 
             //ritarut hpbar text
             string show = player.TotalHp + "/" + player.maximumHp;
-            spriteBatch.DrawString(hpText, show, new Vector2(380, 597), Color.Black,0,Vector2.Zero,1f,SpriteEffects.None,1f);
+            spriteBatch.DrawString(hpText, show, new Vector2(380, 620), Color.Black, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
+            //ritar ut interface
+            spriteBatch.Draw(interface_ingame, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.94f);
            
 
             spriteBatch.End();

@@ -21,3 +21,4 @@ C:\Users\Anttichama\Desktop\DungeonCrawl 0.0.20 enemy_spawn_work_gooisher\Dungeo
 C:\Users\Anttichama\Desktop\DungeonCrawl 0.0.21 -REBALANCE PLZ\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
