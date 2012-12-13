@@ -81,7 +81,16 @@ namespace DungeonCrawl
             }
             else
             {
-                dmg = 0;
+                int i = random.Next(1, 4);//ger en fjärdedels chans för träff
+                if (i == 1)
+                {
+                    dmg = str / (random.Next(2,5));
+
+                }
+                else
+                {
+                    dmg = 0;
+                }
             }
 
            

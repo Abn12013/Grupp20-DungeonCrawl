@@ -56,10 +56,21 @@ namespace DungeonCrawl
             {
                 damage = str - random.Next(0, str / 2);
 
-            }
+            }            
             else//miss
             {
-                damage = 0;
+                int i = random.Next(1, 4);//ger en fjärdedels chans för träff
+                if (i == 1)
+                {
+                    damage = str / (random.Next(2, 5));
+
+                }
+                else
+                {
+                    damage = 0;
+                }
+
+                
             }
             //float Xpos = Position.X;    //Karaktärens nuvarande position på x-leden
             //moved += movespeed; //plussas på med 4 för vara tick av gametime.

@@ -228,7 +228,7 @@ namespace DungeonCrawl
                          //}
 
                          
-                         SpawnTimer = 300;
+                         SpawnTimer = 3;
                      }
                      //if (updateEnemys == true)
                      //{
@@ -288,6 +288,7 @@ namespace DungeonCrawl
                          MessageBox.Show("game over son");
                          Application.Exit();
                      }
+                    
 
                    
                     

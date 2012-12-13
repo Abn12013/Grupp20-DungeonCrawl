@@ -20,3 +20,4 @@ C:\Users\Holmis\Dropbox\Lokala arbetsfiler, csharp projekt\DungeonCrawl 0.0.19 F
 C:\Users\Anttichama\Desktop\DungeonCrawl 0.0.20 enemy_spawn_work_gooisher\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Anttichama\Desktop\DungeonCrawl 0.0.21 -REBALANCE PLZ\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
