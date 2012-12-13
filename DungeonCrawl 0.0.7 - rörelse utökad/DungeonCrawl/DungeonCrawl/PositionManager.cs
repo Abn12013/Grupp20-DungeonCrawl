@@ -9,5 +9,7 @@ namespace DungeonCrawl
         public bool floor;
         public bool entry;
         //Lägg till fler värden efter behov
+
+
     }
 }

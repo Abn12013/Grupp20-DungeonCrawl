@@ -11,11 +11,11 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
-//using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace DungeonCrawl
 {
-    class Character : GameObj
+    class Character : MovingGameObj
     {
 
 
@@ -52,6 +52,10 @@ namespace DungeonCrawl
             Totdex = RaceDex + ClassDex;
             TotalHp = RaceHp + ClassHp;
 
+            maximumHp = TotalHp;
+
+            Position = new Vector2(300, 300);
+
             Level = 1;
             Xp = 0;
             XpToLevel = 100;
@@ -66,6 +70,15 @@ namespace DungeonCrawl
 
             allowButtonPress = true;
         }
+
+        public int playerPosY   //Håller koll på spelarens Y pos i rutnätet
+        { get; set; }
+
+        public int playerPosX    //Håller koll på spelarens X pos i rutnätet
+        { get; set; }
+
+        public float maximumHp
+        { get; set; }
 
         public int hej
         { get; set; }
@@ -157,7 +170,8 @@ namespace DungeonCrawl
                     TotalHp += 40;
                     break;
             }
-            TotalHp = TotalHp;
+            TotalHp = (int)maximumHp + 5 * Level;
+            maximumHp = TotalHp;
             Xp = Xp - XpToLevel;
             XpToLevel = XpToLevel + 10 * Level;
         }
@@ -225,7 +239,7 @@ namespace DungeonCrawl
 
             Position = new Vector2(Position.X, Ypos -= 4);  //positionen för karaktären ökar med 4 för varje tick av gametime
         }
-
+        
         public void MoveDown()  //Medtod om man rör sig ner
         {
             float ypos = Position.Y;    //Karaktärens nuvarande position på y-leden
@@ -243,7 +257,7 @@ namespace DungeonCrawl
             Position = new Vector2(Position.X, ypos += 4);  //positionen för karaktären ökar med 4 för varje tick av gametime
         }
 
-        /*public override void Update(GameTime gameTime) 
+        public override void Update(GameTime gameTime) 
         {
             if (moveCharRight == true)  //Om knappen för att röra sig till höger har tryckts ner, blir boolen true och metoden för att röra sig körs för varje tick av gametime
             { MoveRight(); }
@@ -258,7 +272,7 @@ namespace DungeonCrawl
             { MoveDown(); }
 
             base.Update(gameTime);
-        }*/
+        }
 
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)

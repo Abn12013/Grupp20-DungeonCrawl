@@ -47,9 +47,9 @@ namespace DungeonCrawl
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)
         {
-            Rectangle temp = new Rectangle(Frame*64, 0, 64, 110);
+            Rectangle temp = new Rectangle(Frame * 64, 0, 64, 110);
             spriteBatch.Draw(Gfx,
-                DrawPosition - DrawOffset + new Vector2(400, 300), temp,
+                Position - DrawOffset + new Vector2(1134, 400), temp,
                 Color.White, 0,
                 new Vector2(Gfx.Width / 2, Gfx.Height / 2), 1.0f,
                 SpriteEffects.None, layer);

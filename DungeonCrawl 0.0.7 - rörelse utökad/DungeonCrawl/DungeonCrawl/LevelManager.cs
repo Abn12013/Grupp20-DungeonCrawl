@@ -8,14 +8,19 @@ namespace DungeonCrawl
 {
     class LevelManager
     {
+        private string[] map = new string[3];
         //E = Entry/Exit, # = Vägg, C = Chest, U = Upstairs, D = Downstairs, . = golv
-        public string one =
+
+
+        public LevelManager()
+        {
+            map[0] =
         "                                                    " + "\n" +
         "   #####E###########                   ###          " + "\n" +
         " ###...............###                ##.##         " + "\n" +
         " #....###########....#      ######### #.C.#         " + "\n" +
         " #....# ######  #....#      ##..#..## ##.## ####### " + "\n" +
-        " #....###....#  #....#      #.......###...###.....# " + "\n" +
+        " #.e..###....#  #....#      #.......###...###.....# " + "\n" +
         " #........C..#  #....###### #...C...##.....##..D..# " + "\n" +
         " #....###....####....##...# ##.....##.......#.....# " + "\n" +
         " #....# #...............D.# #.......#.......#.....# " + "\n" +
@@ -45,58 +50,95 @@ namespace DungeonCrawl
         "             #############################          " + "\n" +
         "                                                    ";
 
-        public string two =
-        "                                                    " + "\n" +
-        "         ########################################## " + "\n" +
-        "   ###   #.....#.....##....#......................# " + "\n" +
-        "   #.#####.#.#.#.#.........#........#############.# " + "\n" +
-        "   #.......#.#.#.#.........#........############### " + "\n" +
-        "   #######.#.#.#.#...##....#........#........#...#  " + "\n" +
-        "  ########.#.#.#.#...#######........#..........C.#  " + "\n" +
-        "  #........#.#...#...##...##........#........#...#  " + "\n" +
-        "  #.########.#.###......U.######..####.############ " + "\n" +
-        "  #.# #......#.#.#...##...#.......................# " + "\n" +
-        "  #.# #.######.#.##########.......................# " + "\n" +
-        "  #.# #.#    #...#..........########.....######.### " + "\n" +
-        "  #.# #.##########...........#.#...#.....#...#....# " + "\n" +
-        "  #####.#C...###############.#.#.C.#.....#...####.# " + "\n" +
-        "    #...#....##............#.#.#.............#..#.# " + "\n" +
-        "    #.#####.###............#.#.#...#.....#...#..#.# " + "\n" +
-        "    #.# #................U.#.#.#...#.....#...#....# " + "\n" +
-        "    #.###.#####............#.#.#####.....#####..#.# " + "\n" +
-        "    #.....#   #............#.#....U#.....#......### " + "\n" +
-        "    ########################.#.######...#########.# " + "\n" +
-        "    ##############........#..#..#..#.....#..#.....# " + "\n" +
-        "   ##U..........##.######.#####.#..........C###.### " + "\n" +
-        "   #.............#.#....#.......#..#.....#..#.....# " + "\n" +
-        "   #...#######...#.#....#############...#####.#.#.# " + "\n" +
-        "   #..##     ##..#...##.#.......#..#.....#..#.....# " + "\n" +
-        "   #..#       #..#...##.#.#.#.#.#...........#.#.#.# " + "\n" +
-        "   #..#       #..#...##.......###..#.....#..#.....# " + "\n" +
-        "   #..##     ##..#.#.##.......#######...#####.#.#.# " + "\n" +
-        "   #...#######...#.#....#.#.#.#D#..#.....#..#.....# " + "\n" +
-        "   #.............#.#....#.......##............#.#.# " + "\n" +
-        "   ##...........##.############################.### " + "\n" +
-        "    ##############..............................#   " + "\n" +
-        "                 ################################   " + "\n" +
-        "                                                    ";
+            map[1] =
+            "                                                    " + "\n" +
+            "         ########################################## " + "\n" +
+            "   ###   #.....#.....##....#......................# " + "\n" +
+            "   #.#####.#.#.#.#.........#........#############.# " + "\n" +
+            "   #.......#.#.#.#.........#........############### " + "\n" +
+            "   #######.#.#.#.#...##....#........#........#...#  " + "\n" +
+            "  ########.#.#.#.#...#######........#..........U.#  " + "\n" +
+            "  #........#.#...#...##...##........#........#...#  " + "\n" +
+            "  #.########.#.###......U.######..####.############ " + "\n" +
+            "  #.# #......#.#.#...##...#.......................# " + "\n" +
+            "  #.# #.######.#.##########.......................# " + "\n" +
+            "  #.# #.#    #...#..........########.....######.### " + "\n" +
+            "  #.# #.##########...........#.#...#.....#...#....# " + "\n" +
+            "  #####.#C...###############.#.#.C.#.....#...####.# " + "\n" +
+            "    #...#....##............#.#.#.............#..#.# " + "\n" +
+            "    #.#####.###............#.#.#...#.....#...#..#.# " + "\n" +
+            "    #.# #................U.#.#.#...#.....#...#....# " + "\n" +
+            "    #.###.#####............#.#.#####.....#####..#.# " + "\n" +
+            "    #.....#   #............#.#....U#.....#......### " + "\n" +
+            "    ########################.#.######...#########.# " + "\n" +
+            "    ##############........#..#..#..#.....#..#.....# " + "\n" +
+            "   ##U..........##.######.#####.#..........C###.### " + "\n" +
+            "   #.............#.#....#.......#..#.....#..#.....# " + "\n" +
+            "   #...#######...#.#....#############...#####.#.#.# " + "\n" +
+            "   #..##     ##..#...##.#.......#..#.....#..#.....# " + "\n" +
+            "   #..#       #..#...##.#.#.#.#.#...........#.#.#.# " + "\n" +
+            "   #..#       #..#...##.......###..#.....#..#.....# " + "\n" +
+            "   #..##     ##..#.#.##.......#######...#####.#.#.# " + "\n" +
+            "   #...#######...#.#....#.#.#.#D#..#.....#..#.....# " + "\n" +
+            "   #.............#.#....#.......##............#.#.# " + "\n" +
+            "   ##...........##.############################.### " + "\n" +
+            "    ##############..............................#   " + "\n" +
+            "                 ################################   " + "\n" +
+            "                                                    ";
 
+
+            map[2] =
+            "                                                    " + "\n" +
+            "                          ###########               " + "\n" +
+            "                          #.........#               " + "\n" +
+            "                          #.........#               " + "\n" +
+            "                          #.........#               " + "\n" +
+            "                          #.........#               " + "\n" +
+            "                          #.........#               " + "\n" +
+            "                     ######.........######          " + "\n" +
+            "                    ##...######.######...##         " + "\n" +
+            "                    #.....#...#.#...#.....#         " + "\n" +
+            "                    #.........#.#.........#         " + "\n" +
+            "                    #.....#...#.#...#.....#         " + "\n" +
+            "                    ##...###.##.##.###...##         " + "\n" +
+            "                     ##.##...........##.##          " + "\n" +
+            "                     #...#...........#...#          " + "\n" +
+            "                     #...................#          " + "\n" +
+            "                     #...#...........#...#          " + "\n" +
+            "                     #####...........#####          " + "\n" +
+            "                     #...#...........#...#          " + "\n" +
+            "                     #...................#          " + "\n" +
+            "                     #...#...........#...#          " + "\n" +
+            "                     ##.##...........##.##          " + "\n" +
+            "                    ##...###.##.##.###...##         " + "\n" +
+            "                    #.....#...#.#...#.....#         " + "\n" +
+            "                    #.........#.#.........#         " + "\n" +
+            "                    #.....#...#.#...#.....#         " + "\n" +
+            "                    ##...######.######...##         " + "\n" +
+            "                     #####   #...#   #####          " + "\n" +
+            "                             #.U.#                  " + "\n" +
+            "                             #...#                  " + "\n" +
+            "                             #####                  " + "\n" +
+            "                                                    " + "\n" +
+            "                                                    " + "\n" +
+            "                                                    ";
+        }
 
         //Läser in båda strängar till positionmanager
         public void BuildGame(ref PositionManager[, ,] positionManager)
         {
-            string level = one;
-            int floor = 0;
+            string level;
 
-            for (int e = 0; e < 2; e++)//loopar koden för att läsa in en våning två gånger. Kan utökas enkelt.
+            for (int floor = 0; floor < 3; floor++)
             {
+                level = map[floor];
                 Vector2 temp = new Vector2(0, 0); //position du läser nuvarande tecken till
                 for (int i = 0; i < level.Length; i++)
                 {//for loopen kommer fortsätta tills i är lika stor som längden på strängen level, och kommer köra varje tecken i ordning genom en switch
                     switch (level[i])
                     {
                         case ' ':
-                            positionManager[(int)temp.X, (int)temp.Y, floor] = new PositionManager//Sätter dessa värden i nuvarande koordinater i positionmanager
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager//Sätter dessa värden i nuvarande koordinater i positionmanager
                             {
                                 type = "empty",
                                 floor = false
@@ -104,15 +146,23 @@ namespace DungeonCrawl
                             temp.X++; //flyttar fram ett steg på x koordinaten till nästa tecken
                             break;
                         case '#':
-                            positionManager[(int)temp.X, (int)temp.Y, floor] = new PositionManager
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
                             {
                                 type = "wall",
                                 floor = false
                             };
                             temp.X++;
                             break;
+                        case 'e':
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
+                            {
+                                type = "enemy",
+                                floor = true
+                            };
+                            temp.X++;
+                            break;
                         case '.':
-                            positionManager[(int)temp.X, (int)temp.Y, floor] = new PositionManager
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
                             {
                                 type = "empty",
                                 floor = true
@@ -120,7 +170,7 @@ namespace DungeonCrawl
                             temp.X++;
                             break;
                         case 'C':
-                            positionManager[(int)temp.X, (int)temp.Y, floor] = new PositionManager
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
                             {
                                 type = "chest",
                                 floor = true
@@ -128,7 +178,7 @@ namespace DungeonCrawl
                             temp.X++;
                             break;
                         case 'E':
-                            positionManager[(int)temp.X, (int)temp.Y, floor] = new PositionManager
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
                             {
                                 type = "wall",
                                 entry = true
@@ -136,7 +186,7 @@ namespace DungeonCrawl
                             temp.X++;
                             break;
                         case 'D':
-                            positionManager[(int)temp.X, (int)temp.Y, floor] = new PositionManager
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
                             {
                                 type = "downstairs",
                                 floor = true
@@ -144,7 +194,7 @@ namespace DungeonCrawl
                             temp.X++;
                             break;
                         case 'U':
-                            positionManager[(int)temp.X, (int)temp.Y, floor] = new PositionManager
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
                             {
                                 type = "upstairs",
                                 floor = true
@@ -159,40 +209,38 @@ namespace DungeonCrawl
                             break;
                     }
                 }
-
-                floor++;
-                level = two; //ifall fler kartor läggs till så passar det nog att lägga något i stil med en if sats här
             }
         }
 
-        public void ChangeFloor(int floor, ref PositionManager[, ,] positionManager, ref List<GameObj> floortiles,
-            ref List<GameObj> walls, ref List<GameObj> objects, ref GameObj entry)
+        public void ChangeFloor(int floor, PositionManager[, ,] positionManager, ref List<GameObj> floortiles,
+            ref List<GameObj> walls, ref List<GameObj> objects, ref GameObj entry, ref List<Enemy> enemies)
         {
             floortiles.Clear();
             walls.Clear();
             objects.Clear();
+            enemies.Clear();
             entry.Position = new Vector2(-50, -50);
 
             string currentObject;
             Vector2 currentPosition;
 
-            for (int x = 0; x < 50; x++)
+            for (int y = 0; y < 34; y++)
             {
-                for (int y = 0; y < 32; y++)
+                for (int x = 0; x < 52; x++)
                 {
-                    currentObject = positionManager[x, y, floor].type;
+                    currentObject = positionManager[y, x, floor].type;
                     currentPosition = new Vector2(x, y);
 
-                    if (positionManager[x, y, floor].floor == true)
+                    if (positionManager[y, x, floor].floor == true)
                     {
                         floortiles.Add(new GameObj()
-                            {
-                                Frame = 17,
-                                Position = currentPosition
-                            });
+                        {
+                            Frame = 17,
+                            Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                        });
                     }
 
-                    if (positionManager[x, y, floor].entry == true)
+                    if (positionManager[y, x, floor].entry == true)
                     {
                         entry.Position = currentPosition;
                     }
@@ -202,138 +250,155 @@ namespace DungeonCrawl
                         case "empty":
                             break;
                         case "wall":
-                            if (positionManager[x - 1, y, floor].type == "wall")
-                                    if (positionManager[x + 1, y, floor].type == "wall")
-                                            if (positionManager[x, y - 1, floor].type == "wall")
-                                                    if (positionManager[x, y + 1, floor].type == "wall")
-                                                            walls.Add(new GameObj()
-                                                            {
-                                                                Frame = 7,
-                                                                Position = currentPosition
-                                                            });
-                                                    else
-                                                        walls.Add(new GameObj()
-                                                        {
-                                                            Frame = 10,
-                                                            Position = currentPosition
-                                                        });
-                                            else if (positionManager[x, y + 1, floor].type == "wall")
-                                                    walls.Add(new GameObj()
-                                                    {
-                                                        Frame = 15,
-                                                        Position = currentPosition
-                                                    });
-                                            
-                                            else
-                                                walls.Add(new GameObj()
-                                                {
-                                                    Frame = 2,
-                                                    Position = currentPosition
-                                                });
-                                    else if (positionManager[x, y + 1, floor].type == "wall")
-                                            if (positionManager[x, y - 1, floor].type == "wall")
-                                                    walls.Add(new GameObj()
-                                                    {
-                                                        Frame = 12,
-                                                        Position = currentPosition
-                                                    });
-                                            else
-                                                walls.Add(new GameObj()
-                                                {
-                                                    Frame = 16,
-                                                    Position = new Vector2(x, y)
-                                                });
-                                    else if (positionManager[x, y - 1, floor].type == "wall")
-                                            walls.Add(new GameObj()
-                                            {
-                                                Frame = 11,
-                                                Position = currentPosition
-                                            });
-                                    else
-                                        walls.Add(new GameObj()
-                                        {
-                                            Frame = 3,
-                                            Position = currentPosition
-                                        });
-                            else if (positionManager[x + 1, y, floor].type == "wall")
-                                    if (positionManager[x, y + 1, floor].type == "wall")
-                                            if (positionManager[x, y - 1, floor].type == "wall")
-                                                    walls.Add(new GameObj()
-                                                    {
-                                                        Frame = 13,
-                                                        Position = currentPosition
-                                                    });
-                                            else
-                                                walls.Add(new GameObj()
-                                                {
-                                                    Frame = 15,
-                                                    Position = currentPosition
-                                                });
-                                    else if (positionManager[x, y - 1, floor].type == "wall")
-                                            walls.Add(new GameObj()
-                                            {
-                                                Frame = 9,
-                                                Position = currentPosition
-                                            });
-                                    else
-                                        walls.Add(new GameObj()
-                                        {
-                                            Frame = 1,
-                                            Position = currentPosition
-                                        });
-                            else if (positionManager[x, y - 1, floor].type == "wall")
-                                    if (positionManager[x - 1, y - 1, floor].type == "wall")
-                                        if (positionManager[x + 1, y - 1, floor].type == "wall")
-                                                    walls.Add(new GameObj()
-                                                    {
-                                                        Frame = 8,
-                                                        Position = currentPosition
-                                                    });
-                                    else if (positionManager[x, y + 1, floor].type == "wall")
-                                            walls.Add(new GameObj()
-                                            {
-                                                Frame = 5,
-                                                Position = currentPosition
-                                            });
-                                    else
-                                        walls.Add(new GameObj()
-                                        {
-                                            Frame = 6,
-                                            Position = currentPosition
-                                        });
-                            else if (positionManager[x, y + 1, floor].type == "wall")
-                                    walls.Add(new GameObj()
-                                    {
-                                        Frame = 4,
-                                        Position = currentPosition
-                                    });
-                            else
+                            if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type != "wall" &&
+                                positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type != "wall")
                                 walls.Add(new GameObj()
                                 {
                                     Frame = 0,
-                                    Position = currentPosition
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type != "wall" &&
+                                positionManager[y, x + 1, floor].type == "wall" && positionManager[y, x - 1, floor].type != "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 1,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type != "wall" &&
+                                positionManager[y, x + 1, floor].type == "wall" && positionManager[y, x - 1, floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 2,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type != "wall" &&
+                                positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 3,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type == "wall" && positionManager[y - 1, x, floor].type != "wall" &&
+                                positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type != "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 4,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type == "wall" && positionManager[y - 1, x, floor].type == "wall" &&
+                                positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type != "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 5,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type == "wall" &&
+                                positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type != "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 6,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type == "wall" && positionManager[y - 1, x, floor].type == "wall" &&
+                                positionManager[y, x + 1, floor].type == "wall" && positionManager[y, x - 1, floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 7,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type == "wall" &&
+                                positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type != "wall" &&
+                                positionManager[y - 1, x - 1, floor].type == "wall" && positionManager[y - 1, x - 1, floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 8,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type == "wall" &&
+                                positionManager[y, x + 1, floor].type == "wall" && positionManager[y, x - 1, floor].type != "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 9,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type == "wall" &&
+                                positionManager[y, x + 1, floor].type == "wall" && positionManager[y, x - 1, floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 10,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type == "wall" &&
+                                positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 11,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type == "wall" && positionManager[y - 1, x, floor].type == "wall" &&
+                                positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 12,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type == "wall" && positionManager[y - 1, x, floor].type == "wall" &&
+                                positionManager[y, x + 1, floor].type == "wall" && positionManager[y, x - 1, floor].type != "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 13,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type == "wall" && positionManager[y - 1, x, floor].type != "wall" &&
+                                positionManager[y, x + 1, floor].type == "wall" && positionManager[y, x - 1, floor].type != "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 14,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type == "wall" && positionManager[y - 1, x, floor].type != "wall" &&
+                                positionManager[y, x + 1, floor].type == "wall" && positionManager[y, x - 1, floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 15,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                                });
+                            else if (positionManager[y + 1, x, floor].type == "wall" && positionManager[y - 1, x, floor].type != "wall" &&
+                                positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type == "wall")
+                                walls.Add(new GameObj()
+                                {
+                                    Frame = 16,
+                                    Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
                                 });
                             break;
                         case "chest":
                             objects.Add(new GameObj()
                             {
                                 Frame = 18,
-                                Position = currentPosition
+                                Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
                             });
-                            positionManager[x,y,floor].iteration = objects.Count();
+                            positionManager[y, x, floor].iteration = objects.Count();
+                            positionManager[y, x, floor].hp = 1;
                             break;
                         case "upstairs":
                             objects.Add(new GameObj()
                             {
-                                Frame = 20,
-                                Position = currentPosition
+                                Frame = 21,
+                                Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
                             });
                             break;
                         case "downstairs":
                             objects.Add(new GameObj()
                             {
-                                Frame = 21,
-                                Position = currentPosition
+                                Frame = 22,
+                                Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                            });
+                            break;
+                        case "enemy":
+                            enemies.Add(new Enemy(18, 20)
+                            {
+                                xCoord = (int)currentPosition.X,
+                                yCoord = (int)currentPosition.Y
                             });
                             break;
                         default:
