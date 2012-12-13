@@ -227,3 +227,16 @@ C:\Users\Anttichama\Desktop\DungeonCrawl 0.0.21 -REBALANCE PLZ\DungeonCrawl\Dung
 C:\Users\Anttichama\Desktop\DungeonCrawl 0.0.21 -REBALANCE PLZ\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Anttichama\Desktop\DungeonCrawl 0.0.21 -REBALANCE PLZ\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
 C:\Users\Anttichama\Desktop\DungeonCrawl 0.0.21 -REBALANCE PLZ\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Namnlös.xnb
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\level.xnb
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\char_test.xnb
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\hpbar.xnb
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\tiles_completed.xnb
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\test_a_animation.xnb
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\hpfont.xnb
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.exe
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.pdb
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb

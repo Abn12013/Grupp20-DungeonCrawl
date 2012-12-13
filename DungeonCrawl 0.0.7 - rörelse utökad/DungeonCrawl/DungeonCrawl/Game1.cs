@@ -283,6 +283,11 @@ namespace DungeonCrawl
 
                      skada = 0;
 
+                     if (player.TotalHp <= 0)
+                     {
+                         MessageBox.Show("game over son");
+                         Application.Exit();
+                     }
 
                    
                     

@@ -290,7 +290,7 @@ namespace DungeonCrawl
                         {
                             if (resetAttack == true)
                             {
-                                skada = EnemyAttackCalc(character.Totdex);
+                                skada = EnemyAttackCalc(playerdex);
 
                             }
                         }
@@ -316,7 +316,7 @@ namespace DungeonCrawl
                         {
                             if (resetAttack == true)
                             {
-                                skada = EnemyAttackCalc(character.Totdex);
+                                skada = EnemyAttackCalc(playerdex);
                                 
                             }
                         }
@@ -345,7 +345,7 @@ namespace DungeonCrawl
                         {
                             if (resetAttack == true)
                             {
-                                skada = EnemyAttackCalc(character.Totdex);
+                                skada = EnemyAttackCalc(playerdex);
                             }
                         }
                         // kod för att gå up.
@@ -370,7 +370,7 @@ namespace DungeonCrawl
                         {
                             if (resetAttack == true)
                             {
-                                skada = EnemyAttackCalc(character.Totdex);
+                                skada = EnemyAttackCalc(playerdex);
                             }
                             
                         }
