@@ -6,3 +6,15 @@ Content\tiles_completed.xnb
 Content\test_a_animation.xnb
 Content\gameinterface.xnb
 Content\hpfont.xnb
+Content\xpbar.xnb
+Content\animation.xnb
+Content\startKnappNer.xnb
+Content\mainmenu.xnb
+Content\LoadKnappNer.xnb
+Content\infoKnappNer.xnb
+Content\exitKnappNer.xnb
+Content\newgame.xnb
+Content\newgamenutton.xnb
+Content\newgamebutton.xnb
+Content\SpriteFont1.xnb
+Content\newGameStart.xnb

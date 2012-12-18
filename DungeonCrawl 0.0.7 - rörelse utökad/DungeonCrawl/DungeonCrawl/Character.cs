@@ -40,17 +40,17 @@ namespace DungeonCrawl
         {
             hej = 19;
 
-            ClassStr = CStr;
-            ClassDex = CDex;
-            ClassHp = CHp;
+            //ClassStr = CStr;
+            //ClassDex = CDex;
+            //ClassHp = CHp;
 
-            RaceDex = RDex;
-            RaceStr = RStr;
-            RaceHp = RHp;
+            //RaceDex = RDex;
+            //RaceStr = RStr;
+            //RaceHp = RHp;
 
-            Totstr = RaceStr + ClassStr;
-            Totdex = RaceDex + ClassDex;
-            TotalHp = RaceHp + ClassHp;
+            //Totstr = RaceStr + ClassStr;
+            //Totdex = RaceDex + ClassDex;
+            //TotalHp = RaceHp + ClassHp;
 
             maximumHp = TotalHp;
 
@@ -60,6 +60,7 @@ namespace DungeonCrawl
             Xp = 0;
             XpToLevel = 100;
             playerClass = Pclass;
+            PlayerRace = "Orc";
 
             Frame = 0;
 
@@ -142,6 +143,8 @@ namespace DungeonCrawl
         //spelaren klass
         public string playerClass
         { get; set; }
+        public string PlayerRace
+        { get; set; }
 
         //spelarens gender
         public string playerGender
@@ -175,6 +178,7 @@ namespace DungeonCrawl
             Xp = Xp - XpToLevel;
             XpToLevel = XpToLevel + 10 * Level;
             hpbarbredd = 412;
+            
         }
 
         //Hålle koll på vilken knapp som har tryckts på, och åt vilket håll karaktären ska röra sig

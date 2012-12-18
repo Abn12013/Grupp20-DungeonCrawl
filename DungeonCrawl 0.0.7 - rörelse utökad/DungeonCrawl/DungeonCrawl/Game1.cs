@@ -22,8 +22,10 @@ namespace DungeonCrawl
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Random rnd = new Random();
-        enum GameState { LoadGame, ChangeLevel, Game }
-        GameState currentGameState = GameState.LoadGame;
+        enum GameState {NewGame, MainMenu, LoadGame, ChangeLevel, Game }
+
+        GameState currentGameState = GameState.MainMenu;    //Sätter start gamestatet
+
         PositionManager[, ,] positionManager = new PositionManager[34, 52, 3]; //[x koordinat, y koordinat, våning]
 
        //Vector2 cursorPos; //muspekar pos
@@ -54,9 +56,14 @@ namespace DungeonCrawl
         //int player.playerPosX = 3, player.playerPosY = 2;
 
            
-
+            //Hp bar
             Texture2D hpBarGfx;
             Rectangle hpBarPos;
+
+            //Xp bar
+            Texture2D xpBarGfx;
+            Rectangle xpBarPos;
+
 
             SpriteFont hpText;
 
@@ -69,6 +76,43 @@ namespace DungeonCrawl
         Attack attack2 = new Attack();
 
         bool attackDone = true; //håller koll på när spelaren får genomföra en attack
+
+
+        //Bakgrundsgrafik för huvudmeny
+        Texture2D mainMenuGfx;
+
+        //Knappar Menyn
+        Texture2D startKnappGfx;
+        Texture2D loadKnappGfx;
+        Texture2D infoKnappGfx;
+        Texture2D exitKnappGfx;
+
+        Vector2 startKnappPos;
+
+        Button buttonMainMenu = new Button(47, 67, 171, 104);
+        Button buttonMainMenuLoadGame = new Button(47, 214, 171, 104);
+        Button ButtonMainMenuInfo = new Button(47, 390, 171, 104);
+        Button ButtonMainMenuExit = new Button(47, 535, 171, 104);
+
+
+        //grafik för new game
+        Texture2D newGameBackground;
+
+        Texture2D buttonNewGameGfx;
+        Texture2D buttonNewGameStartGfx;
+
+        Button buttonNewGameDwarf = new Button(83, 340, 125, 56);
+        Button buttonNewGameOrc = new Button(83, 399, 125, 56);
+        Button buttonNewGameElf = new Button(83, 460, 125, 56);
+
+        Button buttonNewGameFighter = new Button(353, 340, 125, 56);
+        Button buttonNewGameRogue = new Button(353, 399, 125, 56);
+        Button buttonNewGameTank = new Button(353, 460, 125, 56);
+
+        SpriteFont newGameText;
+
+        Button buttonNewGameStart = new Button(613, 586, 170, 98);
+
 
         public Game1()
         {
@@ -105,22 +149,50 @@ namespace DungeonCrawl
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Laddar in grafik för new game
+            newGameBackground = Content.Load<Texture2D>("newgame");
+
+            buttonNewGameGfx = Content.Load<Texture2D>("newgamebutton");
+            buttonNewGameStartGfx = Content.Load<Texture2D>("newGameStart");
+
+            newGameText = Content.Load<SpriteFont>("SpriteFont1");
+            
+
+            //Laddar in grafik för huvudmenyns bakgrund
+            mainMenuGfx = Content.Load<Texture2D>("mainmenu");
+
+            //laddar in grafik för knappar i menyerna
+            startKnappGfx = Content.Load<Texture2D>("startKnappNer");
+            loadKnappGfx = Content.Load<Texture2D>("loadKnappNer");
+            infoKnappGfx = Content.Load<Texture2D>("infoKnappNer");
+            exitKnappGfx = Content.Load<Texture2D>("exitKnappNer");
+
+            startKnappPos = new Vector2(200, 200);
+
+            //Laddar in grafiken för spelaren
             player.Gfx = Content.Load<Texture2D>("char_test");
 
-            
+            //Laddar in grafiken för fienden
             enemyGFX = Content.Load<Texture2D>("char_test");
 
-            attack2.Gfx = Content.Load<Texture2D>("test_a_animation");
+            //Laddar in grafiken för attackanimationen
+            attack2.Gfx = Content.Load<Texture2D>("animation");
 
+            //Laddar in grafiken för Hpbaren
             hpBarGfx = Content.Load<Texture2D>("hpbar");
             hpBarPos = new Rectangle(400, 400, 412, 11);
 
-            interface_ingame = Content.Load<Texture2D>("gameinterface");
+            //Laddar in grafiken för xpBaren
+            xpBarGfx = Content.Load<Texture2D>("xpbar");
+            xpBarPos = new Rectangle(400, 450, 0, 11);
 
-
+            //Laddar in spritefont för, hpbar text, xpbar, level, str, dex
             hpText = Content.Load<SpriteFont>("hpfont");
 
+            //Laddar in grafiken för ingame-interface
+            interface_ingame = Content.Load<Texture2D>("gameinterface");
 
+            //Laddar in tilesetet för banan
             tileset = Content.Load<Texture2D>("tiles_completed");
 
             //bana = new GameObj() { Gfx = Content.Load<Texture2D>("level"), Position = new Vector2(0, 0), Angle = 0 };
@@ -150,6 +222,205 @@ namespace DungeonCrawl
             //    this.Exit();
             switch (currentGameState)
             {
+                case GameState.MainMenu:
+                    MouseState mousestate2 = Mouse.GetState();
+                    var mouseposition2 = new Point(mousestate2.X, mousestate2.Y);
+
+                    //Gör så det ser ut som om New gameknappen r nedtryckt
+                    if (buttonMainMenu.buttonRect.Contains(mouseposition2))
+                    {
+                        if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonMainMenu.pressed = true; }
+                        else { buttonMainMenu.pressed = false; }
+                        if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            currentGameState = GameState.NewGame;
+                        }
+                    }
+
+                    if (buttonMainMenuLoadGame.buttonRect.Contains(mouseposition2))
+                    {
+                        if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonMainMenuLoadGame.pressed = true; }
+                        else { buttonMainMenuLoadGame.pressed = false; }
+                        if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+
+                        }
+                    }
+
+                    if (ButtonMainMenuInfo.buttonRect.Contains(mouseposition2))
+                    {
+                        if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { ButtonMainMenuInfo.pressed = true; }
+                        else { ButtonMainMenuInfo.pressed = false; }
+                        if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+
+                        }
+                    }
+
+                    if (ButtonMainMenuExit.buttonRect.Contains(mouseposition2))
+                    {
+                        if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { ButtonMainMenuExit.pressed = true; }
+                        else { ButtonMainMenuExit.pressed = false; }
+                        if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+
+                        }
+                    }
+
+                   
+
+                    
+
+                    prevMs1 = mousestate2;
+
+                    break;
+                case GameState.NewGame:
+
+                     MouseState mousestate3 = Mouse.GetState();
+                    var mouseposition3 = new Point(mousestate3.X, mousestate3.Y);
+
+
+
+                    if (buttonNewGameDwarf.buttonRect.Contains(mouseposition3))
+                    {
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonNewGameDwarf.pressed = true; }
+                        else { buttonNewGameDwarf.pressed = false; }
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            player.PlayerRace = "Dwarf";
+                            player.RaceDex = 3;
+                            player.RaceStr = 5;
+                            player.RaceHp = 13;
+
+                            player.TotalHp = player.RaceHp + player.ClassHp;
+                            player.Totdex = player.ClassDex + player.RaceDex;
+                            player.Totstr = player.ClassStr + player.RaceStr;
+
+                            player.maximumHp = player.TotalHp;
+                        }
+                    }
+                    if (buttonNewGameOrc.buttonRect.Contains(mouseposition3))
+                    {
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonNewGameOrc.pressed = true; }
+                        else { buttonNewGameOrc.pressed = false; }
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            player.PlayerRace = "Orc";
+                            player.RaceDex = 3;
+                            player.RaceStr = 7;
+                            player.RaceHp = 12;
+
+                            player.TotalHp = player.RaceHp + player.ClassHp;
+                            player.Totdex = player.ClassDex + player.RaceDex;
+                            player.Totstr = player.ClassStr + player.RaceStr;
+
+                            player.maximumHp = player.TotalHp;
+
+
+                        }
+                    }
+                    if (buttonNewGameElf.buttonRect.Contains(mouseposition3))
+                    {
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonNewGameElf.pressed = true; }
+                        else { buttonNewGameElf.pressed = false; }
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            player.PlayerRace = "Elf";
+                            player.RaceDex = 6;
+                            player.RaceStr = 3;
+                            player.RaceHp = 10;
+
+                            player.TotalHp = player.RaceHp + player.ClassHp;
+                            player.Totdex = player.ClassDex + player.RaceDex;
+                            player.Totstr = player.ClassStr + player.RaceStr;
+
+                            player.maximumHp = player.TotalHp;
+                        }
+                    }
+
+
+                    if (buttonNewGameFighter.buttonRect.Contains(mouseposition3))
+                    {
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonNewGameFighter.pressed = true; }
+                        else { buttonNewGameFighter.pressed = false; }
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            player.playerClass = "Fighter";
+                            player.ClassStr = 10;
+                            player.ClassDex = 3;
+                            player.ClassHp = 13;
+
+                            player.TotalHp = player.RaceHp + player.ClassHp;
+                            player.Totdex = player.ClassDex + player.RaceDex;
+                            player.Totstr = player.ClassStr + player.RaceStr;
+
+                            player.maximumHp = player.TotalHp;
+                        }
+                    }
+                    if (buttonNewGameRogue.buttonRect.Contains(mouseposition3))
+                    {
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonNewGameRogue.pressed = true; }
+                        else { buttonNewGameRogue.pressed = false; }
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            player.playerClass = "Rogue";
+                            player.ClassStr = 6;
+                            player.ClassDex = 8;
+                            player.ClassHp = 10;
+
+                            player.TotalHp = player.RaceHp + player.ClassHp;
+                            player.Totdex = player.ClassDex + player.RaceDex;
+                            player.Totstr = player.ClassStr + player.RaceStr;
+
+                            player.maximumHp = player.TotalHp;
+                        }
+                    }
+                    if (buttonNewGameTank.buttonRect.Contains(mouseposition3))
+                    {
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonNewGameTank.pressed = true; }
+                        else { buttonNewGameTank.pressed = false; }
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            player.playerClass = "Tank";
+                            player.ClassStr = 6;
+                            player.ClassDex = 3;
+                            player.ClassHp = 16;
+
+                            player.TotalHp = player.RaceHp + player.ClassHp;
+                            player.Totdex = player.ClassDex + player.RaceDex;
+                            player.Totstr = player.ClassStr + player.RaceStr;
+
+                            player.maximumHp = player.TotalHp;
+                        }
+                    }
+                    
+                    //startknapp
+                    if (buttonNewGameStart.buttonRect.Contains(mouseposition3))
+                    {
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonNewGameStart.pressed = true; }
+                        else { buttonNewGameStart.pressed = false; }
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            currentGameState = GameState.LoadGame;
+                        }
+                    }
+
+
+
+                    prevMs1 = mousestate3;
+
+                    break;
                 case GameState.LoadGame:
                     levelManager.BuildGame(ref positionManager);
                     
@@ -204,70 +475,12 @@ namespace DungeonCrawl
                      if (SpawnTimer <= 0)
                      {
                          AddEnemy();
-                         //updateEnemys = true;
-                         //enemies.Clear();
+                        
                          
-                         //string currentObject2;
-                         //Vector2 currentPosition2;
-
-                         //for (int y = 0; y < 34; y++)
-                         //{
-                         //    for (int x = 0; x < 52; x++)
-                         //    {
-                         //        currentObject2 = positionManager[y, x, floor].type;
-                         //        currentPosition2 = new Vector2(x, y);
-                         //        switch (currentObject2)
-                         //        {
-                         //            case "enemy":
-                         //                enemies.Add(new Enemy(18, 20)
-                         //                {
-                         //                    xCoord = (int)currentPosition2.X,
-                         //                    yCoord = (int)currentPosition2.Y,
-                         //                    Gfx = enemyGFX,
-                         //                    Position = new Vector2((int)currentPosition2.X * 64, (int)currentPosition2.Y * 64)
-                         //                });
-                         //                break;
-                         //        }
-                         //    }
-                         //}
-
-                         
-                         SpawnTimer = 3;
+                         SpawnTimer = 300;
                      }
-                     //if (updateEnemys == true)
-                     //{
-                     //    string currentObject2;
-                     //    Vector2 currentPosition2;
+                     
 
-                     //    for (int y = 0; y < 34; y++)
-                     //    {
-                     //        for (int x = 0; x < 52; x++)
-                     //        {
-
-                     //            currentObject2 = positionManager[y, x, floor].type;
-                     //            currentPosition2 = new Vector2(x, y);
-
-                     //            switch (currentObject2)
-                     //            { 
-                                 
-                     //                case "enemy":
-                     //                    enemies.Add(new Enemy(18, 20)
-                     //                    {
-                     //                        xCoord = (int)currentPosition2.X,
-                     //                        yCoord = (int)currentPosition2.Y,
-                     //                        Gfx = enemyGFX,
-                     //                        Position = new Vector2((int)currentPosition2.X * 64, (int)currentPosition2.Y * 64)
-                     //                    });
-                     //                    break;
-
-                     //            }
-
-                     //        }
-
-                     //    }
-
-                     //    updateEnemys = false;
-                     //}
                      SpawnTimer--;
                      foreach (Enemy enemy in enemies)
                      {
@@ -277,9 +490,10 @@ namespace DungeonCrawl
                      }
             //MessageBox.Show(enemy1.PlayerPos.X.ToString());
 
-          
-            //player.TotalHp = playerhp;
-                    float hpBarBredd = (float)300 / player.maximumHp;
+
+
+                     //Spelarens hpbar uträkning
+                     float hpBarBredd = (float)412 / player.maximumHp;
                      player.TotalHp -= skada;
 
                      int hploss = (int)hpBarBredd * skada;
@@ -292,7 +506,15 @@ namespace DungeonCrawl
                          MessageBox.Show("game over son");
                          Application.Exit();
                      }
-                    
+                    //
+
+                     //Spelarens xpbar uträkning
+                     if (player.Xp >= 412)
+                     {
+                         xpBarPos.Width = 0;
+                     }
+                     float xpBarBredd = (float)412 / player.XpToLevel;
+                     xpBarPos.Width = (int)xpBarBredd * player.Xp;
 
                    
                     
@@ -711,6 +933,85 @@ namespace DungeonCrawl
 
             switch (currentGameState)
             {
+                case GameState.MainMenu:
+
+                    spriteBatch.Draw(mainMenuGfx, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.96f);
+
+                    //ritaar ut knapptest
+                    if (buttonMainMenu.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonMainMenu.draw(spriteBatch, 1f, startKnappGfx); }
+                    else { buttonMainMenu.pressed = false; }
+
+                    if (buttonMainMenuLoadGame.pressed == true)
+                    { buttonMainMenuLoadGame.draw(spriteBatch, 1f, loadKnappGfx); }
+                    else { buttonMainMenuLoadGame.pressed = false; }
+
+                    if (ButtonMainMenuInfo.pressed == true)
+                    { ButtonMainMenuInfo.draw(spriteBatch, 1f, infoKnappGfx); }
+                    else { ButtonMainMenuInfo.pressed = false; }
+
+                    if (ButtonMainMenuExit.pressed == true)
+                    { ButtonMainMenuExit.draw(spriteBatch, 1f, exitKnappGfx); }
+                    else { ButtonMainMenuExit.pressed = false; }
+
+
+                    
+                    
+
+                    break;
+                case GameState.NewGame:
+
+                    //ritar ut bakgrund för karaktärsskapande
+                    spriteBatch.Draw(newGameBackground, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.95f);
+
+
+                    if (buttonNewGameDwarf.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonNewGameDwarf.draw(spriteBatch, 1f, buttonNewGameGfx); }
+                    else { buttonNewGameDwarf.pressed = false; }
+
+                    if (buttonNewGameOrc.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonNewGameOrc.draw(spriteBatch, 1f, buttonNewGameGfx); }
+                    else { buttonNewGameOrc.pressed = false; }
+
+                    if (buttonNewGameElf.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonNewGameElf.draw(spriteBatch, 1f, buttonNewGameGfx); }
+                    else { buttonNewGameElf.pressed = false; }
+
+                    if (buttonNewGameFighter.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonNewGameFighter.draw(spriteBatch, 1f, buttonNewGameGfx); }
+                    else { buttonNewGameFighter.pressed = false; }
+
+
+                    if (buttonNewGameRogue.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonNewGameRogue.draw(spriteBatch, 1f, buttonNewGameGfx); }
+                    else { buttonNewGameRogue.pressed = false; }
+
+
+                    if (buttonNewGameTank.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonNewGameTank.draw(spriteBatch, 1f, buttonNewGameGfx); }
+                    else { buttonNewGameTank.pressed = false; }
+
+
+                    if (buttonNewGameStart.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonNewGameStart.draw(spriteBatch, 1f, buttonNewGameStartGfx); }
+                    else { buttonNewGameStart.pressed = false; }
+
+                    //ritar ut infotext
+                    string showClassRace = player.PlayerRace + " " + player.playerClass;
+                    spriteBatch.DrawString(newGameText, showClassRace, new Vector2(500, 350), Color.AntiqueWhite , 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
+                    string showRaceStats = player.PlayerRace + " str: " + player.RaceStr + ", dex: " + player.RaceDex + ", hp: " + player.RaceHp;
+                    spriteBatch.DrawString(newGameText, showRaceStats, new Vector2(500, 390), Color.AntiqueWhite, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
+                     string showClassStats = player.playerClass + " str: " + player.ClassStr + ", dex: " + player.ClassDex + ", hp: " + player.ClassHp;
+                     spriteBatch.DrawString(newGameText, showClassStats, new Vector2(500, 410), Color.AntiqueWhite, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
+                     string showTotalStats = "Total str: "+player.Totstr+ "\n" +"Total dex: " + player.Totdex +" \n" + "Total hp: " + player.TotalHp;
+                     spriteBatch.DrawString(newGameText, showTotalStats, new Vector2(500, 450), Color.AntiqueWhite, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
+                     
+
+                    break;
                 case GameState.LoadGame:
                     break;
                 case GameState.Game:
@@ -726,33 +1027,53 @@ namespace DungeonCrawl
                     {
                         obj.Draw(spriteBatch, new Vector2(player.Position.X, player.Position.Y + 46), (0.9f / 34f) * (obj.Position.Y / 64f));
                     }
-                    
+
+
+                    //bana.Draw(spriteBatch, hej.Position, 0f);
+
+                    player.Draw(spriteBatch, player.Position, (0.9f / 34) * ((float)player.playerPosY));
+                    foreach (Enemy enemy in enemies)
+                    {
+                        enemy.Draw(spriteBatch, player.Position, (0.9f / 34) * ((float)enemy.yCoord));
+
+                    }
+
+                    if (attackDone == false) //gör så att spelarens attackanimation bara visas nr man attackerar
+                    {
+                        attack2.Draw(spriteBatch, player.Position, 1f);
+                    }
+
+                    //Ritar ut hpbar
+                    spriteBatch.Draw(hpBarGfx, new Vector2(195, 624), hpBarPos, Color.LawnGreen, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.95f);
+
+                    //Ritar ut xpbar
+                    spriteBatch.Draw(xpBarGfx, new Vector2(195, 671), xpBarPos, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.95f);
+
+                    //ritarut hpbar text
+                    string show = player.TotalHp + "/" + player.maximumHp;
+                    spriteBatch.DrawString(hpText, show, new Vector2(380, 620), Color.Black, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
+                    //ritar ut xpbar text
+                    string showXp = player.Xp + "/" + player.XpToLevel;
+                    spriteBatch.DrawString(hpText, showXp, new Vector2(380, 667), Color.Black, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
+                    //ritar ut stats text: Str, Dex, Level
+                    spriteBatch.DrawString(hpText, player.Totstr.ToString(), new Vector2(115, 620), Color.OrangeRed, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(hpText, player.Totdex.ToString(), new Vector2(115, 647), Color.OrangeRed, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(hpText, player.Level.ToString(), new Vector2(115, 672), Color.OrangeRed, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
+
+                    //ritar ut interface
+                    spriteBatch.Draw(interface_ingame, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.94f);
+
+
+                  
+
                     break;
             }
             
-            //bana.Draw(spriteBatch, hej.Position, 0f);
+            
 
-            player.Draw(spriteBatch, player.Position, (0.9f/34)*((float)player.playerPosY));
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Draw(spriteBatch, player.Position, (0.9f / 34) * ((float)enemy.yCoord));
-               
-            }
-
-            if (attackDone == false) //gör så att spelarens attackanimation bara visas nr man attackerar
-            {
-                attack2.Draw(spriteBatch, player.Position, 1f);
-            }
-
-            //Ritar ut hpbar
-            spriteBatch.Draw(hpBarGfx, new Vector2(195, 624), hpBarPos, Color.LawnGreen, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.95f);
-
-            //ritarut hpbar text
-            string show = player.TotalHp + "/" + player.maximumHp;
-            spriteBatch.DrawString(hpText, show, new Vector2(380, 620), Color.Black, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-
-            //ritar ut interface
-            spriteBatch.Draw(interface_ingame, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.94f);
            
 
             spriteBatch.End();
