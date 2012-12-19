@@ -76,7 +76,7 @@ namespace DungeonCrawl
             //Totdex = RaceDex + ClassDex;
             //TotalHp = RaceHp + ClassHp;
 
-
+            victoryConition = false;
 
 
             Frame = 0;
@@ -90,6 +90,9 @@ namespace DungeonCrawl
 
             SetNewGameStats();
         }
+
+        public bool victoryConition
+        { get; set; }
 
         public int playerPosY   //Håller koll på spelarens Y pos i rutnätet
         { get; set; }
@@ -331,7 +334,7 @@ namespace DungeonCrawl
             Position = new Vector2(Position.X, ypos += 4);  //positionen för karaktären ökar med 4 för varje tick av gametime
         }
 
-        public override void Update(GameTime gameTime) 
+        public void Update(GameTime gameTime, int floor1) 
         {
             if (moveCharRight == true)  //Om knappen för att röra sig till höger har tryckts ner, blir boolen true och metoden för att röra sig körs för varje tick av gametime
             { MoveRight(); }
@@ -344,6 +347,26 @@ namespace DungeonCrawl
 
             if (moveCharDown == true)   //Om knappen för att röra sig ner har tryckts ner, blir boolen true och metoden för att röra sig körs för varje tick av gametime
             { MoveDown(); }
+
+
+            //Victory conditions
+            if (playerPosX == 8 && playerPosY == 2 && floor1 == 0)
+            {
+                if (victoryConition == true)
+                {
+                    MessageBox.Show("Add victory screen adam");
+                }
+                
+            }
+            if (playerPosX == 31 && playerPosY == 4 && floor1 == 2)
+            {
+                if (victoryConition == false)
+                {
+                    MessageBox.Show("skatten e din, add graphic adamplz, one job");
+                }
+                victoryConition = true;
+            }
+
 
             base.Update(gameTime);
         }

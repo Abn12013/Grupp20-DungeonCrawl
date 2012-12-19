@@ -199,6 +199,15 @@
       <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\visiontile.xnb</Output>
       <Time>2012-12-19T12:00:35.374641+01:00</Time>
     </Item>
+    <Item>
+      <Source>skatt.png</Source>
+      <Name>skatt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\skatt.xnb</Output>
+      <Time>2012-12-19T15:32:10.4409889+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

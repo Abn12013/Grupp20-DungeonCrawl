@@ -117,6 +117,7 @@ namespace DungeonCrawl
 
 
         Texture2D visionTileGfx;
+        Texture2D treasureGfx;
 
         public Game1()
         {
@@ -153,6 +154,9 @@ namespace DungeonCrawl
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+            //Laddar in grafik för skatt
+            treasureGfx = Content.Load<Texture2D>("skatt");
 
             //Laddar in grafik för visiontile
             visionTileGfx = Content.Load<Texture2D>("visiontile");
@@ -440,7 +444,7 @@ namespace DungeonCrawl
                 case GameState.Game:
                     //playerhp = player.TotalHp;  //Hp innan skada
                     // int playerhp2 = player.TotalHp;  //Hp innan skada
-                     player.Update(gameTime);
+                     player.Update(gameTime, floor);
                     attack2.Update(gameTime, ref attackDone);
 
                     bool updateEnemys = false;
@@ -489,6 +493,8 @@ namespace DungeonCrawl
                      float xpBarBredd = (float)412 / player.XpToLevel;
                      xpBarPos.Width = (int)xpBarBredd * player.Xp;
 
+
+                    
 
 
                   
@@ -1044,6 +1050,14 @@ namespace DungeonCrawl
 
                     //ritar ut interface
                     spriteBatch.Draw(interface_ingame, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.94f);
+
+
+
+                    //Ritar ut skatten
+                    if (player.victoryConition == false /*&& floor == 2*/)
+                    {
+                        spriteBatch.Draw(treasureGfx, new Vector2(31 * 64, 4 * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.88f);
+                    }
 
 
                     //kan användas för att rita ut skatten
