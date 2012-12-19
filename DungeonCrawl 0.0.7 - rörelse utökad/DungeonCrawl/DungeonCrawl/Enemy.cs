@@ -317,6 +317,66 @@ namespace DungeonCrawl
                             positionManager[yCoord, xCoord +1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
                             xCoord++;
                         }
+                            //Alternativ när fienden går in i en vägg
+                        else if (positionManager[yCoord, xCoord + 1, floor].type == "wall" ||
+                           positionManager[yCoord, xCoord + 1, floor].type == "enemy" ||
+                           positionManager[yCoord, xCoord + 1, floor].type == "upstairs" ||
+                           positionManager[yCoord, xCoord + 1, floor].type == "downstairs" ||
+                           positionManager[yCoord, xCoord + 1, floor].type == "chest")
+                        {
+                            if (PlayerPos.Y < yCoord) // Kollar om spelaren är ovanför enemy.
+                            {
+                                if (yCoord - 1 == PlayerPos.Y && xCoord == PlayerPos.X) //kollar om spelaren är på rutan ovnaför enemy.
+                                {
+                                    if (resetAttack == true)
+                                    {
+                                        skada = EnemyAttackCalc(playerdex);
+                                    }
+                                }
+                                // kod för att gå up.
+                                else if (positionManager[yCoord - 1, xCoord, floor].type != "wall" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "enemy" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "upstairs" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "downstairs" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "chest")
+                                {
+
+                                    moveEnemyUp = true;
+                                    allowMove = false;
+                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
+                                    positionManager[yCoord - 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    yCoord--;
+                                }
+                            }
+                            else if (PlayerPos.Y > yCoord) // annars gå uppåt.
+                            {
+                                if (yCoord + 1 == PlayerPos.Y && xCoord == PlayerPos.X) //kollar om spelaren är på rutan ovnaför enemy.
+                                {
+                                    if (resetAttack == true)
+                                    {
+                                        skada = EnemyAttackCalc(playerdex);
+                                    }
+
+                                }
+                                //  kod för att gå ner.
+                                else if (positionManager[yCoord + 1, xCoord, floor].type != "wall" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "enemy" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "upstairs" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "downstairs" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "chest")
+                                {
+                                    moveEnemyDown = true;
+                                    allowMove = false;
+                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
+                                    positionManager[yCoord + 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    yCoord++;
+                                }
+                            }
+
+
+
+                        }
+
 
                     }
                     else if (PlayerPos.X < xCoord)  // Annars gå till vänster.
@@ -342,6 +402,65 @@ namespace DungeonCrawl
                             positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
                             positionManager[yCoord, xCoord - 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
                             xCoord--;
+                        }
+
+                        else if (positionManager[yCoord, xCoord - 1, floor].type == "wall" ||
+                           positionManager[yCoord, xCoord - 1, floor].type == "enemy" ||
+                           positionManager[yCoord, xCoord - 1, floor].type == "upstairs" ||
+                           positionManager[yCoord, xCoord - 1, floor].type == "downstairs" ||
+                           positionManager[yCoord, xCoord - 1, floor].type == "chest")
+                        {
+                            if (PlayerPos.Y < yCoord) // Kollar om spelaren är ovanför enemy.
+                            {
+                                if (yCoord - 1 == PlayerPos.Y && xCoord == PlayerPos.X) //kollar om spelaren är på rutan ovnaför enemy.
+                                {
+                                    if (resetAttack == true)
+                                    {
+                                        skada = EnemyAttackCalc(playerdex);
+                                    }
+                                }
+                                // kod för att gå up.
+                                else if (positionManager[yCoord - 1, xCoord, floor].type != "wall" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "enemy" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "upstairs" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "downstairs" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "chest")
+                                {
+
+                                    moveEnemyUp = true;
+                                    allowMove = false;
+                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
+                                    positionManager[yCoord - 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    yCoord--;
+                                }
+
+                            }
+                            else if (PlayerPos.Y > yCoord) // annars gå uppåt.
+                            {
+                                if (yCoord + 1 == PlayerPos.Y && xCoord == PlayerPos.X) //kollar om spelaren är på rutan ovnaför enemy.
+                                {
+                                    if (resetAttack == true)
+                                    {
+                                        skada = EnemyAttackCalc(playerdex);
+                                    }
+
+                                }
+                                //  kod för att gå ner.
+                                else if (positionManager[yCoord + 1, xCoord, floor].type != "wall" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "enemy" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "upstairs" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "downstairs" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "chest")
+                                {
+                                    moveEnemyDown = true;
+                                    allowMove = false;
+                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
+                                    positionManager[yCoord + 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    yCoord++;
+                                }
+                            }
+                            ///////////////////////
+                        ///////////////////////
                         }
 
                     }
@@ -371,6 +490,71 @@ namespace DungeonCrawl
                             positionManager[yCoord - 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
                             yCoord--;
                         }
+                        else if (positionManager[yCoord - 1, xCoord, floor].type == "wall" ||
+                            positionManager[yCoord - 1, xCoord, floor].type == "enemy" ||
+                            positionManager[yCoord - 1, xCoord, floor].type == "upstairs" ||
+                            positionManager[yCoord - 1, xCoord, floor].type == "downstairs" ||
+                            positionManager[yCoord - 1, xCoord, floor].type == "chest")
+                        {
+                            if (PlayerPos.X > xCoord) // kollar om spelaren är till höger om enemy.
+                            {
+
+
+                                if (xCoord + 1 == PlayerPos.X && yCoord == PlayerPos.Y) //kollar om spelaren är på rutan till höger om enemy.
+                                {
+                                    if (resetAttack == true)
+                                    {
+                                        skada = EnemyAttackCalc(playerdex);
+
+                                    }
+                                }
+                                // kod för att gå till höger.
+                                else if (positionManager[yCoord, xCoord + 1, floor].type != "wall" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "enemy" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "upstairs" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "downstairs" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "chest")
+                                {
+
+                                    moveEnemyrRight = true;
+                                    allowMove = false;
+                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
+                                    positionManager[yCoord, xCoord + 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    xCoord++;
+                                }
+
+                            }
+                            else if (PlayerPos.X < xCoord)  // Annars gå till vänster.
+                            {
+                                if (xCoord - 1 == PlayerPos.X && yCoord == PlayerPos.Y) //kollar om spelaren är på rutan till vänster om enemy.
+                                {
+                                    if (resetAttack == true)
+                                    {
+                                        skada = EnemyAttackCalc(playerdex);
+
+                                    }
+                                }
+                                // Kod för att gå till vänster
+
+                                else if (positionManager[yCoord, xCoord - 1, floor].type != "wall" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "enemy" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "upstairs" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "downstairs" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "chest")
+                                {
+                                    moveEnemyLeft = true;
+                                    allowMove = false;
+                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
+                                    positionManager[yCoord, xCoord - 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    xCoord--;
+                                }
+                            }
+                            //////////////////////////////////
+                        //////////////////////////////////
+                        }
+
+
+
 
                     }
                     else if (PlayerPos.Y > yCoord) // annars gå uppåt.
@@ -396,6 +580,73 @@ namespace DungeonCrawl
                             positionManager[yCoord + 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
                             yCoord++;
                         }
+                        else if (positionManager[yCoord + 1, xCoord, floor].type == "wall" ||
+                           positionManager[yCoord + 1, xCoord, floor].type == "enemy" ||
+                           positionManager[yCoord + 1, xCoord, floor].type == "upstairs" ||
+                           positionManager[yCoord + 1, xCoord, floor].type == "downstairs" ||
+                           positionManager[yCoord + 1, xCoord, floor].type == "chest")
+                        {
+
+                            if (PlayerPos.X > xCoord) // kollar om spelaren är till höger om enemy.
+                            {
+
+
+                                if (xCoord + 1 == PlayerPos.X && yCoord == PlayerPos.Y) //kollar om spelaren är på rutan till höger om enemy.
+                                {
+                                    if (resetAttack == true)
+                                    {
+                                        skada = EnemyAttackCalc(playerdex);
+
+                                    }
+                                }
+                                // kod för att gå till höger.
+                                else if (positionManager[yCoord, xCoord + 1, floor].type != "wall" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "enemy" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "upstairs" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "downstairs" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "chest")
+                                {
+
+                                    moveEnemyrRight = true;
+                                    allowMove = false;
+                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
+                                    positionManager[yCoord, xCoord + 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    xCoord++;
+                                }
+
+                            }
+                            else if (PlayerPos.X < xCoord)  // Annars gå till vänster.
+                            {
+                                if (xCoord - 1 == PlayerPos.X && yCoord == PlayerPos.Y) //kollar om spelaren är på rutan till vänster om enemy.
+                                {
+                                    if (resetAttack == true)
+                                    {
+                                        skada = EnemyAttackCalc(playerdex);
+
+                                    }
+                                }
+                                // Kod för att gå till vänster
+
+                                else if (positionManager[yCoord, xCoord - 1, floor].type != "wall" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "enemy" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "upstairs" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "downstairs" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "chest")
+                                {
+                                    moveEnemyLeft = true;
+                                    allowMove = false;
+                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
+                                    positionManager[yCoord, xCoord - 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    xCoord--;
+                                }
+                            }
+
+                        
+                        }
+
+
+
+
                     }
                 }
                 

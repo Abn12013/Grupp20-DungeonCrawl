@@ -59,8 +59,25 @@ namespace DungeonCrawl
             Level = 1;
             Xp = 0;
             XpToLevel = 100;
-            playerClass = Pclass;
+
+            //Klass vid start av spel
+            playerClass = "Fighter";
             PlayerRace = "Orc";
+
+            //ClassStr = 10;
+            //ClassDex = 3;
+            //ClassHp = 13;
+
+            //RaceDex = RDex;
+            //RaceStr = RStr;
+            //RaceHp = RHp;
+
+            //Totstr = RaceStr + ClassStr;
+            //Totdex = RaceDex + ClassDex;
+            //TotalHp = RaceHp + ClassHp;
+
+
+
 
             Frame = 0;
 
@@ -70,6 +87,8 @@ namespace DungeonCrawl
             moveCharDown = false;
 
             allowButtonPress = true;
+
+            SetNewGameStats();
         }
 
         public int playerPosY   //Håller koll på spelarens Y pos i rutnätet
@@ -149,6 +168,56 @@ namespace DungeonCrawl
         //spelarens gender
         public string playerGender
         { get; set; }
+
+
+        public void SetNewGameStats()
+        {
+
+            switch (playerClass)
+            { 
+                case "Fighter":
+                    ClassStr = 10;
+                    ClassDex = 3;
+                    ClassHp = 13;
+                    break;
+                case "Rogue":
+                     ClassStr = 6;
+                     ClassDex = 8;
+                     ClassHp = 10;
+                    break;
+                case "Tank":
+                     ClassStr = 6;
+                     ClassDex = 3;
+                     ClassHp = 16;
+                    break;
+            }
+
+            switch (PlayerRace)
+            { 
+                case "Dwarf":
+                      RaceDex = 3;
+                      RaceStr = 5;
+                      RaceHp = 13;
+                    break;
+                case "Orc":
+                    RaceDex = 3;
+                    RaceStr = 7;
+                    RaceHp = 12;
+                    break;
+                case "Elf":
+                    RaceDex = 6;
+                    RaceStr = 3;
+                    RaceHp = 10;
+                    break;
+            }
+
+            TotalHp = RaceHp + ClassHp;
+            Totdex = ClassDex + RaceDex;
+            Totstr = ClassStr + RaceStr;
+
+            maximumHp = TotalHp;
+
+        }
 
 
 

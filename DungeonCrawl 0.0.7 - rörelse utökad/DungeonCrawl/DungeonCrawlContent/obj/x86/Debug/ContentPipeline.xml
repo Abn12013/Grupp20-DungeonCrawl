@@ -181,6 +181,24 @@
       <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\newGameStart.xnb</Output>
       <Time>2012-12-18T17:22:18.569569+01:00</Time>
     </Item>
+    <Item>
+      <Source>newGameBack.png</Source>
+      <Name>newGameBack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\newGameBack.xnb</Output>
+      <Time>2012-12-19T11:22:12.1312476+01:00</Time>
+    </Item>
+    <Item>
+      <Source>visiontile.png</Source>
+      <Name>visiontile</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\visiontile.xnb</Output>
+      <Time>2012-12-19T12:00:35.374641+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

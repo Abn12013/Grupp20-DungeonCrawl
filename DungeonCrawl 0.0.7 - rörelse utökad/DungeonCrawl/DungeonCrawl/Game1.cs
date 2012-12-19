@@ -100,6 +100,7 @@ namespace DungeonCrawl
 
         Texture2D buttonNewGameGfx;
         Texture2D buttonNewGameStartGfx;
+        Texture2D buttonNewGameBackGfx;
 
         Button buttonNewGameDwarf = new Button(83, 340, 125, 56);
         Button buttonNewGameOrc = new Button(83, 399, 125, 56);
@@ -112,7 +113,10 @@ namespace DungeonCrawl
         SpriteFont newGameText;
 
         Button buttonNewGameStart = new Button(613, 586, 170, 98);
+        Button buttonNewGameBack = new Button(16, 586, 170, 98);
 
+
+        Texture2D visionTileGfx;
 
         public Game1()
         {
@@ -149,11 +153,16 @@ namespace DungeonCrawl
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+            //Laddar in grafik för visiontile
+            visionTileGfx = Content.Load<Texture2D>("visiontile");
+
             //Laddar in grafik för new game
             newGameBackground = Content.Load<Texture2D>("newgame");
 
             buttonNewGameGfx = Content.Load<Texture2D>("newgamebutton");
             buttonNewGameStartGfx = Content.Load<Texture2D>("newGameStart");
+            buttonNewGameBackGfx = Content.Load<Texture2D>("newGameBack");
 
             newGameText = Content.Load<SpriteFont>("SpriteFont1");
             
@@ -267,7 +276,7 @@ namespace DungeonCrawl
                         else { ButtonMainMenuExit.pressed = false; }
                         if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
-
+                            Application.Exit();
                         }
                     }
 
@@ -293,15 +302,7 @@ namespace DungeonCrawl
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
                             player.PlayerRace = "Dwarf";
-                            player.RaceDex = 3;
-                            player.RaceStr = 5;
-                            player.RaceHp = 13;
-
-                            player.TotalHp = player.RaceHp + player.ClassHp;
-                            player.Totdex = player.ClassDex + player.RaceDex;
-                            player.Totstr = player.ClassStr + player.RaceStr;
-
-                            player.maximumHp = player.TotalHp;
+                            player.SetNewGameStats();
                         }
                     }
                     if (buttonNewGameOrc.buttonRect.Contains(mouseposition3))
@@ -312,15 +313,7 @@ namespace DungeonCrawl
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
                             player.PlayerRace = "Orc";
-                            player.RaceDex = 3;
-                            player.RaceStr = 7;
-                            player.RaceHp = 12;
-
-                            player.TotalHp = player.RaceHp + player.ClassHp;
-                            player.Totdex = player.ClassDex + player.RaceDex;
-                            player.Totstr = player.ClassStr + player.RaceStr;
-
-                            player.maximumHp = player.TotalHp;
+                            player.SetNewGameStats();
 
 
                         }
@@ -333,15 +326,7 @@ namespace DungeonCrawl
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
                             player.PlayerRace = "Elf";
-                            player.RaceDex = 6;
-                            player.RaceStr = 3;
-                            player.RaceHp = 10;
-
-                            player.TotalHp = player.RaceHp + player.ClassHp;
-                            player.Totdex = player.ClassDex + player.RaceDex;
-                            player.Totstr = player.ClassStr + player.RaceStr;
-
-                            player.maximumHp = player.TotalHp;
+                            player.SetNewGameStats();
                         }
                     }
 
@@ -354,15 +339,7 @@ namespace DungeonCrawl
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
                             player.playerClass = "Fighter";
-                            player.ClassStr = 10;
-                            player.ClassDex = 3;
-                            player.ClassHp = 13;
-
-                            player.TotalHp = player.RaceHp + player.ClassHp;
-                            player.Totdex = player.ClassDex + player.RaceDex;
-                            player.Totstr = player.ClassStr + player.RaceStr;
-
-                            player.maximumHp = player.TotalHp;
+                            player.SetNewGameStats();
                         }
                     }
                     if (buttonNewGameRogue.buttonRect.Contains(mouseposition3))
@@ -373,15 +350,7 @@ namespace DungeonCrawl
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
                             player.playerClass = "Rogue";
-                            player.ClassStr = 6;
-                            player.ClassDex = 8;
-                            player.ClassHp = 10;
-
-                            player.TotalHp = player.RaceHp + player.ClassHp;
-                            player.Totdex = player.ClassDex + player.RaceDex;
-                            player.Totstr = player.ClassStr + player.RaceStr;
-
-                            player.maximumHp = player.TotalHp;
+                            player.SetNewGameStats();
                         }
                     }
                     if (buttonNewGameTank.buttonRect.Contains(mouseposition3))
@@ -392,15 +361,8 @@ namespace DungeonCrawl
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
                             player.playerClass = "Tank";
-                            player.ClassStr = 6;
-                            player.ClassDex = 3;
-                            player.ClassHp = 16;
-
-                            player.TotalHp = player.RaceHp + player.ClassHp;
-                            player.Totdex = player.ClassDex + player.RaceDex;
-                            player.Totstr = player.ClassStr + player.RaceStr;
-
-                            player.maximumHp = player.TotalHp;
+                            player.SetNewGameStats();
+                           
                         }
                     }
                     
@@ -413,6 +375,17 @@ namespace DungeonCrawl
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
                             currentGameState = GameState.LoadGame;
+                        }
+                    }
+
+                    if (buttonNewGameBack.buttonRect.Contains(mouseposition3))
+                    {
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonNewGameBack.pressed = true; }
+                        else { buttonNewGameBack.pressed = false; }
+                        if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            currentGameState = GameState.MainMenu;
                         }
                     }
 
@@ -516,9 +489,9 @@ namespace DungeonCrawl
                      float xpBarBredd = (float)412 / player.XpToLevel;
                      xpBarPos.Width = (int)xpBarBredd * player.Xp;
 
-                   
-                    
 
+
+                  
 
             // Allows the game to exit
             KeyboardState ks = Keyboard.GetState();
@@ -996,6 +969,12 @@ namespace DungeonCrawl
                     { buttonNewGameStart.draw(spriteBatch, 1f, buttonNewGameStartGfx); }
                     else { buttonNewGameStart.pressed = false; }
 
+                    if (buttonNewGameBack.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonNewGameBack.draw(spriteBatch, 1f, buttonNewGameBackGfx); }
+                    else { buttonNewGameBack.pressed = false; }
+
+                   
+
                     //ritar ut infotext
                     string showClassRace = player.PlayerRace + " " + player.playerClass;
                     spriteBatch.DrawString(newGameText, showClassRace, new Vector2(500, 350), Color.AntiqueWhite , 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
@@ -1067,7 +1046,307 @@ namespace DungeonCrawl
                     spriteBatch.Draw(interface_ingame, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.94f);
 
 
-                  
+                    //kan användas för att rita ut skatten
+                    //spriteBatch.Draw(visionTileGfx, new Vector2(300,400)  - player.Position + new Vector2(1134, 400), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.89f);
+
+
+
+                    //ritar ut fog of war
+                   
+                    //new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+                    //spriteBatch.Draw(visionTileGfx, new Vector2(player.playerPosX * 64, (player.playerPosY+3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+
+                    //Fog of war
+                    for (int i = -6; i < 7; i++)
+                    {
+
+                        for (int j = -7; j < 8; j++)
+                        {
+                            if (new Vector2(j,i) == new Vector2(-4, 0))//mitten
+                            { j += 9; }
+                            else if (new Vector2(j, i) == new Vector2(-3, -1))//mitten -1
+                            { j += 7; }
+                            else if (new Vector2(j, i) == new Vector2(-3, 1))//mitten +1
+                            { j += 7; }
+                            else if (new Vector2(j, i) == new Vector2(-2, 2))//mitten +2
+                            { j += 5; }
+                            else if (new Vector2(j, i) == new Vector2(-2, -2))//mitten -2
+                            { j += 5; }
+                            else if (new Vector2(j, i) == new Vector2(-1, -3))//mitten -3
+                            { j += 3; }
+                            else if (new Vector2(j, i) == new Vector2(-1, 3))//mitten +3
+                            { j += 3; }
+                            else if (new Vector2(j, i) == new Vector2(0, 4))//mitten +4
+                            { j += 1; }
+                            else if (new Vector2(j, i) == new Vector2(0, -4))//mitten -4
+                            { j += 1; }
+
+
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+
+                    }
+
+                    //Ritar ut fog of war om det är väggar över spelaren
+                    if (positionManager[player.playerPosY-1, player.playerPosX, floor].type == "wall")
+                    {
+                            for (int j = -7; j < 8; j++)
+                            {
+                                spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                                spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                                spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                                spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            }
+                    }
+                    else if (positionManager[player.playerPosY - 2, player.playerPosX, floor].type == "wall")
+                    {
+                        for (int j = -7; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY - 3, player.playerPosX, floor].type == "wall")
+                    {
+                        for (int j = -7; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    //Slut på utritning av fog of war över spelaren
+
+                    //Ritar ut fog of war om det är väggar under spelaren
+                    if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type == "wall")
+                    {
+                        for (int j = -7; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 1) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY + 2, player.playerPosX, floor].type == "wall")
+                    {
+                        for (int j = -7; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY + 3, player.playerPosX, floor].type == "wall")
+                    {
+                        for (int j = -7; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+
+                    //Kollar fog of war till vänster om spelaren om det är en vägg där
+
+                    if (positionManager[player.playerPosY , player.playerPosX -1, floor].type == "wall")
+                    {
+                        for (int i = -6; i < 7; i++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX -2) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY, player.playerPosX - 2, floor].type == "wall")
+                    {
+                        for (int i = -6; i < 7; i++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY, player.playerPosX - 3, floor].type == "wall")
+                    {
+                        for (int i = -6; i < 7; i++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                  //Slut på koll till vänster
+
+                    //Kollar fog of war till höger om spelaren om det är en vägg där
+
+                    if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type == "wall")
+                    {
+                        for (int i = -6; i < 7; i++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 1) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 2) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY, player.playerPosX + 2, floor].type == "wall")
+                    {
+                        for (int i = -6; i < 7; i++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 2) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY, player.playerPosX + 3, floor].type == "wall")
+                    {
+                        for (int i = -6; i < 7; i++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    //Slut på koll till höger
+
+                    //Kollar fog of war till vänster om spelaren och UPP en bit om det är en vägg där
+
+                    if (positionManager[player.playerPosY - 1, player.playerPosX-1, floor].type == "wall")
+                    {
+                        for (int j = -7; j < -1; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY - 2, player.playerPosX-1, floor].type == "wall")
+                    {
+                        for (int j = -7; j < -1; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY - 3, player.playerPosX-1, floor].type == "wall")
+                    {
+                        for (int j = -7; j < -1; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                   
+                    //Slut på koll till vänster
+
+                    //Kollar fog of war till höger om spelaren och UPP en bit om det är en vägg där
+
+                    if (positionManager[player.playerPosY - 1, player.playerPosX + 1, floor].type == "wall")
+                    {
+                        for (int j = 1; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY - 2, player.playerPosX + 1, floor].type == "wall")
+                    {
+                        for (int j = 1; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY - 3, player.playerPosX + 1, floor].type == "wall")
+                    {
+                        for (int j = 1; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+
+                    //Slut på koll till 
+
+                    //kollar vänster ner
+                    if (positionManager[player.playerPosY + 1, player.playerPosX - 1, floor].type == "wall")
+                    {
+                        for (int j = -7; j < -1; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 1) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY + 2, player.playerPosX - 1, floor].type == "wall")
+                    {
+                        for (int j = -7; j < -1; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY + 3, player.playerPosX - 1, floor].type == "wall")
+                    {
+                        for (int j = -7; j < -1; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    //slut koll
+
+                    //kollar höger ner
+                    if (positionManager[player.playerPosY + 1, player.playerPosX + 1, floor].type == "wall")
+                    {
+                        for (int j = 1; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 1) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY + 2, player.playerPosX + 1, floor].type == "wall")
+                    {
+                        for (int j = 1; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    else if (positionManager[player.playerPosY + 3, player.playerPosX + 1, floor].type == "wall")
+                    {
+                        for (int j = 1; j < 8; j++)
+                        {
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
+                        }
+                    }
+                    //slut koll
+
+
+
+
 
                     break;
             }

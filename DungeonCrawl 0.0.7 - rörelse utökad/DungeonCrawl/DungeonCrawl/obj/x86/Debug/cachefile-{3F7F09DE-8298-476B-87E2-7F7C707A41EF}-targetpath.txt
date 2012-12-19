@@ -18,3 +18,5 @@ Content\newgamenutton.xnb
 Content\newgamebutton.xnb
 Content\SpriteFont1.xnb
 Content\newGameStart.xnb
+Content\newGameBack.xnb
+Content\visiontile.xnb
