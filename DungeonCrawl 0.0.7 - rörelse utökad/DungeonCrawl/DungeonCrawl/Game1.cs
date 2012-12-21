@@ -19,6 +19,18 @@ namespace DungeonCrawl
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        AudioEngine audioEngine;
+        WaveBank waveBank;
+        SoundBank soundBank;
+        Cue MenyHT;//High tension
+        Cue IngameTGU;//The great unknown
+        bool playmenumusic = true;
+        bool playingamemusic = true;
+        float musicends = 155000;
+        float timermusic = 0;
+        float musicends2 = 135000;
+        float timermusic2 = 0;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Random rnd = new Random();
@@ -210,6 +222,13 @@ namespace DungeonCrawl
 
             //bana = new GameObj() { Gfx = Content.Load<Texture2D>("level"), Position = new Vector2(0, 0), Angle = 0 };
 
+            audioEngine = new AudioEngine("Content\\sounds.xgs");
+            waveBank = new WaveBank(audioEngine, "Content\\Wave Bank.xwb");
+            soundBank = new SoundBank(audioEngine, "Content\\Sound Bank.xsb");
+
+            IngameTGU = soundBank.GetCue("IG.FO-TheGreatUnknown");
+            MenyHT = soundBank.GetCue("MENY.FO-HighTension");
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -236,6 +255,32 @@ namespace DungeonCrawl
             switch (currentGameState)
             {
                 case GameState.MainMenu:
+
+                    
+                    if (playmenumusic == true)
+                    {
+                        MenyHT.Play();
+                        playmenumusic = false;                        
+
+                    }
+                    
+                   
+                    
+                    timermusic2 += (float)gameTime.ElapsedGameTime.Milliseconds;
+                    
+                    if (timermusic2 > musicends2)
+                    {
+
+                        MenyHT.Stop(AudioStopOptions.AsAuthored);
+                        MenyHT = soundBank.GetCue("IG.FO-TheGreatUnknown");
+                        MenyHT.Play();
+                           
+                            timermusic2 = 0;
+
+                        
+                        
+                        
+                    }
                     MouseState mousestate2 = Mouse.GetState();
                     var mouseposition2 = new Point(mousestate2.X, mousestate2.Y);
 
@@ -442,6 +487,32 @@ namespace DungeonCrawl
                     currentGameState = GameState.Game;
                     break;
                 case GameState.Game:
+
+                    if (playingamemusic == true)
+                    {
+                        IngameTGU.Play();
+                        playingamemusic = false;
+                        MenyHT.Stop(AudioStopOptions.Immediate);
+
+                    }
+                    
+                   
+                    
+                    timermusic += (float)gameTime.ElapsedGameTime.Milliseconds;
+                    
+                    if (timermusic > musicends)
+                    {
+                        
+                            IngameTGU.Stop(AudioStopOptions.AsAuthored);
+                            IngameTGU = soundBank.GetCue("IG.FO-TheGreatUnknown");
+                            IngameTGU.Play();
+                            MenyHT.Stop(AudioStopOptions.AsAuthored);
+                            timermusic = 0;
+
+                        
+                        
+                        
+                    }
                     //playerhp = player.TotalHp;  //Hp innan skada
                     // int playerhp2 = player.TotalHp;  //Hp innan skada
                      player.Update(gameTime, floor);
