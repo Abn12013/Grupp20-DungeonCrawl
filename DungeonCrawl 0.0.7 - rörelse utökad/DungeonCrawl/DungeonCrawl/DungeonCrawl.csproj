@@ -114,6 +114,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="GameObj.cs" />
     <Compile Include="LevelManager.cs" />
+    <Compile Include="LoadSave.cs" />
     <Compile Include="MovingGameObj.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="PositionManager.cs" />

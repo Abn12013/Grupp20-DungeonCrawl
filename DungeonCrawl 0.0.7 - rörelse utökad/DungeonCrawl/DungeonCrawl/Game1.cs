@@ -47,6 +47,9 @@ namespace DungeonCrawl
         
         //test fiende ta bort när lista med fiender finns
         List <Enemy> enemies = new List<Enemy>();
+
+        //Skapar en spar och ladningsklass
+        LoadSave saveAndLoadGame = new LoadSave();
         
 
         int SpawnTimer = 300;
@@ -130,6 +133,9 @@ namespace DungeonCrawl
 
         Texture2D visionTileGfx;
         Texture2D treasureGfx;
+
+        //Kollar om man kör load game eller new game
+        bool loadgameTrueorFalse = false;
 
         public Game1()
         {
@@ -303,6 +309,9 @@ namespace DungeonCrawl
                         else { buttonMainMenuLoadGame.pressed = false; }
                         if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            loadgameTrueorFalse = true;
+                            //saveAndLoadGame.LoadTheGame(ref player, ref floor, ref enemies, ref positionManager);
+                            currentGameState = GameState.LoadGame;
 
                         }
                     }
@@ -445,14 +454,24 @@ namespace DungeonCrawl
                     break;
                 case GameState.LoadGame:
                     levelManager.BuildGame(ref positionManager);
+
+
+                    //Ifall man kör load gam istället för new game
+                    if (loadgameTrueorFalse == true)
+                    {
+                        saveAndLoadGame.LoadTheGame(ref player, ref floor, ref enemies, ref positionManager, ref hpBarPos.Width);
+                    }
+
                     
                     Vector2 temporary = entry.Position;
                     temporary.Y += 1;
                     //player.playerPosX = 8;//(int)temporary.X;
                     //player.playerPosY = 2;//(int)temporary.Y;
-                    player.playerPosX = 8;//(int)temporary.X;
-                    player.playerPosY = 2;//(int)temporary.Y;
-                    player.Position = new Vector2(player.playerPosX*64,player.playerPosY*64);
+
+
+                    //player.playerPosX = 8;//(int)temporary.X;
+                    //player.playerPosY = 2;//(int)temporary.Y;
+                    player.Position = new Vector2(player.playerPosX * 64, player.playerPosY * 64);
 
                     //test Ta bort sen!!
                     //enemies.yCoord = 8;
@@ -576,6 +595,15 @@ namespace DungeonCrawl
 
             //Hp och hpbar uträkningar test
             Random tal = new Random();
+
+                    //Tillfällig sparknapp
+            if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.R) && prevKs.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.R))  //Knapptryckning för att röra sig ner
+            {
+
+                saveAndLoadGame.SaveTheGame(player, floor, enemies, hpBarPos.Width);
+               
+            }
+
            
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Q) && prevKs.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Q))  //Knapptryckning för att röra sig ner
             {
@@ -1125,21 +1153,11 @@ namespace DungeonCrawl
 
 
                     //Ritar ut skatten
-                    if (player.victoryConition == false /*&& floor == 2*/)
+                    if (player.victoryConition == false && floor == 2)
                     {
                         spriteBatch.Draw(treasureGfx, new Vector2(31 * 64, 4 * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.88f);
                     }
 
-
-                    //kan användas för att rita ut skatten
-                    //spriteBatch.Draw(visionTileGfx, new Vector2(300,400)  - player.Position + new Vector2(1134, 400), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.89f);
-
-
-
-                    //ritar ut fog of war
-                   
-                    //new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                    //spriteBatch.Draw(visionTileGfx, new Vector2(player.playerPosX * 64, (player.playerPosY+3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
 
                     //Fog of war
                     for (int i = -6; i < 7; i++)

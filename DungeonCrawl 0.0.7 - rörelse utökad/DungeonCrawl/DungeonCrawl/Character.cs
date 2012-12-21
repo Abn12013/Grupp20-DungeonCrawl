@@ -89,6 +89,12 @@ namespace DungeonCrawl
             allowButtonPress = true;
 
             SetNewGameStats();
+
+            //sätter startpositionen
+            playerPosX = 8;
+            playerPosY = 2;
+            //Position = new Vector2(playerPosX * 64, playerPosY * 64);
+
         }
 
         public bool victoryConition
