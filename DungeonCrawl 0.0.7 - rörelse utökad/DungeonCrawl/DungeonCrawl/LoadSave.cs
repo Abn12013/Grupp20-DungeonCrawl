@@ -45,6 +45,33 @@ namespace DungeonCrawl
 
         //Övrigasaker
 
+        public void resetGameStats(ref Character Player, ref int floor, ref List<Enemy> enemis, ref int bredd)
+        {
+
+            Player.playerPosX = 8;
+            Player.playerPosY = 2;
+            floor = 0;
+
+            Player.Level = 1;
+            Player.Xp = 0;
+            Player.XpToLevel = 100;
+
+            Player.victoryConition = false;
+            Player.PlayerRace = "Orc";
+            Player.playerClass = "Fighter";
+
+            bredd = 412;
+
+            enemis.Clear();
+
+            //Fiende värden
+            //14: Antalet Fiender
+            //15: Fienders xCord
+            //16: Fienders yCord
+            //17: Fienders Hp
+        
+        }
+
         public void SaveTheGame(Character Player, int floor, List<Enemy> enemis, float bredd)
         {
             StreamWriter saveGame = new StreamWriter("save");

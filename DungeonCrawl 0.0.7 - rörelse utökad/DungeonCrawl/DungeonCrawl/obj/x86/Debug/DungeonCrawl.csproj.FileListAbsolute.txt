@@ -333,3 +333,7 @@ C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökadss\DungeonCrawl\Dunge
 C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\sounds.xgs
 C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Wave Bank.xwb
 C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Sound Bank.xsb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\animation2.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\popupLevel.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\gameover.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\menuKnappNer.xnb

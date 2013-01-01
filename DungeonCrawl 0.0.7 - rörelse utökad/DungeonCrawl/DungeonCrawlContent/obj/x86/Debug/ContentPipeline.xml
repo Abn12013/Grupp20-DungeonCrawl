@@ -208,6 +208,42 @@
       <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
       <Time>2012-12-21T11:23:59.8245277+01:00</Time>
     </Item>
+    <Item>
+      <Source>animation2.png</Source>
+      <Name>animation2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\animation2.xnb</Output>
+      <Time>2012-12-25T19:24:29.0706125+01:00</Time>
+    </Item>
+    <Item>
+      <Source>popupLevel.png</Source>
+      <Name>popupLevel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\popupLevel.xnb</Output>
+      <Time>2012-12-25T20:14:52.1586519+01:00</Time>
+    </Item>
+    <Item>
+      <Source>gameover.png</Source>
+      <Name>gameover</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\gameover.xnb</Output>
+      <Time>2012-12-26T17:37:08.0680744+01:00</Time>
+    </Item>
+    <Item>
+      <Source>menuKnappNer.png</Source>
+      <Name>menuKnappNer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\menuKnappNer.xnb</Output>
+      <Time>2012-12-26T17:35:48.1755339+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

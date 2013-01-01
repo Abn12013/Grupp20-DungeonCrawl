@@ -77,7 +77,7 @@ namespace DungeonCrawl
             if (str + random.Next(0, 20) > dex)                         
             {
                 dmg = str - random.Next(0, str / 2);
-
+                attackAnimationDone = true; //kör attackanimation
             }
             else
             {
@@ -85,7 +85,7 @@ namespace DungeonCrawl
                 if (i == 1)
                 {
                     dmg = str / (random.Next(2,5));
-
+                    
                 }
                 else
                 {
@@ -195,6 +195,13 @@ namespace DungeonCrawl
         private int moved = 0;  //Håller koll på hur långt karaktären har rört sig, och stännar rörelsen när karaktären rört sig 64 pixlar.
         private int moved2 = 0;
 
+
+        //Attack animation variabler
+        private int movedattack = 0;
+        public bool attackAnimationDone = false;
+        public int attackFrame = 0;
+
+
         public void MoveRight2() //Medtod om man rör sig till höger
         {
             float Xpos = Position.X;    //Karaktärens nuvarande position på x-leden
@@ -283,6 +290,29 @@ namespace DungeonCrawl
             }
 
 
+        //    private int movedattack = 0;
+        //public bool attackAnimationDone = false;
+        //public int attackFrame = 0;
+
+            //attack animation
+            if (attackAnimationDone == true)
+            {
+                movedattack += 4;
+                if (movedattack > 1 && movedattack < 16)
+                { attackFrame = 0; }
+                else if (movedattack > 16 && movedattack < 32)
+                { attackFrame = 1; }
+                else if (movedattack > 32 && movedattack < 48)
+                { attackFrame = 2; }
+                else if (movedattack > 48 && movedattack < 64)
+                { attackFrame = 3; }
+
+                if (movedattack == 64)    // när man rört sig 64 pixlar så stannar gubben
+                { movedattack = 0; attackFrame = 0; attackAnimationDone = false; }   //olika variabler ändras så att man nu kan genomföra en ny rörelse
+            }
+
+
+
             CheckActive();
 
             if (allowMove)
@@ -300,6 +330,8 @@ namespace DungeonCrawl
                             if (resetAttack == true)
                             {
                                 skada = EnemyAttackCalc(playerdex);
+                                //attackAnimationDone = true; //Gör så att fiendens attackanimation
+                                
 
                             }
                         }
@@ -331,6 +363,7 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                       
                                     }
                                 }
                                 // kod för att gå up.
@@ -355,6 +388,7 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        
                                     }
 
                                 }
@@ -386,6 +420,7 @@ namespace DungeonCrawl
                             if (resetAttack == true)
                             {
                                 skada = EnemyAttackCalc(playerdex);
+                              
                                 
                             }
                         }
@@ -417,6 +452,7 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                       
                                     }
                                 }
                                 // kod för att gå up.
@@ -442,6 +478,7 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                   
                                     }
 
                                 }
@@ -474,6 +511,7 @@ namespace DungeonCrawl
                             if (resetAttack == true)
                             {
                                 skada = EnemyAttackCalc(playerdex);
+                              
                             }
                         }
                         // kod för att gå up.
@@ -505,6 +543,7 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                     
 
                                     }
                                 }
@@ -531,6 +570,7 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        
 
                                     }
                                 }
@@ -564,6 +604,7 @@ namespace DungeonCrawl
                             if (resetAttack == true)
                             {
                                 skada = EnemyAttackCalc(playerdex);
+                               
                             }
                             
                         }
@@ -596,6 +637,7 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                       
 
                                     }
                                 }
@@ -622,6 +664,7 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        attackAnimationDone = true; //Gör så att fiendens attackanimation
 
                                     }
                                 }
@@ -668,7 +711,7 @@ namespace DungeonCrawl
             {
                 MoveDown2();
             }
-
+            
 
 
             base.Update(gameTime);
@@ -681,6 +724,19 @@ namespace DungeonCrawl
             Position - DrawOffset + new Vector2(400, 350),
             tmp2, Color.White, 0,
             new Vector2(28, 28), 1.0f, SpriteEffects.None, layer);
+        }
+
+        public Texture2D Gfx2
+        { get; set; }
+
+        public void AttackDraw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer, Vector2 attackpos)
+        {
+
+            
+                Rectangle tmp2 = new Rectangle((attackFrame % 4) * 64, (attackFrame / 4) * 64, 64, 64);
+                spriteBatch.Draw(Gfx2, attackpos - DrawOffset + new Vector2(400, 350), tmp2, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, layer);
+            
+
         }
 
         //public override void Draw2(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)

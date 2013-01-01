@@ -21,6 +21,10 @@ Content\visiontile.xnb
 Content\skatt.xnb
 Content\hpfont.xnb
 Content\SpriteFont1.xnb
+Content\animation2.xnb
+Content\popupLevel.xnb
+Content\gameover.xnb
+Content\menuKnappNer.xnb
 Content\sounds.xgs
 Content\Wave Bank.xwb
 Content\Sound Bank.xsb

@@ -34,7 +34,7 @@ namespace DungeonCrawl
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Random rnd = new Random();
-        enum GameState {NewGame, MainMenu, LoadGame, ChangeLevel, Game }
+        enum GameState {NewGame, MainMenu, LoadGame, ChangeLevel, Game,GameOver }
 
         GameState currentGameState = GameState.MainMenu;    //Sätter start gamestatet
 
@@ -117,6 +117,7 @@ namespace DungeonCrawl
         Texture2D buttonNewGameStartGfx;
         Texture2D buttonNewGameBackGfx;
 
+
         Button buttonNewGameDwarf = new Button(83, 340, 125, 56);
         Button buttonNewGameOrc = new Button(83, 399, 125, 56);
         Button buttonNewGameElf = new Button(83, 460, 125, 56);
@@ -130,12 +131,34 @@ namespace DungeonCrawl
         Button buttonNewGameStart = new Button(613, 586, 170, 98);
         Button buttonNewGameBack = new Button(16, 586, 170, 98);
 
+        //Game over grfik
+        Texture2D menuKnappGfx;
 
+        Button buttonGameOverMenu = new Button(616, 594, 170, 98);
+        Button buttonGameOverExit = new Button(17, 592, 170, 98);
+
+        //Fog of war texturer
         Texture2D visionTileGfx;
+
+        //skatt textur
         Texture2D treasureGfx;
 
         //Kollar om man kör load game eller new game
         bool loadgameTrueorFalse = false;
+
+
+        //textur för animation 
+        Texture2D enemyAttackGfx;
+
+        //Levelup popupfönster
+        Texture2D popUpLevelUp;
+
+        bool visaLevelUp = false;
+        int visaLevelPopUp = 0;
+
+
+        //Gameover
+        Texture2D gameOverGfx;
 
         public Game1()
         {
@@ -173,6 +196,12 @@ namespace DungeonCrawl
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
+            //Game over screen
+            gameOverGfx = Content.Load<Texture2D>("gameover");
+
+            //Laddar in grafik för levelup popupfönster
+            popUpLevelUp = Content.Load<Texture2D>("popupLevel");
+
             //Laddar in grafik för skatt
             treasureGfx = Content.Load<Texture2D>("skatt");
 
@@ -198,6 +227,9 @@ namespace DungeonCrawl
             infoKnappGfx = Content.Load<Texture2D>("infoKnappNer");
             exitKnappGfx = Content.Load<Texture2D>("exitKnappNer");
 
+            //Laddr in grafik för game over screen
+            menuKnappGfx = Content.Load<Texture2D>("menuKnappNer"); 
+
             startKnappPos = new Vector2(200, 200);
 
             //Laddar in grafiken för spelaren
@@ -207,7 +239,10 @@ namespace DungeonCrawl
             enemyGFX = Content.Load<Texture2D>("char_test");
 
             //Laddar in grafiken för attackanimationen
-            attack2.Gfx = Content.Load<Texture2D>("animation");
+            attack2.Gfx = Content.Load<Texture2D>("animation2");
+           
+            enemyAttackGfx = Content.Load<Texture2D>("animation2");
+            
 
             //Laddar in grafiken för Hpbaren
             hpBarGfx = Content.Load<Texture2D>("hpbar");
@@ -265,6 +300,7 @@ namespace DungeonCrawl
                     
                     if (playmenumusic == true)
                     {
+                        MenyHT = soundBank.GetCue("MENY.FO-HighTension");
                         MenyHT.Play();
                         playmenumusic = false;                        
 
@@ -278,7 +314,7 @@ namespace DungeonCrawl
                     {
 
                         MenyHT.Stop(AudioStopOptions.AsAuthored);
-                        MenyHT = soundBank.GetCue("IG.FO-TheGreatUnknown");
+                        MenyHT = soundBank.GetCue("MENY.FO-HighTension");
                         MenyHT.Play();
                            
                             timermusic2 = 0;
@@ -432,6 +468,7 @@ namespace DungeonCrawl
                         else { buttonNewGameStart.pressed = false; }
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            loadgameTrueorFalse = false;
                             currentGameState = GameState.LoadGame;
                         }
                     }
@@ -507,18 +544,19 @@ namespace DungeonCrawl
                     break;
                 case GameState.Game:
 
+                    //Börjar spela upp ingame musiken
                     if (playingamemusic == true)
                     {
+                        IngameTGU = soundBank.GetCue("IG.FO-TheGreatUnknown");
                         IngameTGU.Play();
                         playingamemusic = false;
                         MenyHT.Stop(AudioStopOptions.Immediate);
 
                     }
                     
-                   
+                    timermusic += (float)gameTime.ElapsedGameTime.Milliseconds; //Timer som håller koll på musiken
                     
-                    timermusic += (float)gameTime.ElapsedGameTime.Milliseconds;
-                    
+                    //Spelar upp låten igen när den tagit slut
                     if (timermusic > musicends)
                     {
                         
@@ -571,7 +609,7 @@ namespace DungeonCrawl
                      if (player.TotalHp <= 0)
                      {
                          MessageBox.Show("game over son");
-                         Application.Exit();
+                         currentGameState = GameState.GameOver;
                      }
                     //
 
@@ -662,7 +700,7 @@ namespace DungeonCrawl
                                        if (player.Xp >= player.XpToLevel)
                                        {
                                            player.LevelUp(ref hpBarPos.Width);
-                                           MessageBox.Show("Level up");
+                                           
                                            
                                        }
                                    }
@@ -721,7 +759,7 @@ namespace DungeonCrawl
                                         if (player.Xp >= player.XpToLevel)
                                         {
                                             player.LevelUp(ref hpBarPos.Width);
-                                            MessageBox.Show("Level up");
+                                            
                                           
                                         }
                                     }
@@ -783,7 +821,7 @@ namespace DungeonCrawl
                                         if (player.Xp >= player.XpToLevel)
                                         {
                                             player.LevelUp(ref hpBarPos.Width);
-                                            MessageBox.Show("Level up");
+                                            
                                            
                                         }
                                     }
@@ -845,7 +883,7 @@ namespace DungeonCrawl
                                         if (player.Xp >= player.XpToLevel)
                                         {
                                             player.LevelUp(ref hpBarPos.Width);
-                                            MessageBox.Show("Level up");
+                                            
                                             
                                         }
                                     }
@@ -964,6 +1002,46 @@ namespace DungeonCrawl
            prevMs1 = mousestate1;
             
             // TODO: Add your update logic here
+
+                    break;
+                case GameState.GameOver:
+
+                     MouseState mousestate4 = Mouse.GetState();
+                    var mouseposition4 = new Point(mousestate4.X, mousestate4.Y);
+
+                    // går till huvudmenyn och resetar variabler till sina ursprungliga värden för att man skall kunna spela igen
+                    if (buttonGameOverMenu.buttonRect.Contains(mouseposition4))
+                    {
+                        if (mousestate4.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonGameOverMenu.pressed = true; }
+                        else { buttonGameOverMenu.pressed = false; }
+                        if (mousestate4.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            
+                            saveAndLoadGame.resetGameStats(ref player, ref floor, ref enemies, ref hpBarPos.Width); //Kallar på load save för att reseta stats
+                            player.SetNewGameStats();   //Resetar karaktärs stas som str, dex, hp
+
+                            IngameTGU.Stop(AudioStopOptions.Immediate); //Slutar spela upp ingameljud
+                            playmenumusic = true;   //Gör så att menymusiken kan spelas
+                            playingamemusic = true; //Gör så att ingame musiken kan spelas upp igen
+
+                            currentGameState = GameState.MainMenu;  //Byter gamestate till huvudmenyn
+                        }
+                    }
+
+                    if (buttonGameOverExit.buttonRect.Contains(mouseposition4))
+                    {
+                        if (mousestate4.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonGameOverExit.pressed = true; }
+                        else { buttonGameOverExit.pressed = false; }
+                        if (mousestate4.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            Application.Exit();
+                        }
+                    }
+
+
+                    prevMs1 = mousestate4;
 
                     break;
             }
@@ -1112,6 +1190,20 @@ namespace DungeonCrawl
                         obj.Draw(spriteBatch, new Vector2(player.Position.X, player.Position.Y + 46), (0.9f / 34f) * (obj.Position.Y / 64f));
                     }
 
+                    
+                    //Ritar ut levelup popupfönstret
+                    if (player.VisaLevelUp == false)
+                    { visaLevelPopUp = 100; }
+                    if (player.VisaLevelUp == true)
+                    {
+                        visaLevelPopUp--;
+                        if(visaLevelPopUp <=0)
+                        { player.VisaLevelUp = false; }
+                        spriteBatch.Draw(popUpLevelUp, new Vector2(20, 20), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                    }
+                   
+
+
 
                     //bana.Draw(spriteBatch, hej.Position, 0f);
 
@@ -1126,6 +1218,18 @@ namespace DungeonCrawl
                     {
                         attack2.Draw(spriteBatch, player.Position, 1f);
                     }
+
+
+                    //Ritar ut attacker
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        if (enemies[i].attackAnimationDone == true)
+                        {
+                            enemies[i].Gfx2 = enemyAttackGfx;
+                            enemies[i].AttackDraw(spriteBatch, player.Position,1f , new Vector2((player.playerPosX) * 64, (player.playerPosY) * 64));
+                        }
+                    }
+
 
                     //Ritar ut hpbar
                     spriteBatch.Draw(hpBarGfx, new Vector2(195, 624), hpBarPos, Color.LawnGreen, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.95f);
@@ -1449,6 +1553,22 @@ namespace DungeonCrawl
 
 
 
+
+
+                    break;
+                case GameState.GameOver:
+
+                    spriteBatch.Draw(gameOverGfx, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.1f);
+
+                   
+                    
+                    if (buttonGameOverMenu.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonGameOverMenu.draw(spriteBatch, 0.95f, menuKnappGfx); }
+                    else { buttonGameOverMenu.pressed = false; }
+
+                    if (buttonGameOverExit.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonGameOverExit.draw(spriteBatch, 0.95f, exitKnappGfx); }
+                    else { buttonGameOverExit.pressed = false; }
 
 
                     break;

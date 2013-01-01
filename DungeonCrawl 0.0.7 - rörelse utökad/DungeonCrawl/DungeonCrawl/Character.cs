@@ -229,6 +229,7 @@ namespace DungeonCrawl
         }
 
 
+        public bool VisaLevelUp = false;
 
         public void LevelUp(ref int hpbarbredd)
         {
@@ -236,19 +237,19 @@ namespace DungeonCrawl
             switch (playerClass)
             {
                 case "Fighter":
-                    Totstr += 50;
-                    Totdex += 30;
-                    TotalHp += 40;
+                    Totstr += 5;
+                    Totdex += 3;
+                    TotalHp += 4;
                     break;
                 case "Rogue":
-                    Totstr += 30;
-                    Totdex += 40;
-                    TotalHp += 30;
+                    Totstr += 3;
+                    Totdex += 4;
+                    TotalHp += 3;
                     break;
                 case "Tank":
-                    Totstr += 50;
-                    Totdex += 30;
-                    TotalHp += 40;
+                    Totstr += 4;
+                    Totdex += 3;
+                    TotalHp += 5;
                     break;
             }
             TotalHp = (int)maximumHp + 5 * Level;
@@ -256,6 +257,7 @@ namespace DungeonCrawl
             Xp = Xp - XpToLevel;
             XpToLevel = XpToLevel + 10 * Level;
             hpbarbredd = 412;
+            VisaLevelUp = true;
             
         }
 
@@ -289,7 +291,7 @@ namespace DungeonCrawl
             { moveCharRight = false; moved = 0; allowButtonPress = true; Frame = 6; } //olika variabler ändras så att man nu kan genomföra en ny rörelse
             Position = new Vector2(Xpos += 4, Position.Y); //positionen för karaktären ökar med 4 för varje tick av gametime
         }
-
+        
         public void MoveLeft()  //Medtod om man rör sig till left
         {
             float Xpos = Position.X;    //Karaktärens nuvarande position på x-leden
