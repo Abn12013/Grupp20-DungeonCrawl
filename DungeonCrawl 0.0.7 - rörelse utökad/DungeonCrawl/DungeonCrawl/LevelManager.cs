@@ -380,6 +380,15 @@ namespace DungeonCrawl
                             positionManager[y, x, floor].iteration = objects.Count();
                             positionManager[y, x, floor].hp = 1;
                             break;
+                        case "emptychest":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 18,
+                                Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                            });
+                            positionManager[y, x, floor].iteration = objects.Count();
+                            positionManager[y, x, floor].hp = 1;
+                            break;
                         case "upstairs":
                             objects.Add(new GameObj()
                             {

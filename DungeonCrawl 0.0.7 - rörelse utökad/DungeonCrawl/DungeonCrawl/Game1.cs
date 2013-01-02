@@ -657,6 +657,28 @@ namespace DungeonCrawl
                     floor--;
                     currentGameState = GameState.ChangeLevel;
                 }
+                else if (positionManager[player.playerPosY, player.playerPosX, floor].type == "chest")
+                { 
+                    int hpPotsHeal = 10; // Hur mycket en HpPot helar
+                    if (player.maximumHp >= player.TotalHp + hpPotsHeal) // Om den helar till mindre en max hp
+                    {
+                        hpBarBredd = (float)412 / player.maximumHp; // Sätter hp till spelarens nuvarande hp + så mycket som poten helar
+                        player.TotalHp += hpPotsHeal;
+                        int hpGain = (int)hpBarBredd * hpPotsHeal;
+                        hpBarPos.Width += hpGain;
+                        positionManager[player.playerPosY, player.playerPosX, floor].type = "emptychest"; // Ändrar rutans typ till en tom kista så att man bara kan använda samma kista 1 gång
+                    }
+                    else if (player.maximumHp < player.TotalHp + hpPotsHeal) // Om den helar till mer än max hp
+                    {
+                        hpBarBredd = (float)412 / player.maximumHp; // Sätter hp till max
+                        player.TotalHp = (int)player.maximumHp;
+                        hpBarPos.Width = 412;
+                        positionManager[player.playerPosY, player.playerPosX, floor].type = "emptychest";
+                    }
+                    else if (player.maximumHp == player.TotalHp) // Om spelaren har max hp så händer inget (poten finns kvar)
+                    {
+                    }
+                }
 
 
             }

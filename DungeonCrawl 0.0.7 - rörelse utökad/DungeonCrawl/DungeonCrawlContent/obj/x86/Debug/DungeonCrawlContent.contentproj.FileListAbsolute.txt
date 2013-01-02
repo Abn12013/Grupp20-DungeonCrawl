@@ -25,3 +25,5 @@ C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utök
 C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökadss\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökadss\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\sounds.xml
 C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\sounds.xml
+F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\Github\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\sounds.xml
