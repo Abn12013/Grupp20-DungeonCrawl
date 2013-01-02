@@ -16,8 +16,8 @@ Global Settings
     Header File = sounds.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 780280558;
-    Last Modified High = 30269277;
+    Last Modified Low = 1098898886;
+    Last Modified High = 30271699;
 
     Category
     {
@@ -227,12 +227,10 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 3715371711;
-    PC Bank Last Modified High = 30269275;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 2373874982;
-    Bank Last Revised High = 30269275;
+    PC Bank Last Modified Low = 1098918887;
+    PC Bank Last Modified High = 30271699;
+    Bank Last Revised Low = 233899411;
+    Bank Last Revised High = 30271699;
 
     Wave
     {
@@ -252,8 +250,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3861151089;
-            Last Modified High = 30268882;
+            Last Modified Low = 3368802470;
+            Last Modified High = 30270916;
         }
     }
 
@@ -275,8 +273,54 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3213844065;
-            Last Modified High = 30268882;
+            Last Modified Low = 3371702636;
+            Last Modified High = 30270916;
+        }
+    }
+
+    Wave
+    {
+        Name = AttackMiss;
+        File = AttackMiss.wav;
+        Build Settings Last Modified Low = 100191763;
+        Build Settings Last Modified High = 30271699;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 242112;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3772139976;
+            Last Modified High = 30271694;
+        }
+    }
+
+    Wave
+    {
+        Name = AttackSound;
+        File = AttackSound.wav;
+        Build Settings Last Modified Low = 100201764;
+        Build Settings Last Modified High = 30271699;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 95860;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3994096120;
+            Last Modified High = 30271698;
         }
     }
 }
@@ -288,8 +332,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 780330561;
-    Bank Last Modified High = 30269277;
+    Bank Last Modified Low = 1105069239;
+    Bank Last Modified High = 30271699;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -387,6 +431,100 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = AttackSound;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = AttackSound;
+                    Entry Index = 3;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = AttackMiss;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = AttackMiss;
+                    Entry Index = 2;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = MENY.FO-HighTension;
@@ -422,6 +560,46 @@ Sound Bank
         {
             Name = IG.FO-TheGreatUnknown;
             Index = 1;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = AttackMiss;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = AttackMiss;
+            Index = 3;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = AttackSound;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = AttackSound;
+            Index = 2;
             Weight Min = 0;
             Weight Max = 255;
         }

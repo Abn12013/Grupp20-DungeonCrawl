@@ -49,7 +49,7 @@ namespace DungeonCrawl
             allowMove = true;
 
             str = 10;
-
+            dex = 20;
             //PlayerPos = playerPos;  //may work, annars placera om PlayerPos
            
             // if sats för att kolla om Character är inom 5 rutor av Enemy. Enemy blir då Active.
@@ -64,7 +64,7 @@ namespace DungeonCrawl
 
             Frame = 0;
 
-            dex = 5;
+            
 
 
         }

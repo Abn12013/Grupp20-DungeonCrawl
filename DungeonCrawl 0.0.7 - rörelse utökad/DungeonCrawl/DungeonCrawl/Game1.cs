@@ -24,6 +24,8 @@ namespace DungeonCrawl
         SoundBank soundBank;
         Cue MenyHT;//High tension
         Cue IngameTGU;//The great unknown
+        Cue attackSound; // Attack ljud
+        Cue attackMiss; // Attack miss ljud
         bool playmenumusic = true;
         bool playingamemusic = true;
         float musicends = 155000;
@@ -269,6 +271,9 @@ namespace DungeonCrawl
 
             IngameTGU = soundBank.GetCue("IG.FO-TheGreatUnknown");
             MenyHT = soundBank.GetCue("MENY.FO-HighTension");
+            attackSound = soundBank.GetCue("AttackSound");
+            attackMiss = soundBank.GetCue("AttackMiss");
+            
 
             // TODO: use this.Content to load your game content here
         }
@@ -641,6 +646,17 @@ namespace DungeonCrawl
                 saveAndLoadGame.SaveTheGame(player, floor, enemies, hpBarPos.Width);
                
             }
+            if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F6))
+            {
+                saveAndLoadGame.resetGameStats(ref player, ref floor, ref enemies, ref hpBarPos.Width); //Kallar på load save för att reseta stats
+                player.SetNewGameStats();   //Resetar karaktärs stas som str, dex, hp
+
+                IngameTGU.Stop(AudioStopOptions.Immediate); //Slutar spela upp ingameljud
+                playmenumusic = true;   //Gör så att menymusiken kan spelas
+                playingamemusic = true; //Gör så att ingame musiken kan spelas upp igen
+
+                currentGameState = GameState.MainMenu;  //Byter gamestate till huvudmenyn
+            }
 
            
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Q) && prevKs.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Q))  //Knapptryckning för att röra sig ner
@@ -704,14 +720,20 @@ namespace DungeonCrawl
                            {
                                if (enemies[i].xCoord == player.playerPosX + 1 && enemies[i].yCoord == player.playerPosY)
                                {
+                                   int tempEnemyHp = enemies[i].hp;
                                    attackDone = false;
                                    player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
-
+                                   
                                    attack2.attackPos = new Vector2(player.playerPosX + 1, player.playerPosY);
                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
 
                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
                                    player.allowButtonPress = true;
+                                   if (tempEnemyHp == enemies[i].hp)
+                                   {
+                                       soundBank.PlayCue("AttackMiss");
+                                   }
+                                   soundBank.PlayCue("AttackSound");
                                    //MessageBox.Show(enemies[i].hp.ToString());
                                    if (enemies[i].hp <= 0)
                                    {
@@ -751,38 +773,36 @@ namespace DungeonCrawl
             {
                 if (player.moveCharLeft == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
                 {
-                    player.Frame = 3;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
-                    
+                    player.Frame = 3;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen                    
                     if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type == "enemy")
                     {
-
-
                         if (attackDone == true)
                         {
                             for (int i = 0; i < enemies.Count; i++)
                             {
                                 if (enemies[i].xCoord == player.playerPosX - 1 && enemies[i].yCoord == player.playerPosY)
                                 {
+                                    int tempEnemyHp = enemies[i].hp;
                                     attackDone = false;
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
-
                                     attack2.attackPos = new Vector2(player.playerPosX - 1, player.playerPosY);
                                     attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-
                                     enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
                                     player.allowButtonPress = true;
+                                    if (tempEnemyHp == enemies[i].hp)
+                                    {
+                                        soundBank.PlayCue("AttackMiss");
+                                    }
+                                    soundBank.PlayCue("AttackSound");
                                     //MessageBox.Show(enemies[i].hp.ToString());
                                     if (enemies[i].hp <= 0)
                                     {
                                         enemies.RemoveAt(i);
                                         positionManager[player.playerPosY, player.playerPosX - 1, floor].type = "empty";
-
                                         player.Xp += 60;
                                         if (player.Xp >= player.XpToLevel)
                                         {
                                             player.LevelUp(ref hpBarPos.Width);
-                                            
-                                          
                                         }
                                     }
                                 }
@@ -792,8 +812,6 @@ namespace DungeonCrawl
                                 }
                             }
                         }
-
-
                     }
 
                     else if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
@@ -803,48 +821,43 @@ namespace DungeonCrawl
                         //positionManager[player.playerPosY, player.playerPosX - 1, 0].type = "player";    //Sätter rutan man rörde sig mot till player
                         player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
                         player.playerPosX -= 1;
-                    }
-                    
+                    }                    
                 }
-
             }
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.W)) //Knapptryckning för att röra sig upp
             {
                 if (player.moveCharUp == false && player.allowButtonPress == true)    //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
-                {
-                   
+                {                   
                     player.Frame = 9;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
-                   
                     if (positionManager[player.playerPosY -1 , player.playerPosX , floor].type == "enemy")
                     {
-
-
                         if (attackDone == true)
                         {
                             for (int i = 0; i < enemies.Count; i++)
                             {
                                 if (enemies[i].xCoord == player.playerPosX  && enemies[i].yCoord == player.playerPosY - 1)
                                 {
+                                    int tempEnemyHp = enemies[i].hp;
                                     attackDone = false;
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
-
                                     attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY - 1);
                                     attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-
                                     enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
                                     player.allowButtonPress = true;
+                                    if (tempEnemyHp == enemies[i].hp)
+                                    {
+                                        soundBank.PlayCue("AttackMiss");
+                                    }
+                                    soundBank.PlayCue("AttackSound");
                                     //MessageBox.Show(enemies[i].hp.ToString());
                                     if (enemies[i].hp <= 0)
                                     {
                                         enemies.RemoveAt(i);
                                         positionManager[player.playerPosY - 1, player.playerPosX, floor].type = "empty";
-
                                         player.Xp += 60;
                                         if (player.Xp >= player.XpToLevel)
                                         {
                                             player.LevelUp(ref hpBarPos.Width);
-                                            
-                                           
                                         }
                                     }
                                 }
@@ -854,9 +867,6 @@ namespace DungeonCrawl
                                 }
                             }
                         }
-
-
-                        //attack
                     }
                     
                     else if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
@@ -866,9 +876,7 @@ namespace DungeonCrawl
                         //positionManager[player.playerPosY - 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
                         player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
                         player.playerPosY -= 1;
-
                     }
-                    
                 }
             }
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.S))  //Knapptryckning för att röra sig ner
@@ -879,34 +887,33 @@ namespace DungeonCrawl
 
                     if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type == "enemy")
                     {
-
-
                         if (attackDone == true)
                         {
                             for (int i = 0; i < enemies.Count; i++)
                             {
                                 if (enemies[i].xCoord == player.playerPosX && enemies[i].yCoord == player.playerPosY + 1)
                                 {
+                                    int tempEnemyHp = enemies[i].hp;
                                     attackDone = false;
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
-
                                     attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY + 1);
                                     attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-
                                     enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
                                     player.allowButtonPress = true;
+                                    if (tempEnemyHp == enemies[i].hp)
+                                    {
+                                        soundBank.PlayCue("AttackMiss");
+                                    }
+                                    soundBank.PlayCue("AttackSound");
                                     //MessageBox.Show(enemies[i].hp.ToString());
                                     if (enemies[i].hp <= 0)
                                     {
                                         enemies.RemoveAt(i);
                                         positionManager[player.playerPosY + 1, player.playerPosX, floor].type = "empty";
-
                                         player.Xp += 60;
                                         if (player.Xp >= player.XpToLevel)
                                         {
                                             player.LevelUp(ref hpBarPos.Width);
-                                            
-                                            
                                         }
                                     }
                                 }
@@ -916,9 +923,6 @@ namespace DungeonCrawl
                                 }
                             }
                         }
-
-
-                        //attack
                     }
                     
                     else if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
@@ -946,19 +950,63 @@ namespace DungeonCrawl
 
            if (mousestate1.RightButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.RightButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
            {
-               if(moveUpBox.Contains(mouseposition))
-           {
-               if (player.moveCharUp == false && player.allowButtonPress == true)    //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
+                   if(moveUpBox.Contains(mouseposition))
                {
-                   player.Frame = 9;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
-                   if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
+                   if (player.moveCharUp == false && player.allowButtonPress == true)    //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
                    {
-                       player.moveCharUp = true;  //Gör så att man rör sig upp
-                       //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                       //positionManager[player.playerPosY -= 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
-                       player.playerPosY -= 1;
-                       player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
-                   } } } }
+                       player.Frame = 9;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
+                       if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type == "enemy")
+                       {
+                           if (attackDone == true)
+                           {
+                               for (int i = 0; i < enemies.Count; i++)
+                               {
+                                   if (enemies[i].xCoord == player.playerPosX && enemies[i].yCoord == player.playerPosY - 1)
+                                   {
+                                       int tempEnemyHp = enemies[i].hp;
+                                       attackDone = false;
+                                       player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
+
+                                       attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY - 1);
+                                       attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+
+                                       enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       player.allowButtonPress = true;
+                                       if (tempEnemyHp == enemies[i].hp)
+                                       {
+                                           soundBank.PlayCue("AttackMiss");
+                                       }
+                                       soundBank.PlayCue("AttackSound");
+                                       //MessageBox.Show(enemies[i].hp.ToString());
+                                       if (enemies[i].hp <= 0)
+                                       {
+                                           enemies.RemoveAt(i);
+                                           positionManager[player.playerPosY - 1, player.playerPosX, floor].type = "empty";
+                                           player.Xp += 60;
+                                           if (player.Xp >= player.XpToLevel)
+                                           {
+                                               player.LevelUp(ref hpBarPos.Width);
+                                           }
+                                       }
+                                   }
+                                   else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
+                                   {
+                                   }
+                               }
+                           }
+                       }
+                       else if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
+                       {
+                           player.moveCharUp = true;  //Gör så att man rör sig upp
+                           //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
+                           //positionManager[player.playerPosY -= 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+                           player.playerPosY -= 1;
+                           player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
+
+                       }
+                   } 
+               } 
+           }
 
            if (mousestate1.RightButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.RightButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
            {
@@ -966,8 +1014,48 @@ namespace DungeonCrawl
                {
                    if (player.moveCharDown == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
                    {
-                       player.Frame = 0; //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
-                       if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
+                       player.Frame = 0; //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen                   
+                       if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type == "enemy")
+                       {
+                           if (attackDone == true)
+                           {
+                               for (int i = 0; i < enemies.Count; i++)
+                               {
+                                   if (enemies[i].xCoord == player.playerPosX && enemies[i].yCoord == player.playerPosY + 1)
+                                   {
+                                       int tempEnemyHp = enemies[i].hp;
+                                       attackDone = false;
+                                       player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
+                                       attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY + 1);
+                                       attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+                                       enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       player.allowButtonPress = true;
+                                       if (tempEnemyHp == enemies[i].hp)
+                                       {
+                                           soundBank.PlayCue("AttackMiss");
+                                       }
+                                       soundBank.PlayCue("AttackSound");
+                                       //MessageBox.Show(enemies[i].hp.ToString());
+                                       if (enemies[i].hp <= 0)
+                                       {
+                                           enemies.RemoveAt(i);
+                                           positionManager[player.playerPosY + 1, player.playerPosX, floor].type = "empty";
+
+                                           player.Xp += 60;
+                                           if (player.Xp >= player.XpToLevel)
+                                           {
+                                               player.LevelUp(ref hpBarPos.Width);
+                                           }
+                                       }
+                                   }
+                                   else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
+                                   {
+
+                                   }
+                               }
+                           }
+                       }
+                       else if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
                        {
                            player.moveCharDown = true;    //Gör så att man rör sig ner
                            //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
@@ -986,7 +1074,49 @@ namespace DungeonCrawl
                    if (player.moveCharLeft == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
                    {
                        player.Frame = 3;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
-                       if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
+                       if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type == "enemy")
+                       {
+                           if (attackDone == true)
+                           {
+                               for (int i = 0; i < enemies.Count; i++)
+                               {
+                                   if (enemies[i].xCoord == player.playerPosX + 1 && enemies[i].yCoord == player.playerPosY)
+                                   {
+                                       int tempEnemyHp = enemies[i].hp;
+                                       attackDone = false;
+                                       player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
+
+                                       attack2.attackPos = new Vector2(player.playerPosX + 1, player.playerPosY);
+                                       attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+
+                                       enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       player.allowButtonPress = true;
+                                       if (tempEnemyHp == enemies[i].hp)
+                                       {
+                                           soundBank.PlayCue("AttackMiss");
+                                       }
+                                       soundBank.PlayCue("AttackSound");
+                                       //MessageBox.Show(enemies[i].hp.ToString());
+                                       if (enemies[i].hp <= 0)
+                                       {
+                                           enemies.RemoveAt(i);
+                                           positionManager[player.playerPosY, player.playerPosX + 1, floor].type = "empty";
+
+                                           player.Xp += 60;
+                                           if (player.Xp >= player.XpToLevel)
+                                           {
+                                               player.LevelUp(ref hpBarPos.Width);
+                                           }
+                                       }
+                                   }
+                                   else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
+                                   {
+
+                                   }
+                               }
+                           }
+                       }
+                       else if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
                        {
                            player.moveCharLeft = true;    //Gör så att man rör sig åt vänster
                            //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
@@ -1005,7 +1135,47 @@ namespace DungeonCrawl
                    if (player.moveCharRight == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
                    {
                        player.Frame = 6;   //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
-                       if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
+                       if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type == "enemy")
+                       {
+                           if (attackDone == true)
+                           {
+                               for (int i = 0; i < enemies.Count; i++)
+                               {
+                                   if (enemies[i].xCoord == player.playerPosX - 1 && enemies[i].yCoord == player.playerPosY)
+                                   {
+                                       int tempEnemyHp = enemies[i].hp;
+                                       attackDone = false;
+                                       player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
+                                       attack2.attackPos = new Vector2(player.playerPosX - 1, player.playerPosY);
+                                       attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+                                       enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       player.allowButtonPress = true;
+                                       if (tempEnemyHp == enemies[i].hp)
+                                       {
+                                           soundBank.PlayCue("AttackMiss");
+                                       }
+                                       soundBank.PlayCue("AttackSound");
+                                       //MessageBox.Show(enemies[i].hp.ToString());
+                                       if (enemies[i].hp <= 0)
+                                       {
+                                           enemies.RemoveAt(i);
+                                           positionManager[player.playerPosY, player.playerPosX - 1, floor].type = "empty";
+
+                                           player.Xp += 60;
+                                           if (player.Xp >= player.XpToLevel)
+                                           {
+                                               player.LevelUp(ref hpBarPos.Width);
+                                           }
+                                       }
+                                   }
+                                   else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
+                                   {
+
+                                   }
+                               }
+                           }
+                       }
+                       else if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
                        {
                            player.moveCharRight = true;    //Gör så att man rör sig åt höger
                            //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"

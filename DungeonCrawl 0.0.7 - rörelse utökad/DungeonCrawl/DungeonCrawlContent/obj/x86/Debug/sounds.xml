@@ -11,12 +11,10 @@
     Compression Preset Name = &lt;none&gt;;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 3715371711;
-    PC Bank Last Modified High = 30269275;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 2373874982;
-    Bank Last Revised High = 30269275;
+    PC Bank Last Modified Low = 1098918887;
+    PC Bank Last Modified High = 30271699;
+    Bank Last Revised Low = 233899411;
+    Bank Last Revised High = 30271699;
 
     Wave
     {
@@ -36,8 +34,8 @@
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3861151089;
-            Last Modified High = 30268882;
+            Last Modified Low = 3368802470;
+            Last Modified High = 30270916;
         }
     }
 
@@ -59,8 +57,54 @@
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3213844065;
-            Last Modified High = 30268882;
+            Last Modified Low = 3371702636;
+            Last Modified High = 30270916;
+        }
+    }
+
+    Wave
+    {
+        Name = AttackMiss;
+        File = AttackMiss.wav;
+        Build Settings Last Modified Low = 100191763;
+        Build Settings Last Modified High = 30271699;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 242112;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3772139976;
+            Last Modified High = 30271694;
+        }
+    }
+
+    Wave
+    {
+        Name = AttackSound;
+        File = AttackSound.wav;
+        Build Settings Last Modified Low = 100201764;
+        Build Settings Last Modified High = 30271699;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 95860;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3994096120;
+            Last Modified High = 30271698;
         }
     }
 }
