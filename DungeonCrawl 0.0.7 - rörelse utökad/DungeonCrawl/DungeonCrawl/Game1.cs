@@ -93,7 +93,7 @@ namespace DungeonCrawl
         Attack attack2 = new Attack();
 
         bool attackDone = true; //håller koll på när spelaren får genomföra en attack
-
+        bool attackDone2 = true;
 
         //Bakgrundsgrafik för huvudmeny
         Texture2D mainMenuGfx;
@@ -611,7 +611,7 @@ namespace DungeonCrawl
                     //playerhp = player.TotalHp;  //Hp innan skada
                     // int playerhp2 = player.TotalHp;  //Hp innan skada
                      player.Update(gameTime, floor);
-                    attack2.Update(gameTime, ref attackDone);
+                     attack2.Update(gameTime, ref attackDone, ref attackDone2);
 
                     bool updateEnemys = false;
                    
@@ -629,7 +629,7 @@ namespace DungeonCrawl
                      {
                          
                          enemy.PlayerPos = new Vector2(player.playerPosX, player.playerPosY); //Test ta bort sen
-                         enemy.Update(gameTime, ref positionManager, floor,player.Totdex, ref skada);
+                         enemy.Update(gameTime, ref positionManager, floor, player.Totdex, ref skada, soundBank, attackSound, attackMiss);
                      }
             //MessageBox.Show(enemy1.PlayerPos.X.ToString());
 
@@ -676,7 +676,7 @@ namespace DungeonCrawl
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.R) && prevKs.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.R))  //Knapptryckning för att röra sig ner
             {
 
-                saveAndLoadGame.SaveTheGame(player, floor, enemies, hpBarPos.Width);
+                saveAndLoadGame.SaveTheGame(player, floor, enemies, hpBarPos.Width, positionManager);
                
             }
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F6))

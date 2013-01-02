@@ -44,6 +44,11 @@ namespace DungeonCrawl
         //17: Fienders Hp
 
         //Övrigasaker
+        //18: hpbar bredd
+        //19: Antal öppnade kistor
+        //20: Öppnadekistor Y position
+        //21: Öppnadekistor X position
+        //22: Öppnadekistor Våning
 
         public void resetGameStats(ref Character Player, ref int floor, ref List<Enemy> enemis, ref int bredd)
         {
@@ -72,7 +77,7 @@ namespace DungeonCrawl
         
         }
 
-        public void SaveTheGame(Character Player, int floor, List<Enemy> enemis, float bredd)
+        public void SaveTheGame(Character Player, int floor, List<Enemy> enemis, float bredd, PositionManager[,,]positionManager)
         {
             StreamWriter saveGame = new StreamWriter("save");
             //Spelar värden
@@ -101,6 +106,40 @@ namespace DungeonCrawl
 
             //överiga saker
             saveGame.WriteLine(bredd);
+
+            int antalÖppnadeKistor = 0;
+
+            for (int våning = 0; våning < 3; våning++)
+            {
+                for (int y = 0; y < 34; y++)
+                {
+                    for (int x = 0; x < 52; x++)
+                    {
+                        if (positionManager[y, x, våning].type == "emptychest")
+                        {
+                            antalÖppnadeKistor += 1;
+                        }
+                    }
+                }
+            }
+            saveGame.WriteLine(antalÖppnadeKistor);
+
+            for (int våning = 0; våning < 3; våning++)
+            {
+                for (int y = 0; y < 34; y++)
+                {
+                    for (int x = 0; x < 52; x++)
+                    {
+                        if (positionManager[y, x, våning].type == "emptychest")
+                        {
+                            saveGame.WriteLine(y);
+                            saveGame.WriteLine(x);
+                            saveGame.WriteLine(våning);
+                        }
+                    }
+                }
+            }
+
 
             saveGame.Close();
         }
@@ -139,6 +178,22 @@ namespace DungeonCrawl
 
             //överiga värden
             bredd = int.Parse(loadGame.ReadLine());
+
+            int numberOfOpenChest = int.Parse(loadGame.ReadLine());
+
+            if (numberOfOpenChest != 0)
+            {
+                for (int i = 0; i < numberOfOpenChest; i++)
+                {
+
+                    int ypos = int.Parse(loadGame.ReadLine());
+                    int xpos = int.Parse(loadGame.ReadLine());
+                    int våning = int.Parse(loadGame.ReadLine());
+
+                    positionmanger[ypos, xpos, våning].type = "emptychest";
+
+                }
+            }
             
             loadGame.Close();
 

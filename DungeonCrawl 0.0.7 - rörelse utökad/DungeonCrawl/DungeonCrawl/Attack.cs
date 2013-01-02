@@ -25,6 +25,7 @@ namespace DungeonCrawl
         float x;
         float y;
         int moved = 0;
+        int moved2 = 0;
         Random random = new Random();
         SpriteBatch spriteBatch;
         //hämta int array för fiender
@@ -104,11 +105,11 @@ namespace DungeonCrawl
         //{
 
         //}
-        public void Update(GameTime gameTime, ref bool canAttack)
+        public void Update(GameTime gameTime, ref bool canAttack, ref bool attackDone2)
         {
             
 
-            moved += 4;
+            moved += 2;
             if (moved > 1 && moved < 16)
             { Frame = 0; }
             else if (moved > 16 && moved < 32)
@@ -125,6 +126,12 @@ namespace DungeonCrawl
             {
                 canAttack = true;
             }
+
+
+           
+
+
+
 
             base.Update(gameTime);
         }

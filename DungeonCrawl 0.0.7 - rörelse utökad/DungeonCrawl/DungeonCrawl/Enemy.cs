@@ -269,10 +269,10 @@ namespace DungeonCrawl
         }
 
 
-        public void Update(GameTime gameTime,  ref PositionManager[,,]  positionManager, int floor, int playerdex, ref int skada)
+        public void Update(GameTime gameTime,  ref PositionManager[,,]  positionManager, int floor, int playerdex, ref int skada, SoundBank soundBank, Cue attackHit, Cue attackMiss)
         {
-
-
+           
+            
             if (resetAttack == false)
             {
                 moved2 += 1;
@@ -330,6 +330,10 @@ namespace DungeonCrawl
                             if (resetAttack == true)
                             {
                                 skada = EnemyAttackCalc(playerdex);
+                                if (skada != 0)
+                                { soundBank.PlayCue("AttackSound"); }
+                                else if (skada == 0)
+                                { soundBank.PlayCue("AttackMiss"); }
                                 //attackAnimationDone = true; //Gör så att fiendens attackanimation
                                 
 
@@ -363,6 +367,10 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        if (skada != 0)
+                                        { soundBank.PlayCue("AttackSound"); }
+                                        else if (skada == 0)
+                                        { soundBank.PlayCue("AttackMiss"); }
                                        
                                     }
                                 }
@@ -388,6 +396,10 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        if (skada != 0)
+                                        { soundBank.PlayCue("AttackSound"); }
+                                        else if (skada == 0)
+                                        { soundBank.PlayCue("AttackMiss"); }
                                         
                                     }
 
@@ -420,6 +432,10 @@ namespace DungeonCrawl
                             if (resetAttack == true)
                             {
                                 skada = EnemyAttackCalc(playerdex);
+                                if (skada != 0)
+                                { soundBank.PlayCue("AttackSound"); }
+                                else if (skada == 0)
+                                { soundBank.PlayCue("AttackMiss"); }
                               
                                 
                             }
@@ -452,6 +468,10 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        if (skada != 0)
+                                        { soundBank.PlayCue("AttackSound"); }
+                                        else if (skada == 0)
+                                        { soundBank.PlayCue("AttackMiss"); }
                                        
                                     }
                                 }
@@ -478,6 +498,10 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        if (skada != 0)
+                                        { soundBank.PlayCue("AttackSound"); }
+                                        else if (skada == 0)
+                                        { soundBank.PlayCue("AttackMiss"); }
                                    
                                     }
 
@@ -511,6 +535,10 @@ namespace DungeonCrawl
                             if (resetAttack == true)
                             {
                                 skada = EnemyAttackCalc(playerdex);
+                                if (skada != 0)
+                                { soundBank.PlayCue("AttackSound"); }
+                                else if (skada == 0)
+                                { soundBank.PlayCue("AttackMiss"); }
                               
                             }
                         }
@@ -543,6 +571,10 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        if (skada != 0)
+                                        { soundBank.PlayCue("AttackSound"); }
+                                        else if (skada == 0)
+                                        { soundBank.PlayCue("AttackMiss"); }
                                      
 
                                     }
@@ -570,6 +602,10 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        if (skada != 0)
+                                        { soundBank.PlayCue("AttackSound"); }
+                                        else if (skada == 0)
+                                        { soundBank.PlayCue("AttackMiss"); }
                                         
 
                                     }
@@ -604,6 +640,10 @@ namespace DungeonCrawl
                             if (resetAttack == true)
                             {
                                 skada = EnemyAttackCalc(playerdex);
+                                if (skada != 0)
+                                { soundBank.PlayCue("AttackSound"); }
+                                else if (skada == 0)
+                                { soundBank.PlayCue("AttackMiss"); }
                                
                             }
                             
@@ -637,6 +677,10 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        if (skada != 0)
+                                        { soundBank.PlayCue("AttackSound"); }
+                                        else if (skada == 0)
+                                        { soundBank.PlayCue("AttackMiss"); }
                                        
 
                                     }
@@ -664,6 +708,10 @@ namespace DungeonCrawl
                                     if (resetAttack == true)
                                     {
                                         skada = EnemyAttackCalc(playerdex);
+                                        if (skada != 0)
+                                        { soundBank.PlayCue("AttackSound"); }
+                                        else if (skada == 0)
+                                        { soundBank.PlayCue("AttackMiss"); }
                                         attackAnimationDone = true; //Gör så att fiendens attackanimation
 
                                     }
