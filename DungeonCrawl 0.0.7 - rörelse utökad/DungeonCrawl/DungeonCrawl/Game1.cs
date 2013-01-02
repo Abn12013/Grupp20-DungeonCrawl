@@ -36,7 +36,7 @@ namespace DungeonCrawl
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Random rnd = new Random();
-        enum GameState {NewGame, MainMenu, LoadGame, ChangeLevel, Game,GameOver }
+        enum GameState {NewGame, MainMenu, LoadGame, ChangeLevel, Game,GameOver, Victory }
 
         GameState currentGameState = GameState.MainMenu;    //Sätter start gamestatet
 
@@ -139,6 +139,10 @@ namespace DungeonCrawl
         Button buttonGameOverMenu = new Button(616, 594, 170, 98);
         Button buttonGameOverExit = new Button(17, 592, 170, 98);
 
+        //Victory grafik
+        Button buttonVictoryMenu = new Button(616, 594, 170, 98);
+        Button buttonVictoryExit = new Button(17, 592, 170, 98);
+
         //Fog of war texturer
         Texture2D visionTileGfx;
 
@@ -161,6 +165,21 @@ namespace DungeonCrawl
 
         //Gameover
         Texture2D gameOverGfx;
+
+        //victory
+        bool VictoryShowButtons = false;
+
+        Texture2D victoryGfx;
+
+        Texture2D VictoryCreditsGfx;
+        Vector2 VictoryCreditsPos;
+
+        Texture2D VictoryCreditsGfx2;
+        Vector2 VictoryCreditsPos2;
+
+        Texture2D VictoryCreditsGfx3;
+        Vector2 VictoryCreditsPos3;
+
 
         public Game1()
         {
@@ -200,6 +219,20 @@ namespace DungeonCrawl
 
             //Game over screen
             gameOverGfx = Content.Load<Texture2D>("gameover");
+
+            //Victroy screen
+            victoryGfx = Content.Load<Texture2D>("victory");
+
+            VictoryCreditsGfx = Content.Load<Texture2D>("creditsFirst");
+            VictoryCreditsPos = new Vector2(0, 0);
+
+            VictoryCreditsGfx2 = Content.Load<Texture2D>("creditsMiddle");
+            VictoryCreditsPos2 = new Vector2(0, 2000);
+
+            VictoryCreditsGfx3 = Content.Load<Texture2D>("creditsLast");
+            VictoryCreditsPos3 = new Vector2(0, 4000);
+
+
 
             //Laddar in grafik för levelup popupfönster
             popUpLevelUp = Content.Load<Texture2D>("popupLevel");
@@ -1236,6 +1269,65 @@ namespace DungeonCrawl
                     prevMs1 = mousestate4;
 
                     break;
+                case GameState.Victory:
+
+                    if (VictoryCreditsPos3.Y > -220)
+                    {
+                        VictoryCreditsPos.Y -= 1;
+                        VictoryCreditsPos2.Y -= 1;
+                        VictoryCreditsPos3.Y -= 1;
+                    }
+
+                    MouseState mousestate5 = Mouse.GetState();
+                    var mouseposition5 = new Point(mousestate5.X, mousestate5.Y);
+
+                    if (mousestate5.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed)) //Gör så att knapparna visas, så att man kan stänga av eller gå till menyn
+                    { VictoryShowButtons = true; }
+
+                    if (VictoryShowButtons == true)
+                    {
+                        // går till huvudmenyn och resetar variabler till sina ursprungliga värden för att man skall kunna spela igen
+                        if (buttonVictoryMenu.buttonRect.Contains(mouseposition5))
+                        {
+                            if (mousestate5.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                            { buttonVictoryMenu.pressed = true; }
+                            else { buttonVictoryMenu.pressed = false; }
+                            if (mousestate5.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                            {
+
+                                saveAndLoadGame.resetGameStats(ref player, ref floor, ref enemies, ref hpBarPos.Width); //Kallar på load save för att reseta stats
+                                player.SetNewGameStats();   //Resetar karaktärs stas som str, dex, hp
+
+                                IngameTGU.Stop(AudioStopOptions.Immediate); //Slutar spela upp ingameljud
+                                playmenumusic = true;   //Gör så att menymusiken kan spelas
+                                playingamemusic = true; //Gör så att ingame musiken kan spelas upp igen
+
+                                VictoryShowButtons = false;
+
+                                //Nollställer positionerna på credits
+                                VictoryCreditsPos.Y =0;
+                                VictoryCreditsPos2.Y =2000;
+                                VictoryCreditsPos3.Y =4000;
+
+                                currentGameState = GameState.MainMenu;  //Byter gamestate till huvudmenyn
+                            }
+                        }
+
+                        if (buttonVictoryExit.buttonRect.Contains(mouseposition5))
+                        {
+                            if (mousestate5.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                            { buttonVictoryExit.pressed = true; }
+                            else { buttonVictoryExit.pressed = false; }
+                            if (mousestate5.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                            {
+                                Application.Exit();
+                            }
+                        }
+                    }
+
+                    prevMs1 = mousestate5;
+
+                    break;
             }
            
 
@@ -1761,6 +1853,28 @@ namespace DungeonCrawl
                     if (buttonGameOverExit.pressed == true)//Gör så det ser ut som man trycker på knappen new game
                     { buttonGameOverExit.draw(spriteBatch, 0.95f, exitKnappGfx); }
                     else { buttonGameOverExit.pressed = false; }
+
+
+                    break;
+                case GameState.Victory:
+
+                     spriteBatch.Draw(VictoryCreditsGfx, VictoryCreditsPos, null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.09f); //Credits
+                    spriteBatch.Draw(VictoryCreditsGfx2, VictoryCreditsPos2, null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.09f); //Credits
+                    spriteBatch.Draw(VictoryCreditsGfx3, VictoryCreditsPos3, null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.09f); //Credits
+
+                    if (VictoryShowButtons == true)
+                    {
+
+                        spriteBatch.Draw(victoryGfx, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.1f);
+
+                        if (buttonVictoryMenu.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                        { buttonVictoryMenu.draw(spriteBatch, 0.95f, menuKnappGfx); }
+                        else { buttonVictoryMenu.pressed = false; }
+
+                        if (buttonVictoryExit.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                        { buttonVictoryExit.draw(spriteBatch, 0.95f, exitKnappGfx); }
+                        else { buttonVictoryExit.pressed = false; }
+                    }
 
 
                     break;

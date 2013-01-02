@@ -77,7 +77,7 @@ namespace DungeonCrawl
             //TotalHp = RaceHp + ClassHp;
 
             victoryConition = false;
-
+            Victory = false;
 
             Frame = 0;
 
@@ -98,6 +98,9 @@ namespace DungeonCrawl
         }
 
         public bool victoryConition
+        { get; set; }
+
+        public bool Victory
         { get; set; }
 
         public int playerPosY   //Håller koll på spelarens Y pos i rutnätet
@@ -363,6 +366,8 @@ namespace DungeonCrawl
                 if (victoryConition == true)
                 {
                     MessageBox.Show("Add victory screen adam");
+                    Victory = true;
+
                 }
                 
             }
