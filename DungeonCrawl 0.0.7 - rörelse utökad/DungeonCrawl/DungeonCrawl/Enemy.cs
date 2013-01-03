@@ -786,6 +786,10 @@ namespace DungeonCrawl
 
         }
 
+        public void DmgDraw(SpriteBatch spritebatch, SpriteFont font, string text, Vector2 pos, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float depth)
+        {
+            spritebatch.DrawString(font, text, pos, color, rotation, origin, scale, effects, depth);
+        }
         //public override void Draw2(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)
         //{
         //    Rectangle tmp2 = new Rectangle((Frame % 4) * 64, (Frame / 4) * 64, 64, 64);

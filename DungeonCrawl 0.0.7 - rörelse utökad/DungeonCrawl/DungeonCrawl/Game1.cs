@@ -83,6 +83,9 @@ namespace DungeonCrawl
 
 
             SpriteFont hpText;
+            SpriteFont hpText2;
+            public int playerdmg;
+            public int enemydmg;
 
             Texture2D interface_ingame;
 
@@ -289,6 +292,7 @@ namespace DungeonCrawl
 
             //Laddar in spritefont för, hpbar text, xpbar, level, str, dex
             hpText = Content.Load<SpriteFont>("hpfont");
+            hpText2 = Content.Load<SpriteFont>("SpriteFont2");
 
             //Laddar in grafiken för ingame-interface
             interface_ingame = Content.Load<Texture2D>("gameinterface");
@@ -642,6 +646,10 @@ namespace DungeonCrawl
                      int hploss = (int)hpBarBredd * skada;
                      hpBarPos.Width -= hploss;
 
+                     if (skada != 0)
+                     {
+                         enemydmg = skada;
+                     }
                      skada = 0;
 
                      if (player.TotalHp <= 0)
@@ -761,6 +769,8 @@ namespace DungeonCrawl
                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
 
                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                   playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+
                                    player.allowButtonPress = true;
                                    if (tempEnemyHp == enemies[i].hp)
                                    {
@@ -820,7 +830,10 @@ namespace DungeonCrawl
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                     attack2.attackPos = new Vector2(player.playerPosX - 1, player.playerPosY);
                                     attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+                                    
                                     enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                    playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                    
                                     player.allowButtonPress = true;
                                     if (tempEnemyHp == enemies[i].hp)
                                     {
@@ -875,7 +888,10 @@ namespace DungeonCrawl
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                     attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY - 1);
                                     attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+                                  
                                     enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                    playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                    
                                     player.allowButtonPress = true;
                                     if (tempEnemyHp == enemies[i].hp)
                                     {
@@ -931,7 +947,10 @@ namespace DungeonCrawl
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                     attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY + 1);
                                     attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+                                   
                                     enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                    playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                    
                                     player.allowButtonPress = true;
                                     if (tempEnemyHp == enemies[i].hp)
                                     {
@@ -1004,6 +1023,8 @@ namespace DungeonCrawl
                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
 
                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       
                                        player.allowButtonPress = true;
                                        if (tempEnemyHp == enemies[i].hp)
                                        {
@@ -1061,7 +1082,10 @@ namespace DungeonCrawl
                                        player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                        attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY + 1);
                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+                                       
                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       
                                        player.allowButtonPress = true;
                                        if (tempEnemyHp == enemies[i].hp)
                                        {
@@ -1123,6 +1147,8 @@ namespace DungeonCrawl
                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
 
                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       
                                        player.allowButtonPress = true;
                                        if (tempEnemyHp == enemies[i].hp)
                                        {
@@ -1181,7 +1207,10 @@ namespace DungeonCrawl
                                        player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                        attack2.attackPos = new Vector2(player.playerPosX - 1, player.playerPosY);
                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+                                       
                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                       
                                        player.allowButtonPress = true;
                                        if (tempEnemyHp == enemies[i].hp)
                                        {
@@ -1514,6 +1543,8 @@ namespace DungeonCrawl
                     {
                         if (enemies[i].attackAnimationDone == true)
                         {
+                            enemies[i].DmgDraw(spriteBatch, hpText2, enemydmg.ToString(), new Vector2((enemies[i].Position.X) - 32, (enemies[i].Position.Y)) - enemies[i].Position + new Vector2(400, 350), Color.Red, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
                             enemies[i].Gfx2 = enemyAttackGfx;
                             enemies[i].AttackDraw(spriteBatch, player.Position,1f , new Vector2((player.playerPosX) * 64, (player.playerPosY) * 64));
                         }
@@ -1539,6 +1570,10 @@ namespace DungeonCrawl
                     spriteBatch.DrawString(hpText, player.Totdex.ToString(), new Vector2(115, 647), Color.OrangeRed, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
                     spriteBatch.DrawString(hpText, player.Level.ToString(), new Vector2(115, 672), Color.OrangeRed, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
+                    if (playerdmg > 0 && attackDone == false)
+                    {
+                        spriteBatch.DrawString(hpText2, playerdmg.ToString(), new Vector2((player.playerPosX) * 64, (player.playerPosY - 1) * 64) - player.Position + new Vector2(400, 350), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                    }
 
                     //ritar ut interface
                     spriteBatch.Draw(interface_ingame, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.94f);
