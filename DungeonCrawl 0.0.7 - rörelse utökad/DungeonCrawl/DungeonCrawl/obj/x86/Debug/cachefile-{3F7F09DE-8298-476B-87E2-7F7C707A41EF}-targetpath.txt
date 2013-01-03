@@ -27,6 +27,7 @@ Content\creditsFirst.xnb
 Content\creditsLast.xnb
 Content\creditsMiddle.xnb
 Content\victory.xnb
+Content\dwarf_male.xnb
 Content\hpfont.xnb
 Content\SpriteFont1.xnb
 Content\SpriteFont2.xnb

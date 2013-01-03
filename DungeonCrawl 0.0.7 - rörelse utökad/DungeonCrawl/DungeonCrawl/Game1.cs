@@ -271,7 +271,7 @@ namespace DungeonCrawl
             startKnappPos = new Vector2(200, 200);
 
             //Laddar in grafiken för spelaren
-            player.Gfx = Content.Load<Texture2D>("char_test");
+            player.Gfx = Content.Load<Texture2D>("dwarf_male");
 
             //Laddar in grafiken för fienden
             enemyGFX = Content.Load<Texture2D>("char_test");
