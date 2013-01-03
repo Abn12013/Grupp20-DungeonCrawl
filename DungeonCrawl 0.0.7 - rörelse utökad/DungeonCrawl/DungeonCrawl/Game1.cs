@@ -97,6 +97,7 @@ namespace DungeonCrawl
 
         bool attackDone = true; //håller koll på när spelaren får genomföra en attack
         bool attackDone2 = true;
+        bool attackDoneMiss = true;
 
         //Bakgrundsgrafik för huvudmeny
         Texture2D mainMenuGfx;
@@ -197,6 +198,8 @@ namespace DungeonCrawl
         Button buttonInGameMenuSave = new Button(315, 296, 171, 104);
         Button buttonInGameMenuExit = new Button(315, 422, 171, 104);
 
+
+        int playerDamgeDelt = 0;
 
         public Game1()
         {
@@ -769,6 +772,12 @@ namespace DungeonCrawl
 
             }
 
+            if (attackDone == true)
+            {
+                attackDone2 = true;
+                attackDoneMiss = true;
+            }
+
             // TODO: Add your update logic here
 
             //MessageBox.Show(positionManager[6,5,0].type);
@@ -796,16 +805,26 @@ namespace DungeonCrawl
                                    
                                    attack2.attackPos = new Vector2(player.playerPosX + 1, player.playerPosY);
                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-
+                                   //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                   int hpBefore = enemies[i].hp;
                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                   playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                   int hpAfter = enemies[i].hp;
 
+                                   playerDamgeDelt = hpBefore - hpAfter;
+                                   //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
                                    player.allowButtonPress = true;
-                                   if (tempEnemyHp == enemies[i].hp)
+                                   if (hpBefore == hpAfter)
                                    {
+                                       attackDoneMiss = false;
+                                       attackDone2 = true;
                                        soundBank.PlayCue("AttackMiss");
                                    }
-                                   soundBank.PlayCue("AttackSound");
+                                   else if (hpBefore != hpAfter)
+                                   {
+                                       attackDoneMiss = true;
+                                       attackDone2 = false;
+                                       soundBank.PlayCue("AttackSound");
+                                   }
                                    //MessageBox.Show(enemies[i].hp.ToString());
                                    if (enemies[i].hp <= 0)
                                    {
@@ -859,16 +878,28 @@ namespace DungeonCrawl
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                     attack2.attackPos = new Vector2(player.playerPosX - 1, player.playerPosY);
                                     attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                    
+                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                    int hpBefore = enemies[i].hp;
                                     enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    
+                                    int hpAfter = enemies[i].hp;
+
+                                    playerDamgeDelt = hpBefore - hpAfter;
+                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
                                     player.allowButtonPress = true;
-                                    if (tempEnemyHp == enemies[i].hp)
+                                    if (hpBefore == hpAfter)
                                     {
+                                        attackDoneMiss = false;
+                                        attackDone2 = true;
                                         soundBank.PlayCue("AttackMiss");
                                     }
-                                    soundBank.PlayCue("AttackSound");
+                                    else if (hpBefore != hpAfter)
+                                    {
+                                        attackDoneMiss = true;
+                                        attackDone2 = false;
+                                        soundBank.PlayCue("AttackSound");
+                                    }
+                                    
+                                   
                                     //MessageBox.Show(enemies[i].hp.ToString());
                                     if (enemies[i].hp <= 0)
                                     {
@@ -917,16 +948,26 @@ namespace DungeonCrawl
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                     attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY - 1);
                                     attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                  
+                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                    int hpBefore = enemies[i].hp;
                                     enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    
+                                    int hpAfter = enemies[i].hp;
+
+                                    playerDamgeDelt = hpBefore - hpAfter;
+                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
                                     player.allowButtonPress = true;
-                                    if (tempEnemyHp == enemies[i].hp)
+                                    if (hpBefore == hpAfter)
                                     {
+                                        attackDoneMiss = false;
+                                        attackDone2 = true;
                                         soundBank.PlayCue("AttackMiss");
                                     }
-                                    soundBank.PlayCue("AttackSound");
+                                    else if (hpBefore != hpAfter)
+                                    {
+                                        attackDoneMiss = true;
+                                        attackDone2 = false;
+                                        soundBank.PlayCue("AttackSound");
+                                    }
                                     //MessageBox.Show(enemies[i].hp.ToString());
                                     if (enemies[i].hp <= 0)
                                     {
@@ -976,16 +1017,26 @@ namespace DungeonCrawl
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                     attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY + 1);
                                     attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                   
+                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+                                    int hpBefore = enemies[i].hp;
                                     enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    
+                                    int hpAfter = enemies[i].hp;
+
+                                    playerDamgeDelt = hpBefore - hpAfter;
+                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
                                     player.allowButtonPress = true;
-                                    if (tempEnemyHp == enemies[i].hp)
+                                    if (hpBefore == hpAfter)
                                     {
+                                        attackDoneMiss = false;
+                                        attackDone2 = true;
                                         soundBank.PlayCue("AttackMiss");
                                     }
-                                    soundBank.PlayCue("AttackSound");
+                                    else if (hpBefore != hpAfter)
+                                    {
+                                        attackDoneMiss = true;
+                                        attackDone2 = false;
+                                        soundBank.PlayCue("AttackSound");
+                                    }
                                     //MessageBox.Show(enemies[i].hp.ToString());
                                     if (enemies[i].hp <= 0)
                                     {
@@ -1467,11 +1518,11 @@ namespace DungeonCrawl
 
         protected void AddEnemy()
         {
-            double enemyhptemp = 20 * (player.Level*1.5);
-            int enemyhp = (int) enemyhptemp;
-            double enemystrtemp = 8 * (player.Level*1.2);
-            int enemystr = (int) enemystrtemp;
-            double enemydextemp = 12 * (player.Level*1*3);
+            int enemyhptemp = 20 + (player.Level * 2);
+            int enemyhp = enemyhptemp;
+            int enemystrtemp = 8 + (player.Level*2);
+            int enemystr = enemystrtemp;
+            int enemydextemp = 12 + (player.Level*2);
             int enemydex = (int) enemydextemp;
 
             int temp = rnd.Next(floortiles.Count - 1);
@@ -1634,10 +1685,25 @@ namespace DungeonCrawl
 
                     }
 
-                    if (attackDone == false) //gör så att spelarens attackanimation bara visas nr man attackerar
+                    if (attackDone2 == false) //gör så att spelarens attackanimation bara visas nr man attackerar
                     {
                         attack2.Draw(spriteBatch, player.Position, 1f);
                     }
+
+                    if (attackDone2 == false && playerDamgeDelt > 0)
+                    {
+                        spriteBatch.DrawString(hpText2, playerDamgeDelt.ToString(), new Vector2((player.playerPosX) * 64, (player.playerPosY - 1) * 64) - player.Position + new Vector2(400, 350), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                    }
+                    else if (playerDamgeDelt == 0 && attackDoneMiss == false)
+                    {
+                        spriteBatch.DrawString(hpText2, "Miss!", new Vector2((player.playerPosX) * 64, (player.playerPosY - 1) * 64) - player.Position + new Vector2(400, 350), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                    }
+
+                    //if (playerdmg > 0 && attackDone == false)
+                    //{
+                    //    spriteBatch.DrawString(hpText2, playerdmg.ToString(), new Vector2((player.playerPosX) * 64, (player.playerPosY - 1) * 64) - player.Position + new Vector2(400, 350), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                    //}
+
 
 
                     //Ritar ut attacker
@@ -1672,10 +1738,7 @@ namespace DungeonCrawl
                     spriteBatch.DrawString(hpText, player.Totdex.ToString(), new Vector2(115, 647), Color.OrangeRed, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
                     spriteBatch.DrawString(hpText, player.Level.ToString(), new Vector2(115, 672), Color.OrangeRed, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
-                    if (playerdmg > 0 && attackDone == false)
-                    {
-                        spriteBatch.DrawString(hpText2, playerdmg.ToString(), new Vector2((player.playerPosX) * 64, (player.playerPosY - 1) * 64) - player.Position + new Vector2(400, 350), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-                    }
+                   
 
                     //ritar ut interface
                     spriteBatch.Draw(interface_ingame, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.94f);

@@ -56,7 +56,6 @@ namespace DungeonCrawl
             if (str + random.Next(0, 20) > dex) //träff                         //Måste hämta dex och str från Characterklassen.
             {
                 damage = str - random.Next(0, str / 2);
-                
             }
             else //Chans för miss
             {
@@ -120,14 +119,14 @@ namespace DungeonCrawl
             { Frame = 3; }
 
             if (moved == 64)    // när man rört sig 64 pixlar så stannar gubben
-            { moved = 0; Frame = 0; resetAttack = false; }   //olika variabler ändras så att man nu kan genomföra en ny rörelse
+            { moved = 0; Frame = 0; resetAttack = false;  }   //olika variabler ändras så att man nu kan genomföra en ny rörelse
 
             if (resetAttack == false)
             {
                 canAttack = true;
             }
 
-
+            
            
 
 
