@@ -36,7 +36,7 @@ namespace DungeonCrawl
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Random rnd = new Random();
-        enum GameState {NewGame, MainMenu, LoadGame, ChangeLevel, Game,GameOver, Victory }
+        enum GameState { NewGame, MainMenu, LoadGame, ChangeLevel, Game, GameOver, Victory, Pause }
 
         GameState currentGameState = GameState.MainMenu;    //Sätter start gamestatet
 
@@ -183,6 +183,20 @@ namespace DungeonCrawl
         Texture2D VictoryCreditsGfx3;
         Vector2 VictoryCreditsPos3;
 
+        //pause game
+        Texture2D inGameMenyBackGroundGfx;
+        Texture2D inGameMenyMenuGfx;
+
+        Vector2 inGameMenyBackGroundPos;
+
+        //Knappar ingame-menu
+        Texture2D buttonInGameMenuResumeGfx;
+        Texture2D buttonInGameMenuSaveGfx;
+
+        Button buttonInGameMenuResume = new Button(315, 170, 171, 104);
+        Button buttonInGameMenuSave = new Button(315, 296, 171, 104);
+        Button buttonInGameMenuExit = new Button(315, 422, 171, 104);
+
 
         public Game1()
         {
@@ -218,6 +232,15 @@ namespace DungeonCrawl
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //Ingame menu
+            inGameMenyBackGroundGfx = Content.Load<Texture2D>("ingamemenyback");
+            inGameMenyBackGroundPos = new Vector2(0, 0);
+
+            buttonInGameMenuResumeGfx = Content.Load<Texture2D>("ingamemenyknappresume");
+            buttonInGameMenuSaveGfx = Content.Load<Texture2D>("ingamemenyknappsave");
+
+            inGameMenyMenuGfx = Content.Load<Texture2D>("ingamemenymenu");
 
 
             //Game over screen
@@ -274,7 +297,7 @@ namespace DungeonCrawl
             player.Gfx = Content.Load<Texture2D>("dwarf_male");
 
             //Laddar in grafiken för fienden
-            enemyGFX = Content.Load<Texture2D>("char_test");
+            enemyGFX = Content.Load<Texture2D>("goblin");
 
             //Laddar in grafiken för attackanimationen
             attack2.Gfx = Content.Load<Texture2D>("animation2");
@@ -679,6 +702,12 @@ namespace DungeonCrawl
 
             //Hp och hpbar uträkningar test
             Random tal = new Random();
+
+            //Öppnar ingamenyn
+            if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape) && prevKs.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Escape))  //Knapptryckning för att röra sig ner
+            {
+                currentGameState = GameState.Pause;
+            }
 
                     //Tillfällig sparknapp
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.R) && prevKs.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.R))  //Knapptryckning för att röra sig ner
@@ -1357,6 +1386,79 @@ namespace DungeonCrawl
                     prevMs1 = mousestate5;
 
                     break;
+                case GameState.Pause:
+
+
+                    if (inGameMenyBackGroundPos.Y <= -1300)
+                    {
+                        inGameMenyBackGroundPos.Y = 0;
+                    }
+                    inGameMenyBackGroundPos.Y -= 2;
+
+
+                    MouseState mousestate6 = Mouse.GetState();
+                    var mouseposition6 = new Point(mousestate6.X, mousestate6.Y);
+
+                    // går till huvudmenyn och resetar variabler till sina ursprungliga värden för att man skall kunna spela igen
+                    if (buttonInGameMenuExit.buttonRect.Contains(mouseposition6))
+                    {
+                        if (mousestate6.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonInGameMenuExit.pressed = true; }
+                        else { buttonInGameMenuExit.pressed = false; }
+                        if (mousestate6.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+
+                            saveAndLoadGame.resetGameStats(ref player, ref floor, ref enemies, ref hpBarPos.Width); //Kallar på load save för att reseta stats
+                            player.SetNewGameStats();   //Resetar karaktärs stas som str, dex, hp
+
+                            IngameTGU.Stop(AudioStopOptions.Immediate); //Slutar spela upp ingameljud
+                            playmenumusic = true;   //Gör så att menymusiken kan spelas
+                            playingamemusic = true; //Gör så att ingame musiken kan spelas upp igen
+
+                            currentGameState = GameState.MainMenu;  //Byter gamestate till huvudmenyn
+                        }
+                    }
+
+                    if (buttonInGameMenuResume.buttonRect.Contains(mouseposition6))
+                    {
+                        if (mousestate6.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonInGameMenuResume.pressed = true; }
+                        else { buttonInGameMenuResume.pressed = false; }
+                        if (mousestate6.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+
+                            currentGameState = GameState.Game;
+
+                        }
+                    }
+
+                    if (buttonInGameMenuSave.buttonRect.Contains(mouseposition6))
+                    {
+                        if (mousestate6.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonInGameMenuSave.pressed = true; }
+                        else { buttonInGameMenuSave.pressed = false; }
+                        if (mousestate6.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+
+                            saveAndLoadGame.SaveTheGame(player, floor, enemies, hpBarPos.Width, positionManager);
+
+                        }
+                    }
+
+                    prevMs1 = mousestate6;
+                    KeyboardState ks2 = Keyboard.GetState();
+                    
+
+                    if (ks2.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape) && prevKs.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Escape))  //Knapptryckning för att röra sig ner
+                    {
+                        currentGameState = GameState.Game;
+                    }
+
+                    prevKs = ks2;
+
+
+                    break;
+
             }
            
 
@@ -1915,6 +2017,30 @@ namespace DungeonCrawl
                         { buttonVictoryExit.draw(spriteBatch, 0.95f, exitKnappGfx); }
                         else { buttonVictoryExit.pressed = false; }
                     }
+
+
+                    break;
+                case GameState.Pause:
+
+                    spriteBatch.Draw(inGameMenyBackGroundGfx, inGameMenyBackGroundPos, null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.1f);
+
+                    spriteBatch.Draw(inGameMenyMenuGfx, new Vector2(240, 100), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.2f);
+
+                    //ritar ut knappar
+                    if (buttonInGameMenuExit.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonInGameMenuExit.draw(spriteBatch, 1f, exitKnappGfx); }
+                    else { buttonInGameMenuExit.pressed = false; }
+
+                    if (buttonInGameMenuResume.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonInGameMenuResume.draw(spriteBatch, 1f, buttonInGameMenuResumeGfx); }
+                    else { buttonInGameMenuResume.pressed = false; }
+
+                    if (buttonInGameMenuSave.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonInGameMenuSave.draw(spriteBatch, 1f, buttonInGameMenuSaveGfx); }
+                    else { buttonInGameMenuSave.pressed = false; }
+
+
+
 
 
                     break;

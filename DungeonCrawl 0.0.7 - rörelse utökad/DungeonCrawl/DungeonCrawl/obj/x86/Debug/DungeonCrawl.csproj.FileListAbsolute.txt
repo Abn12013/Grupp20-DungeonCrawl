@@ -471,3 +471,10 @@ C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\Dungeon
 C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\sounds.xgs
 C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Wave Bank.xwb
 C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Sound Bank.xsb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\dwarf_male.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\goblin.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenyback.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenyknappresume.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenyknappsave.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenymenu.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\SpriteFont2.xnb
