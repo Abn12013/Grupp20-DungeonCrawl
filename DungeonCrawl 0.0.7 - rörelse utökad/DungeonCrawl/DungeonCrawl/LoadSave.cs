@@ -166,7 +166,13 @@ namespace DungeonCrawl
             int numberOfEnemis = int.Parse(loadGame.ReadLine());
             for (int i = 0; i < numberOfEnemis; i++)
             {
-                enemis.Add(new Enemy(18,5));
+                double enemyhptemp = 20 * (PlayerLoad.Level * 1.5);
+                int enemyhp = (int)enemyhptemp;
+                double enemystrtemp = 8 * (PlayerLoad.Level * 1.2);
+                int enemystr = (int)enemystrtemp;
+                double enemydextemp = 12 * (PlayerLoad.Level * 1 * 3);
+                int enemydex = (int)enemydextemp;
+                enemis.Add(new Enemy(enemyhp, enemystr, enemydex));
                 
                 enemis[i].xCoord = int.Parse(loadGame.ReadLine());
                 enemis[i].yCoord = int.Parse(loadGame.ReadLine());

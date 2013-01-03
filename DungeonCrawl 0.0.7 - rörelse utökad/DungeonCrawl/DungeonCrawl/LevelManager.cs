@@ -404,7 +404,7 @@ namespace DungeonCrawl
                             });
                             break;
                         case "enemy":
-                            enemies.Add(new Enemy(18, 20)
+                            enemies.Add(new Enemy(20, 8, 12)
                             {
                                 xCoord = (int)currentPosition.X,
                                 yCoord = (int)currentPosition.Y

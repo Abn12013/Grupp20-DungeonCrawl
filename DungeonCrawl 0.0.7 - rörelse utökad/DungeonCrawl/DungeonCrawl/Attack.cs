@@ -56,7 +56,7 @@ namespace DungeonCrawl
             if (str + random.Next(0, 20) > dex) //träff                         //Måste hämta dex och str från Characterklassen.
             {
                 damage = str - random.Next(0, str / 2);
-
+                
             }
             else //Chans för miss
             {

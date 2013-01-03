@@ -22,7 +22,6 @@ namespace DungeonCrawl
         public int str;
         Random random = new Random();
         Character character = new Character();
-        int dmg;
         string gfx;
 
         int sight = 5;
@@ -36,10 +35,11 @@ namespace DungeonCrawl
         {
 
         }
-        public Enemy(int hp, int dmg)
+        public Enemy(int hp, int str, int dex)
         {
             this.hp = hp;
-            this.dmg = dmg;
+            this.str = str;
+            this.dex = dex;
             this.gfx = gfx;
             //xCoord 
             //yCoord 
@@ -48,8 +48,6 @@ namespace DungeonCrawl
 
             allowMove = true;
 
-            str = 10;
-            dex = 20;
             //PlayerPos = playerPos;  //may work, annars placera om PlayerPos
            
             // if sats för att kolla om Character är inom 5 rutor av Enemy. Enemy blir då Active.
@@ -72,11 +70,12 @@ namespace DungeonCrawl
         public int EnemyAttackCalc(int dex)
         {
 
+
             resetAttack = false;
 
             if (str + random.Next(0, 20) > dex)                         
             {
-                dmg = str - random.Next(0, str / 2);
+                str = str - random.Next(0, str / 2);
                 attackAnimationDone = true; //kör attackanimation
             }
             else
@@ -84,19 +83,19 @@ namespace DungeonCrawl
                 int i = random.Next(1, 4);//ger en fjärdedels chans för träff
                 if (i == 1)
                 {
-                    dmg = str / (random.Next(2,5));
+                    str = str / (random.Next(2,5));
                     
                 }
                 else
                 {
-                    dmg = 0;
+                    str = 0;
                 }
             }
 
            
 
 
-            return dmg;
+            return str;
         
 
         }
@@ -269,9 +268,9 @@ namespace DungeonCrawl
         }
 
 
-        public void Update(GameTime gameTime,  ref PositionManager[,,]  positionManager, int floor, int playerdex, ref int skada, SoundBank soundBank, Cue attackHit, Cue attackMiss)
+        public void Update(GameTime gameTime,  ref PositionManager[,,]  positionManager, int floor, int playerdex, ref int skada, SoundBank soundBank, Cue attackHit, Cue attackMiss, int level)
         {
-           
+
             
             if (resetAttack == false)
             {

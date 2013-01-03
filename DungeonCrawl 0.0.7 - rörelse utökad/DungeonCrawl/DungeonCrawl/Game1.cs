@@ -629,7 +629,7 @@ namespace DungeonCrawl
                      {
                          
                          enemy.PlayerPos = new Vector2(player.playerPosX, player.playerPosY); //Test ta bort sen
-                         enemy.Update(gameTime, ref positionManager, floor, player.Totdex, ref skada, soundBank, attackSound, attackMiss);
+                         enemy.Update(gameTime, ref positionManager, floor, player.Totdex, ref skada, soundBank, attackSound, attackMiss, player.Level);
                      }
             //MessageBox.Show(enemy1.PlayerPos.X.ToString());
 
@@ -1336,7 +1336,12 @@ namespace DungeonCrawl
 
         protected void AddEnemy()
         {
-
+            double enemyhptemp = 20 * (player.Level*1.5);
+            int enemyhp = (int) enemyhptemp;
+            double enemystrtemp = 8 * (player.Level*1.2);
+            int enemystr = (int) enemystrtemp;
+            double enemydextemp = 12 * (player.Level*1*3);
+            int enemydex = (int) enemydextemp;
 
             int temp = rnd.Next(floortiles.Count - 1);
             int pSight = 8;
@@ -1346,7 +1351,7 @@ namespace DungeonCrawl
             ((floortiles.ElementAt(temp).Position.Y) / 64 > player.playerPosY - pSight)) &&
             (positionManager[(int)(floortiles.ElementAt(temp).Position.Y) / 64, (int)(floortiles.ElementAt(temp).Position.X) / 64, floor].type == "empty"))
             {
-                enemies.Add(new Enemy(18, 5)
+                enemies.Add(new Enemy(enemyhp, enemystr, enemydex)
                 {
                     xCoord = ((int)floortiles.ElementAt(temp).Position.X) / 64,
                     yCoord = ((int)floortiles.ElementAt(temp).Position.Y) / 64,
