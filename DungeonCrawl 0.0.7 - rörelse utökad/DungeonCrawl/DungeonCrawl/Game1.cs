@@ -200,6 +200,7 @@ namespace DungeonCrawl
 
 
         int playerDamgeDelt = 0;
+        Random spawnTimerRandom = new Random();
 
         public Game1()
         {
@@ -298,6 +299,8 @@ namespace DungeonCrawl
 
             //Laddar in grafiken för spelaren
             player.Gfx = Content.Load<Texture2D>("dwarf_male");
+            player.Gfx2 = Content.Load<Texture2D>("orc");
+            player.Gfx3 = Content.Load<Texture2D>("elf");
 
             //Laddar in grafiken för fienden
             enemyGFX = Content.Load<Texture2D>("goblin");
@@ -648,9 +651,10 @@ namespace DungeonCrawl
                      if (SpawnTimer <= 0)
                      {
                          AddEnemy();
-                        
+
                          
-                         SpawnTimer = 300;
+
+                         SpawnTimer = spawnTimerRandom.Next(150, 301);
                      }
                      
 
@@ -659,21 +663,22 @@ namespace DungeonCrawl
                      {
                          
                          enemy.PlayerPos = new Vector2(player.playerPosX, player.playerPosY); //Test ta bort sen
-                         enemy.Update(gameTime, ref positionManager, floor, player.Totdex, ref skada, soundBank, attackSound, attackMiss, player.Level);
+                         enemy.Update(gameTime, ref positionManager, floor, player.Totdex, ref skada, soundBank, attackSound, attackMiss, player.Level, ref player);
                      }
             //MessageBox.Show(enemy1.PlayerPos.X.ToString());
 
-
+                     
 
                      //Spelarens hpbar uträkning
                      float hpBarBredd = (float)412 / player.maximumHp;
-                     player.TotalHp -= skada;
+                     //player.TotalHp -= skada;
 
                      int hploss = (int)hpBarBredd * skada;
                      hpBarPos.Width -= hploss;
 
                      if (skada != 0)
                      {
+                        
                          enemydmg = skada;
                      }
                      skada = 0;
@@ -1518,11 +1523,11 @@ namespace DungeonCrawl
 
         protected void AddEnemy()
         {
-            int enemyhptemp = 20 + (player.Level * 2);
+            int enemyhptemp = 20 + (player.Level * 3);
             int enemyhp = enemyhptemp;
-            int enemystrtemp = 8 + (player.Level*2);
+            int enemystrtemp = 8 + (player.Level*3);
             int enemystr = enemystrtemp;
-            int enemydextemp = 12 + (player.Level*2);
+            int enemydextemp = 12 + (player.Level*3);
             int enemydex = (int) enemydextemp;
 
             int temp = rnd.Next(floortiles.Count - 1);
@@ -1709,13 +1714,21 @@ namespace DungeonCrawl
                     //Ritar ut attacker
                     for (int i = 0; i < enemies.Count; i++)
                     {
-                        if (enemies[i].attackAnimationDone == true)
+                        if (enemies[i].attackAnimationDone == true )
                         {
-                            enemies[i].DmgDraw(spriteBatch, hpText2, enemydmg.ToString(), new Vector2((enemies[i].Position.X) - 32, (enemies[i].Position.Y)) - enemies[i].Position + new Vector2(400, 350), Color.Red, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-
+                          
                             enemies[i].Gfx2 = enemyAttackGfx;
                             enemies[i].AttackDraw(spriteBatch, player.Position,1f , new Vector2((player.playerPosX) * 64, (player.playerPosY) * 64));
                         }
+                        if (enemies[i].attackDidDmg == false)
+                        {
+                            enemies[i].DmgDraw(spriteBatch, hpText2, enemydmg.ToString(), new Vector2((enemies[i].Position.X) - 32, (enemies[i].Position.Y)) - enemies[i].Position + new Vector2(400, 350), Color.Red, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                        }
+                        else if (enemies[i].attackMissed == false && skada == 0)
+                        {
+                            enemies[i].DmgDraw(spriteBatch, hpText2, "Dodge!", new Vector2((enemies[i].Position.X) - 32, (enemies[i].Position.Y)) - enemies[i].Position + new Vector2(400, 350), Color.Red, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                        }
+
                     }
 
 

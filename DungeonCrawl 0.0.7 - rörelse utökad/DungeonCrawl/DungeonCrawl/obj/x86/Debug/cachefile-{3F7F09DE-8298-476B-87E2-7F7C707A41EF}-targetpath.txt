@@ -36,6 +36,8 @@ Content\ingamemenymenu.xnb
 Content\hpfont.xnb
 Content\SpriteFont1.xnb
 Content\SpriteFont2.xnb
+Content\elf.xnb
+Content\orc.xnb
 Content\sounds.xgs
 Content\Wave Bank.xwb
 Content\Sound Bank.xsb

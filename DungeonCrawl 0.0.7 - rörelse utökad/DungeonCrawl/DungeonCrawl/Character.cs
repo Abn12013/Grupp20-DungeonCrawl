@@ -258,7 +258,7 @@ namespace DungeonCrawl
             TotalHp = (int)maximumHp + 5 * Level;
             maximumHp = TotalHp;
             Xp = Xp - XpToLevel;
-            XpToLevel = XpToLevel + 10 * Level;
+            XpToLevel = XpToLevel + 50 * Level;
             hpbarbredd = 412;
             VisaLevelUp = true;
             
@@ -277,7 +277,7 @@ namespace DungeonCrawl
         public bool allowButtonPress    //Håller koll om någon av knapparnda "W, A, S, D" har tryckts ner och gör så att man inte kan 
         { get; set; }                   //Trycka på flera knappar samtidigt.
 
-        private int moved = 0;  //Håller koll på hur långt karaktären har rört sig, och stännar rörelsen när karaktären rört sig 64 pixlar.
+        public int moved = 0;  //Håller koll på hur långt karaktären har rört sig, och stännar rörelsen när karaktären rört sig 64 pixlar.
 
         public void MoveRight() //Medtod om man rör sig till höger
         {
@@ -384,14 +384,44 @@ namespace DungeonCrawl
             base.Update(gameTime);
         }
 
+        public Texture2D Gfx2 //Grafik för orc
+        { get; set; }
+
+        public Texture2D Gfx3 //Grafik för elf
+        { get; set; }
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)
         {
             Rectangle tmp2 = new Rectangle((Frame % 3) * 56, (Frame / 3) * 56, 56, 56);
-            spriteBatch.Draw(Gfx,
-            Position - DrawOffset + new Vector2(400, 350),
-            tmp2, Color.White, 0,
-            new Vector2(28, 28), 1.0f, SpriteEffects.None, layer);
+            switch (PlayerRace) //Beroende på vilken ras man väljer kommer olika sprite sheets att väljas
+            { 
+                case "Dwarf":
+
+                  
+                  spriteBatch.Draw(Gfx,
+                  Position - DrawOffset + new Vector2(400, 350),
+                  tmp2, Color.White, 0,
+                  new Vector2(28, 28), 1.0f, SpriteEffects.None, layer);
+
+                    break;
+                case "Orc":
+
+                  spriteBatch.Draw(Gfx2,
+                  Position - DrawOffset + new Vector2(400, 350),
+                  tmp2, Color.White, 0,
+                  new Vector2(28, 28), 1.0f, SpriteEffects.None, layer);
+
+                    break;
+                case "Elf":
+
+                  spriteBatch.Draw(Gfx3,
+                  Position - DrawOffset + new Vector2(400, 350),
+                  tmp2, Color.White, 0,
+                  new Vector2(28, 28), 1.0f, SpriteEffects.None, layer);
+
+                    break;
+            }
+           
         }
 
 

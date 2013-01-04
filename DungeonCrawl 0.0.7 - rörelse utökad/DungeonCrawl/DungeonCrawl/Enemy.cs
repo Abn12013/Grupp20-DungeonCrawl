@@ -47,7 +47,10 @@ namespace DungeonCrawl
             ActiveMove = false;
 
             allowMove = true;
+            attackMissed = true;
+            attackDidDmg = true;
 
+           
             //PlayerPos = playerPos;  //may work, annars placera om PlayerPos
            
             // if sats för att kolla om Character är inom 5 rutor av Enemy. Enemy blir då Active.
@@ -70,32 +73,35 @@ namespace DungeonCrawl
         public int EnemyAttackCalc(int dex)
         {
 
-
+            int damage = 0;
             resetAttack = false;
+            
 
             if (str + random.Next(0, 20) > dex)                         
             {
-                str = str - random.Next(0, str / 2);
+                damage = str - random.Next(0, str / 2);
                 attackAnimationDone = true; //kör attackanimation
+                attackDidDmg = false;
             }
             else
             {
                 int i = random.Next(1, 4);//ger en fjärdedels chans för träff
                 if (i == 1)
                 {
-                    str = str / (random.Next(2,5));
+                    damage = str / (random.Next(2, 5));
+                    attackDidDmg = false;
                     
                 }
                 else
                 {
-                    str = 0;
+                    attackMissed = false;
+                    damage = 0;
                 }
             }
+            
 
-           
 
-
-            return str;
+            return damage;
         
 
         }
@@ -113,6 +119,8 @@ namespace DungeonCrawl
 
         public bool ActiveMove
         { get; set; }
+
+        
 
 
 
@@ -186,6 +194,16 @@ namespace DungeonCrawl
 
         public bool resetAttack
         { get; set; }
+
+        public bool attackMissed
+        { get; set; }
+
+        public bool attackDidDmg //ritar ut text om attack träffar
+        { get; set; }
+
+        //public bool attackMissed //ritar ut text om attack missar
+        //{ get; set; }
+
 
 
         private bool allowMove;
@@ -268,7 +286,7 @@ namespace DungeonCrawl
         }
 
 
-        public void Update(GameTime gameTime,  ref PositionManager[,,]  positionManager, int floor, int playerdex, ref int skada, SoundBank soundBank, Cue attackHit, Cue attackMiss, int level)
+        public void Update(GameTime gameTime,  ref PositionManager[,,]  positionManager, int floor, int playerdex, ref int skada, SoundBank soundBank, Cue attackHit, Cue attackMiss, int level, ref Character player1)
         {
 
             
@@ -285,7 +303,7 @@ namespace DungeonCrawl
                 { Frame = 3; }
 
                 if (moved2 == 64)    // när man rört sig 64 pixlar så stannar gubben
-                { moved2 = 0; Frame = 0; resetAttack = true; }   //olika variabler ändras så att man nu kan genomföra en ny rörelse
+                { moved2 = 0; Frame = 0; resetAttack = true; attackMissed = true; attackDidDmg = true; }   //olika variabler ändras så att man nu kan genomföra en ny rörelse
             }
 
 
@@ -332,9 +350,9 @@ namespace DungeonCrawl
                                 if (skada != 0)
                                 { soundBank.PlayCue("AttackSound"); }
                                 else if (skada == 0)
-                                { soundBank.PlayCue("AttackMiss"); }
+                                { soundBank.PlayCue("AttackMiss");  }
                                 //attackAnimationDone = true; //Gör så att fiendens attackanimation
-                                
+                                player1.TotalHp = player1.TotalHp - skada;
 
                             }
                         }
@@ -370,6 +388,7 @@ namespace DungeonCrawl
                                         { soundBank.PlayCue("AttackSound"); }
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
+                                        player1.TotalHp = player1.TotalHp - skada;
                                        
                                     }
                                 }
@@ -399,6 +418,7 @@ namespace DungeonCrawl
                                         { soundBank.PlayCue("AttackSound"); }
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
+                                        player1.TotalHp = player1.TotalHp - skada;
                                         
                                     }
 
@@ -435,6 +455,7 @@ namespace DungeonCrawl
                                 { soundBank.PlayCue("AttackSound"); }
                                 else if (skada == 0)
                                 { soundBank.PlayCue("AttackMiss"); }
+                                player1.TotalHp = player1.TotalHp - skada;
                               
                                 
                             }
@@ -471,6 +492,7 @@ namespace DungeonCrawl
                                         { soundBank.PlayCue("AttackSound"); }
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
+                                        player1.TotalHp = player1.TotalHp - skada;
                                        
                                     }
                                 }
@@ -501,6 +523,7 @@ namespace DungeonCrawl
                                         { soundBank.PlayCue("AttackSound"); }
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
+                                        player1.TotalHp = player1.TotalHp - skada;
                                    
                                     }
 
@@ -538,6 +561,7 @@ namespace DungeonCrawl
                                 { soundBank.PlayCue("AttackSound"); }
                                 else if (skada == 0)
                                 { soundBank.PlayCue("AttackMiss"); }
+                                player1.TotalHp = player1.TotalHp - skada;
                               
                             }
                         }
@@ -574,6 +598,7 @@ namespace DungeonCrawl
                                         { soundBank.PlayCue("AttackSound"); }
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
+                                        player1.TotalHp = player1.TotalHp - skada;
                                      
 
                                     }
@@ -605,6 +630,7 @@ namespace DungeonCrawl
                                         { soundBank.PlayCue("AttackSound"); }
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
+                                        player1.TotalHp = player1.TotalHp - skada;
                                         
 
                                     }
@@ -643,6 +669,7 @@ namespace DungeonCrawl
                                 { soundBank.PlayCue("AttackSound"); }
                                 else if (skada == 0)
                                 { soundBank.PlayCue("AttackMiss"); }
+                                player1.TotalHp = player1.TotalHp - skada;
                                
                             }
                             
@@ -680,6 +707,7 @@ namespace DungeonCrawl
                                         { soundBank.PlayCue("AttackSound"); }
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
+                                        player1.TotalHp = player1.TotalHp - skada;
                                        
 
                                     }
@@ -711,7 +739,8 @@ namespace DungeonCrawl
                                         { soundBank.PlayCue("AttackSound"); }
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
-                                        attackAnimationDone = true; //Gör så att fiendens attackanimation
+                                        player1.TotalHp = player1.TotalHp - skada;
+                                        //attackAnimationDone = true; //Gör så att fiendens attackanimation
 
                                     }
                                 }

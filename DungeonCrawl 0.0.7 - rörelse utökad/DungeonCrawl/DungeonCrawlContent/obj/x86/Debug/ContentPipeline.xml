@@ -343,6 +343,24 @@
       <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\SpriteFont2.xnb</Output>
       <Time>2013-01-03T17:06:13.1917214+01:00</Time>
     </Item>
+    <Item>
+      <Source>elf.png</Source>
+      <Name>elf</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\elf.xnb</Output>
+      <Time>2013-01-03T17:42:19+01:00</Time>
+    </Item>
+    <Item>
+      <Source>orc.png</Source>
+      <Name>orc</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\orc.xnb</Output>
+      <Time>2013-01-03T19:08:14+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

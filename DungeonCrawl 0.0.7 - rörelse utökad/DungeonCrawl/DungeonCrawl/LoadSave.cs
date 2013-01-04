@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Net;
+using Microsoft.Xna.Framework.Storage;
 using System.IO;
-using System.Windows.Forms;
 
 namespace DungeonCrawl
 {
@@ -56,6 +64,8 @@ namespace DungeonCrawl
             Player.playerPosX = 8;
             Player.playerPosY = 2;
             floor = 0;
+
+            
 
             Player.Level = 1;
             Player.Xp = 0;
@@ -166,11 +176,11 @@ namespace DungeonCrawl
             int numberOfEnemis = int.Parse(loadGame.ReadLine());
             for (int i = 0; i < numberOfEnemis; i++)
             {
-                int enemyhptemp = 20 + (PlayerLoad.Level * 2);
+                int enemyhptemp = 20 + (PlayerLoad.Level * 3);
                 int enemyhp = enemyhptemp;
-                int enemystrtemp = 8 + (PlayerLoad.Level * 2);
+                int enemystrtemp = 8 + (PlayerLoad.Level * 3);
                 int enemystr = enemystrtemp;
-                int enemydextemp = 12 + (PlayerLoad.Level * 2);
+                int enemydextemp = 12 + (PlayerLoad.Level * 3);
                 int enemydex = (int)enemydextemp;
                 enemis.Add(new Enemy(enemyhp, enemystr, enemydex));
                 
