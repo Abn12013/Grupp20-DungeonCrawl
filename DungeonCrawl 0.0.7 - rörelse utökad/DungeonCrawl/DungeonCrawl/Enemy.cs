@@ -30,7 +30,10 @@ namespace DungeonCrawl
         int radY = 0;
 
         int movespeed = 2; //måste vara delbart med 64
-        
+
+        Random rndnr = new Random();
+        public int randomnr;
+
         public Enemy()
         {
 
@@ -78,6 +81,7 @@ namespace DungeonCrawl
 
             if (random.NextDouble() > 1 / (1 + ((double)str / (double)dex) * 3))                         
             {
+                randomnr = rndnr.Next(1, 64);
                 damage = str - random.Next(0, str / 2);
                 attackAnimationDone = true; //kör attackanimation
                 attackDidDmg = false;
@@ -85,6 +89,7 @@ namespace DungeonCrawl
 
                 else
                 {
+                    randomnr = rndnr.Next(1, 64);
                     attackMissed = false;
                     damage = 0;
                 }

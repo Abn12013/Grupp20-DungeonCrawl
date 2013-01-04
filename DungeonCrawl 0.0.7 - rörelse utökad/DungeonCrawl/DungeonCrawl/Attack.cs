@@ -29,6 +29,8 @@ namespace DungeonCrawl
         Random random = new Random();
         SpriteBatch spriteBatch;
         //hämta int array för fiender
+        public int randomnr;
+
 
         public Attack()
         {
@@ -55,10 +57,12 @@ namespace DungeonCrawl
             //Måste man hämta arrayen för att veta vilken fiende som träffas, hämtas från Enemyklassen. 
             if (random.NextDouble() > 1 / (1 + ((double)str / (double)dex) * 3)) //träff                         //Måste hämta dex och str från Characterklassen.
             {
+                randomnr = random.Next(1, 64);
                 damage = str - random.Next(0, str / 2);
             }
                 else // miss
                 {
+                    randomnr = random.Next(1, 64);
                     damage = 0;
                 }
             //float Xpos = Position.X;    //Karaktärens nuvarande position på x-leden
