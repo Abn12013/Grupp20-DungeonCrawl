@@ -178,7 +178,7 @@ namespace DungeonCrawl
             {
                 int enemyhptemp = 20 + (PlayerLoad.Level * 3);
                 int enemyhp = enemyhptemp;
-                int enemystrtemp = 8 + (PlayerLoad.Level * 3);
+                int enemystrtemp = 8 + (PlayerLoad.Level * 2);
                 int enemystr = enemystrtemp;
                 int enemydextemp = 12 + (PlayerLoad.Level * 3);
                 int enemydex = (int)enemydextemp;

@@ -33,11 +33,11 @@ Content\ingamemenyback.xnb
 Content\ingamemenyknappresume.xnb
 Content\ingamemenyknappsave.xnb
 Content\ingamemenymenu.xnb
+Content\elf.xnb
+Content\orc.xnb
 Content\hpfont.xnb
 Content\SpriteFont1.xnb
 Content\SpriteFont2.xnb
-Content\elf.xnb
-Content\orc.xnb
 Content\sounds.xgs
 Content\Wave Bank.xwb
 Content\Sound Bank.xsb

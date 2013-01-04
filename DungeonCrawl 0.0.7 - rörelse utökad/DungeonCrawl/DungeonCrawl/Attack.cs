@@ -52,25 +52,15 @@ namespace DungeonCrawl
         {
             resetAttack = true;
 
-                                                                                       //Måste man hämta arrayen för att veta vilken fiende som träffas, hämtas från Enemyklassen. 
-            if (str + random.Next(0, 20) > dex) //träff                         //Måste hämta dex och str från Characterklassen.
+            //Måste man hämta arrayen för att veta vilken fiende som träffas, hämtas från Enemyklassen. 
+            if (random.NextDouble() > 1 / (1 + ((double)str / (double)dex) * 3)) //träff                         //Måste hämta dex och str från Characterklassen.
             {
                 damage = str - random.Next(0, str / 2);
             }
-            else //Chans för miss
-            {
-                int i = random.Next(1, 4);//ger en fjärdedels chans för träff
-                if (i == 1)
-                {
-                    damage = str / (random.Next(2, 5));
-                }
                 else // miss
                 {
                     damage = 0;
                 }
-
-                
-            }
             //float Xpos = Position.X;    //Karaktärens nuvarande position på x-leden
             //moved += movespeed; //plussas på med 4 för vara tick av gametime.
 

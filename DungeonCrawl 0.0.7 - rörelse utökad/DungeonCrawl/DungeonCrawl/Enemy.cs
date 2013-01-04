@@ -75,29 +75,20 @@ namespace DungeonCrawl
 
             int damage = 0;
             resetAttack = false;
-            
 
-            if (str + random.Next(0, 20) > dex)                         
+            if (random.NextDouble() > 1 / (1 + ((double)str / (double)dex) * 3))                         
             {
                 damage = str - random.Next(0, str / 2);
                 attackAnimationDone = true; //kör attackanimation
                 attackDidDmg = false;
             }
-            else
-            {
-                int i = random.Next(1, 4);//ger en fjärdedels chans för träff
-                if (i == 1)
-                {
-                    damage = str / (random.Next(2, 5));
-                    attackDidDmg = false;
-                    
-                }
+
                 else
                 {
                     attackMissed = false;
                     damage = 0;
                 }
-            }
+            
             
 
 

@@ -654,7 +654,7 @@ namespace DungeonCrawl
 
                          
 
-                         SpawnTimer = spawnTimerRandom.Next(150, 301);
+                         SpawnTimer = spawnTimerRandom.Next(10, 11);
                      }
                      
 
@@ -673,7 +673,7 @@ namespace DungeonCrawl
                      float hpBarBredd = (float)412 / player.maximumHp;
                      //player.TotalHp -= skada;
 
-                     int hploss = (int)hpBarBredd * skada;
+                     int hploss = (int)(hpBarBredd * skada);
                      hpBarPos.Width -= hploss;
 
                      if (skada != 0)
@@ -691,12 +691,12 @@ namespace DungeonCrawl
                     //
 
                      //Spelarens xpbar uträkning
-                     if (player.Xp >= 412)
+                     if (player.Xp >= player.XpToLevel)
                      {
                          xpBarPos.Width = 0;
                      }
                      float xpBarBredd = (float)412 / player.XpToLevel;
-                     xpBarPos.Width = (int)xpBarBredd * player.Xp;
+                     xpBarPos.Width = (int)(xpBarBredd * player.Xp);
 
 
                     
@@ -753,7 +753,7 @@ namespace DungeonCrawl
                 }
                 else if (positionManager[player.playerPosY, player.playerPosX, floor].type == "chest")
                 { 
-                    int hpPotsHeal = 10; // Hur mycket en HpPot helar
+                    int hpPotsHeal = (int)player.maximumHp / 2; // Hur mycket en HpPot helar
                     if (player.maximumHp >= player.TotalHp + hpPotsHeal) // Om den helar till mindre en max hp
                     {
                         hpBarBredd = (float)412 / player.maximumHp; // Sätter hp till spelarens nuvarande hp + så mycket som poten helar
@@ -1525,7 +1525,7 @@ namespace DungeonCrawl
         {
             int enemyhptemp = 20 + (player.Level * 3);
             int enemyhp = enemyhptemp;
-            int enemystrtemp = 8 + (player.Level*3);
+            int enemystrtemp = 8 + (player.Level*2);
             int enemystr = enemystrtemp;
             int enemydextemp = 12 + (player.Level*3);
             int enemydex = (int) enemydextemp;
