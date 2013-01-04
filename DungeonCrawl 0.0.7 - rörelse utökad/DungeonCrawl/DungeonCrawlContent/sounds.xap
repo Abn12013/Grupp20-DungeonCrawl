@@ -16,8 +16,8 @@ Global Settings
     Header File = sounds.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 1098898886;
-    Last Modified High = 30271699;
+    Last Modified Low = 2007752254;
+    Last Modified High = 30272121;
 
     Category
     {
@@ -225,12 +225,8 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 1098918887;
-    PC Bank Last Modified High = 30271699;
-    Bank Last Revised Low = 233899411;
-    Bank Last Revised High = 30271699;
+    Bank Last Revised Low = 1807129141;
+    Bank Last Revised High = 30272122;
 
     Wave
     {
@@ -250,8 +246,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3368802470;
-            Last Modified High = 30270916;
+            Last Modified Low = 1066823526;
+            Last Modified High = 30271948;
         }
     }
 
@@ -273,8 +269,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3371702636;
-            Last Modified High = 30270916;
+            Last Modified Low = 1085354586;
+            Last Modified High = 30271948;
         }
     }
 
@@ -296,8 +292,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3772139976;
-            Last Modified High = 30271694;
+            Last Modified Low = 1042172116;
+            Last Modified High = 30271948;
         }
     }
 
@@ -319,8 +315,31 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3994096120;
-            Last Modified High = 30271698;
+            Last Modified Low = 1042222119;
+            Last Modified High = 30271948;
+        }
+    }
+
+    Wave
+    {
+        Name = CLICK18B;
+        File = CLICK18B.WAV;
+        Build Settings Last Modified Low = 1656070501;
+        Build Settings Last Modified High = 30272122;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 22050;
+            Bits Per Sample = 0;
+            Play Region Offset = 44;
+            Play Region Length = 2058;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3878362240;
+            Last Modified High = 30271935;
         }
     }
 }
@@ -332,10 +351,6 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1105069239;
-    Bank Last Modified High = 30271699;
-    Header Last Modified High = 0;
-    Header Last Modified Low = 0;
 
     Sound
     {
@@ -525,6 +540,53 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = CLICK18B;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = CLICK18B;
+                    Entry Index = 4;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = MENY.FO-HighTension;
@@ -600,6 +662,26 @@ Sound Bank
         {
             Name = AttackSound;
             Index = 2;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = CLICK18B;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = CLICK18B;
+            Index = 4;
             Weight Min = 0;
             Weight Max = 255;
         }

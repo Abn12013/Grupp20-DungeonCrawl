@@ -489,3 +489,5 @@ C:\Users\Albin\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörel
 C:\Users\Albin\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\elf.xnb
 C:\Users\Albin\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\orc.xnb
 C:\Users\Albin\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\SpriteFont2.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\informationKnappcredits.xnb
+C:\Users\Holmis\Desktop\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\informationmenu.xnb

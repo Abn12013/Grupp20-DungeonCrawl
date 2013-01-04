@@ -17,7 +17,7 @@ namespace DungeonCrawl
             map[0] =
         "                                                    " + "\n" +
         "   #####E###########                   ###          " + "\n" +
-        " ###...............###                ##.##         " + "\n" +
+        " ###....t..........###                ##.##         " + "\n" +
         " #....###########....#      ######### #.C.#         " + "\n" +
         " #....# ######  #....#      ##..#..## ##.## ####### " + "\n" +
         " #.e..###....#  #....#      #.......###...###.....# " + "\n" +
@@ -145,6 +145,14 @@ namespace DungeonCrawl
                             };
                             temp.X++; //flyttar fram ett steg på x koordinaten till nästa tecken
                             break;
+                        case 't':
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
+                            {
+                                type = "door",
+                                floor = true
+                            };
+                            temp.X++;
+                            break;
                         case '#':
                             positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
                             {
@@ -250,13 +258,17 @@ namespace DungeonCrawl
                         case "empty":
                             break;
                         case "wall":
-                            if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type != "wall" &&
+                            
+
+                          if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type != "wall" &&
                                 positionManager[y, x + 1, floor].type != "wall" && positionManager[y, x - 1, floor].type != "wall")
                                 walls.Add(new GameObj()
                                 {
                                     Frame = 0,
                                     Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
                                 });
+                           
+
                             else if (positionManager[y + 1, x, floor].type != "wall" && positionManager[y - 1, x, floor].type != "wall" &&
                                 positionManager[y, x + 1, floor].type == "wall" && positionManager[y, x - 1, floor].type != "wall")
                                 walls.Add(new GameObj()
@@ -370,6 +382,14 @@ namespace DungeonCrawl
                                     Frame = 16,
                                     Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
                                 });
+                               
+                            break;
+                        case "door":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 23,
+                                Position = new Vector2(currentPosition.X * 64, (currentPosition.Y * 64)-32 )
+                            });
                             break;
                         case "chest":
                             objects.Add(new GameObj()

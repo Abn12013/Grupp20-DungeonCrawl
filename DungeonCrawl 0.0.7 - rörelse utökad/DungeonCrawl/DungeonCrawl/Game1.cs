@@ -26,6 +26,8 @@ namespace DungeonCrawl
         Cue IngameTGU;//The great unknown
         Cue attackSound; // Attack ljud
         Cue attackMiss; // Attack miss ljud
+        Cue buttonKlick; //Knapptrycks ljud
+
         bool playmenumusic = true;
         bool playingamemusic = true;
         float musicends = 155000;
@@ -36,7 +38,7 @@ namespace DungeonCrawl
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Random rnd = new Random();
-        enum GameState { NewGame, MainMenu, LoadGame, ChangeLevel, Game, GameOver, Victory, Pause }
+        enum GameState { NewGame, MainMenu, LoadGame, ChangeLevel, Game, GameOver, Victory, Pause, Information }
 
         GameState currentGameState = GameState.MainMenu;    //Sätter start gamestatet
 
@@ -202,6 +204,13 @@ namespace DungeonCrawl
         int playerDamgeDelt = 0;
         Random spawnTimerRandom = new Random();
 
+        //Informaion menu
+        Texture2D informationMenuBackGroundGfx;
+        Texture2D buttonInformationCreditsGfx;
+
+        Button buttonInformationCredits = new Button(564, 561, 171, 104);
+        Button buttonInformationBack = new Button(74, 561, 171, 104);
+
         public Game1()
         {
 
@@ -236,6 +245,10 @@ namespace DungeonCrawl
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //Informaton meny
+            informationMenuBackGroundGfx = Content.Load<Texture2D>("informationmenu");
+            buttonInformationCreditsGfx = Content.Load<Texture2D>("informationKnappcredits");
 
             //Ingame menu
             inGameMenyBackGroundGfx = Content.Load<Texture2D>("ingamemenyback");
@@ -339,6 +352,7 @@ namespace DungeonCrawl
             MenyHT = soundBank.GetCue("MENY.FO-HighTension");
             attackSound = soundBank.GetCue("AttackSound");
             attackMiss = soundBank.GetCue("AttackMiss");
+            buttonKlick = soundBank.GetCue("CLICK18B");
             
 
             // TODO: use this.Content to load your game content here
@@ -405,6 +419,7 @@ namespace DungeonCrawl
                         else { buttonMainMenu.pressed = false; }
                         if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             currentGameState = GameState.NewGame;
                         }
                     }
@@ -416,6 +431,7 @@ namespace DungeonCrawl
                         else { buttonMainMenuLoadGame.pressed = false; }
                         if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             loadgameTrueorFalse = true;
                             //saveAndLoadGame.LoadTheGame(ref player, ref floor, ref enemies, ref positionManager);
                             currentGameState = GameState.LoadGame;
@@ -430,7 +446,8 @@ namespace DungeonCrawl
                         else { ButtonMainMenuInfo.pressed = false; }
                         if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
-
+                            soundBank.PlayCue("CLICK18B");
+                            currentGameState = GameState.Information;
                         }
                     }
 
@@ -441,6 +458,7 @@ namespace DungeonCrawl
                         else { ButtonMainMenuExit.pressed = false; }
                         if (mousestate2.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             Application.Exit();
                         }
                     }
@@ -466,6 +484,7 @@ namespace DungeonCrawl
                         else { buttonNewGameDwarf.pressed = false; }
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             player.PlayerRace = "Dwarf";
                             player.SetNewGameStats();
                         }
@@ -477,6 +496,7 @@ namespace DungeonCrawl
                         else { buttonNewGameOrc.pressed = false; }
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             player.PlayerRace = "Orc";
                             player.SetNewGameStats();
 
@@ -490,6 +510,7 @@ namespace DungeonCrawl
                         else { buttonNewGameElf.pressed = false; }
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             player.PlayerRace = "Elf";
                             player.SetNewGameStats();
                         }
@@ -503,6 +524,7 @@ namespace DungeonCrawl
                         else { buttonNewGameFighter.pressed = false; }
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             player.playerClass = "Fighter";
                             player.SetNewGameStats();
                         }
@@ -514,6 +536,7 @@ namespace DungeonCrawl
                         else { buttonNewGameRogue.pressed = false; }
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             player.playerClass = "Rogue";
                             player.SetNewGameStats();
                         }
@@ -525,6 +548,7 @@ namespace DungeonCrawl
                         else { buttonNewGameTank.pressed = false; }
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             player.playerClass = "Tank";
                             player.SetNewGameStats();
                            
@@ -539,6 +563,7 @@ namespace DungeonCrawl
                         else { buttonNewGameStart.pressed = false; }
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             loadgameTrueorFalse = false;
                             currentGameState = GameState.LoadGame;
                         }
@@ -551,6 +576,7 @@ namespace DungeonCrawl
                         else { buttonNewGameBack.pressed = false; }
                         if (mousestate3.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             currentGameState = GameState.MainMenu;
                         }
                     }
@@ -654,7 +680,7 @@ namespace DungeonCrawl
 
                          
 
-                         SpawnTimer = spawnTimerRandom.Next(10, 11);
+                         SpawnTimer = spawnTimerRandom.Next(150, 301);
                      }
                      
 
@@ -1356,7 +1382,7 @@ namespace DungeonCrawl
                         else { buttonGameOverMenu.pressed = false; }
                         if (mousestate4.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
-                            
+                            soundBank.PlayCue("CLICK18B");
                             saveAndLoadGame.resetGameStats(ref player, ref floor, ref enemies, ref hpBarPos.Width); //Kallar på load save för att reseta stats
                             player.SetNewGameStats();   //Resetar karaktärs stas som str, dex, hp
 
@@ -1375,6 +1401,7 @@ namespace DungeonCrawl
                         else { buttonGameOverExit.pressed = false; }
                         if (mousestate4.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
+                            soundBank.PlayCue("CLICK18B");
                             Application.Exit();
                         }
                     }
@@ -1408,7 +1435,7 @@ namespace DungeonCrawl
                             else { buttonVictoryMenu.pressed = false; }
                             if (mousestate5.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                             {
-
+                                soundBank.PlayCue("CLICK18B");
                                 saveAndLoadGame.resetGameStats(ref player, ref floor, ref enemies, ref hpBarPos.Width); //Kallar på load save för att reseta stats
                                 player.SetNewGameStats();   //Resetar karaktärs stas som str, dex, hp
 
@@ -1434,6 +1461,7 @@ namespace DungeonCrawl
                             else { buttonVictoryExit.pressed = false; }
                             if (mousestate5.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                             {
+                                soundBank.PlayCue("CLICK18B");
                                 Application.Exit();
                             }
                         }
@@ -1463,7 +1491,7 @@ namespace DungeonCrawl
                         else { buttonInGameMenuExit.pressed = false; }
                         if (mousestate6.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
-
+                            soundBank.PlayCue("CLICK18B");
                             saveAndLoadGame.resetGameStats(ref player, ref floor, ref enemies, ref hpBarPos.Width); //Kallar på load save för att reseta stats
                             player.SetNewGameStats();   //Resetar karaktärs stas som str, dex, hp
 
@@ -1482,7 +1510,7 @@ namespace DungeonCrawl
                         else { buttonInGameMenuResume.pressed = false; }
                         if (mousestate6.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
-
+                            soundBank.PlayCue("CLICK18B");
                             currentGameState = GameState.Game;
 
                         }
@@ -1495,7 +1523,7 @@ namespace DungeonCrawl
                         else { buttonInGameMenuSave.pressed = false; }
                         if (mousestate6.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
                         {
-
+                            soundBank.PlayCue("CLICK18B");
                             saveAndLoadGame.SaveTheGame(player, floor, enemies, hpBarPos.Width, positionManager);
 
                         }
@@ -1512,6 +1540,41 @@ namespace DungeonCrawl
 
                     prevKs = ks2;
 
+
+                    break;
+                case GameState.Information:
+
+                    MouseState mousestate7 = Mouse.GetState();
+                    var mouseposition7 = new Point(mousestate7.X, mousestate7.Y);
+
+                    // går till huvudmenyn och resetar variabler till sina ursprungliga värden för att man skall kunna spela igen
+                    if (buttonInformationBack.buttonRect.Contains(mouseposition7))
+                    {
+                        if (mousestate7.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonInformationBack.pressed = true; }
+                        else { buttonInformationBack.pressed = false; }
+                        if (mousestate7.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            soundBank.PlayCue("CLICK18B");
+                            currentGameState = GameState.MainMenu;  //Byter gamestate till huvudmenyn
+                        }
+                    }
+
+                    if (buttonInformationCredits.buttonRect.Contains(mouseposition7))
+                    {
+                        if (mousestate7.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        { buttonInformationCredits.pressed = true; }
+                        else { buttonInformationCredits.pressed = false; }
+                        if (mousestate7.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Released) && prevMs1.LeftButton == (Microsoft.Xna.Framework.Input.ButtonState.Pressed))
+                        {
+                            soundBank.PlayCue("CLICK18B");
+                            currentGameState = GameState.Victory;
+                        }
+                    }
+
+                   
+
+                    prevMs1 = mousestate7;
 
                     break;
 
@@ -2120,6 +2183,21 @@ namespace DungeonCrawl
 
 
                     break;
+                case GameState.Information:
+
+                    spriteBatch.Draw(informationMenuBackGroundGfx, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.1f);
+
+                    if (buttonInformationBack.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonInformationBack.draw(spriteBatch, 1f, buttonNewGameBackGfx); }
+                    else { buttonInformationBack.pressed = false; }
+
+                    if (buttonInformationCredits.pressed == true)//Gör så det ser ut som man trycker på knappen new game
+                    { buttonInformationCredits.draw(spriteBatch, 1f, buttonInformationCreditsGfx); }
+                    else { buttonInformationCredits.pressed = false; }
+
+
+                    break;
+
             }
             
             

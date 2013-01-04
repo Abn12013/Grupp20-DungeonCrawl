@@ -9,12 +9,8 @@
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = &lt;none&gt;;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 1098918887;
-    PC Bank Last Modified High = 30271699;
-    Bank Last Revised Low = 233899411;
-    Bank Last Revised High = 30271699;
+    Bank Last Revised Low = 1807129141;
+    Bank Last Revised High = 30272122;
 
     Wave
     {
@@ -34,8 +30,8 @@
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3368802470;
-            Last Modified High = 30270916;
+            Last Modified Low = 1066823526;
+            Last Modified High = 30271948;
         }
     }
 
@@ -57,8 +53,8 @@
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3371702636;
-            Last Modified High = 30270916;
+            Last Modified Low = 1085354586;
+            Last Modified High = 30271948;
         }
     }
 
@@ -80,8 +76,8 @@
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3772139976;
-            Last Modified High = 30271694;
+            Last Modified Low = 1042172116;
+            Last Modified High = 30271948;
         }
     }
 
@@ -103,8 +99,31 @@
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3994096120;
-            Last Modified High = 30271698;
+            Last Modified Low = 1042222119;
+            Last Modified High = 30271948;
+        }
+    }
+
+    Wave
+    {
+        Name = CLICK18B;
+        File = CLICK18B.WAV;
+        Build Settings Last Modified Low = 1656070501;
+        Build Settings Last Modified High = 30272122;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 22050;
+            Bits Per Sample = 0;
+            Play Region Offset = 44;
+            Play Region Length = 2058;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3878362240;
+            Last Modified High = 30271935;
         }
     }
 }
