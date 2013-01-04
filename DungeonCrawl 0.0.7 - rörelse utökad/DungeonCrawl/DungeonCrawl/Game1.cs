@@ -798,6 +798,14 @@ namespace DungeonCrawl
                     else if (player.maximumHp == player.TotalHp) // Om spelaren har max hp så händer inget (poten finns kvar)
                     {
                     }
+
+
+                    levelManager.OpenChest(floor, positionManager, ref objects);
+                    foreach (GameObj item in objects)
+                    {
+                        item.Gfx = tileset;
+                    }
+
                 }
 
 
@@ -1728,6 +1736,8 @@ namespace DungeonCrawl
                     {
                         obj.Draw(spriteBatch, new Vector2(player.Position.X, player.Position.Y + 46), (0.9f / 34f) * (obj.Position.Y / 64f));
                     }
+
+                    
 
                     
                     //Ritar ut levelup popupfönstret

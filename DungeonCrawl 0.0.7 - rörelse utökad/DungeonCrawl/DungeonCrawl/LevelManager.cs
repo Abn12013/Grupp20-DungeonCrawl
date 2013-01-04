@@ -220,6 +220,67 @@ namespace DungeonCrawl
             }
         }
 
+        public void OpenChest(int floor, PositionManager[, ,] positionManager, ref List<GameObj> objects)
+        {
+            objects.Clear();
+            string currentObject;
+            Vector2 currentPosition;
+
+            for (int y = 0; y < 34; y++)
+            {
+                for (int x = 0; x < 52; x++)
+                {
+                    currentObject = positionManager[y, x, floor].type;
+                    currentPosition = new Vector2(x, y);
+
+                    switch (currentObject)
+                    {
+                        case "door":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 23,
+                                Position = new Vector2(currentPosition.X * 64, (currentPosition.Y * 64) - 32)
+                            });
+                            break;
+                        case "chest":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 18,
+                                Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                            });
+                            positionManager[y, x, floor].iteration = objects.Count();
+                            positionManager[y, x, floor].hp = 1;
+                            break;
+                        case "emptychest":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 19,
+                                Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                            });
+                            positionManager[y, x, floor].iteration = objects.Count();
+                            positionManager[y, x, floor].hp = 1;
+                            break;
+                        case "upstairs":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 21,
+                                Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                            });
+                            break;
+                        case "downstairs":
+                            objects.Add(new GameObj()
+                            {
+                                Frame = 22,
+                                Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
+                            });
+                            break;
+                    }
+
+                }
+            }
+
+        }
+
         public void ChangeFloor(int floor, PositionManager[, ,] positionManager, ref List<GameObj> floortiles,
             ref List<GameObj> walls, ref List<GameObj> objects, ref GameObj entry, ref List<Enemy> enemies)
         {
@@ -403,7 +464,7 @@ namespace DungeonCrawl
                         case "emptychest":
                             objects.Add(new GameObj()
                             {
-                                Frame = 18,
+                                Frame = 19,
                                 Position = new Vector2(currentPosition.X * 64, currentPosition.Y * 64)
                             });
                             positionManager[y, x, floor].iteration = objects.Count();
