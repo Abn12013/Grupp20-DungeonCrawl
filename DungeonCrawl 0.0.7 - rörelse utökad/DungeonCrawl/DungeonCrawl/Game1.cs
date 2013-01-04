@@ -1760,11 +1760,11 @@ namespace DungeonCrawl
 
                     if (attackDone2 == false && playerDamgeDelt > 0)
                     {
-                        spriteBatch.DrawString(hpText2, playerDamgeDelt.ToString(), new Vector2(((player.playerPosX) - attack2.randomnr), (player.playerPosY))+ new Vector2(400, 350), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(hpText2, playerDamgeDelt.ToString(), new Vector2(((player.playerPosX) - attack2.randomnr), (player.playerPosY) - 64) + new Vector2(400, 350), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
                     }
                     else if (playerDamgeDelt == 0 && attackDoneMiss == false)
                     {
-                        spriteBatch.DrawString(hpText2, "Miss!", new Vector2(((player.playerPosX) - attack2.randomnr), (player.playerPosY)) + new Vector2(400, 350), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(hpText2, "Miss!", new Vector2(((player.playerPosX) - attack2.randomnr), (player.playerPosY) - 64) + new Vector2(400, 350), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 1f);
                     }
 
                     //if (playerdmg > 0 && attackDone == false)
