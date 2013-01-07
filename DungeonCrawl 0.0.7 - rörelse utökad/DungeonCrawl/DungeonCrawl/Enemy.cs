@@ -357,7 +357,8 @@ namespace DungeonCrawl
                             positionManager[yCoord, xCoord + 1, floor].type != "enemy" &&
                             positionManager[yCoord, xCoord + 1, floor].type != "upstairs" &&
                             positionManager[yCoord, xCoord + 1, floor].type != "downstairs" &&
-                            positionManager[yCoord, xCoord + 1, floor].type != "chest")
+                            positionManager[yCoord, xCoord + 1, floor].type != "chest" &&
+                            positionManager[yCoord, xCoord + 1, floor].type != "door")
                         {
 
                             moveEnemyrRight = true;
@@ -371,7 +372,8 @@ namespace DungeonCrawl
                            positionManager[yCoord, xCoord + 1, floor].type == "enemy" ||
                            positionManager[yCoord, xCoord + 1, floor].type == "upstairs" ||
                            positionManager[yCoord, xCoord + 1, floor].type == "downstairs" ||
-                           positionManager[yCoord, xCoord + 1, floor].type == "chest")
+                           positionManager[yCoord, xCoord + 1, floor].type == "chest" ||
+                           positionManager[yCoord, xCoord + 1, floor].type != "door")
                         {
                             if (PlayerPos.Y < yCoord) // Kollar om spelaren är ovanför enemy.
                             {
@@ -393,7 +395,8 @@ namespace DungeonCrawl
                                     positionManager[yCoord - 1, xCoord, floor].type != "enemy" &&
                                     positionManager[yCoord - 1, xCoord, floor].type != "upstairs" &&
                                     positionManager[yCoord - 1, xCoord, floor].type != "downstairs" &&
-                                    positionManager[yCoord - 1, xCoord, floor].type != "chest")
+                                    positionManager[yCoord - 1, xCoord, floor].type != "chest" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "door")
                                 {
 
                                     moveEnemyUp = true;
@@ -424,7 +427,8 @@ namespace DungeonCrawl
                                     positionManager[yCoord + 1, xCoord, floor].type != "enemy" &&
                                     positionManager[yCoord + 1, xCoord, floor].type != "upstairs" &&
                                     positionManager[yCoord + 1, xCoord, floor].type != "downstairs" &&
-                                    positionManager[yCoord + 1, xCoord, floor].type != "chest")
+                                    positionManager[yCoord + 1, xCoord, floor].type != "chest" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "door")
                                 {
                                     moveEnemyDown = true;
                                     allowMove = false;
@@ -462,7 +466,8 @@ namespace DungeonCrawl
                             positionManager[yCoord, xCoord - 1, floor].type != "enemy" &&
                             positionManager[yCoord, xCoord - 1, floor].type != "upstairs" &&
                             positionManager[yCoord, xCoord - 1, floor].type != "downstairs" &&
-                            positionManager[yCoord, xCoord - 1, floor].type != "chest")
+                            positionManager[yCoord, xCoord - 1, floor].type != "chest" &&
+                            positionManager[yCoord, xCoord - 1, floor].type != "door")
                         {
                             moveEnemyLeft = true;
                             allowMove = false;
@@ -475,7 +480,8 @@ namespace DungeonCrawl
                            positionManager[yCoord, xCoord - 1, floor].type == "enemy" ||
                            positionManager[yCoord, xCoord - 1, floor].type == "upstairs" ||
                            positionManager[yCoord, xCoord - 1, floor].type == "downstairs" ||
-                           positionManager[yCoord, xCoord - 1, floor].type == "chest")
+                           positionManager[yCoord, xCoord - 1, floor].type == "chest" ||
+                           positionManager[yCoord, xCoord - 1, floor].type != "door")
                         {
                             if (PlayerPos.Y < yCoord) // Kollar om spelaren är ovanför enemy.
                             {
@@ -497,7 +503,8 @@ namespace DungeonCrawl
                                     positionManager[yCoord - 1, xCoord, floor].type != "enemy" &&
                                     positionManager[yCoord - 1, xCoord, floor].type != "upstairs" &&
                                     positionManager[yCoord - 1, xCoord, floor].type != "downstairs" &&
-                                    positionManager[yCoord - 1, xCoord, floor].type != "chest")
+                                    positionManager[yCoord - 1, xCoord, floor].type != "chest" &&
+                                    positionManager[yCoord - 1, xCoord, floor].type != "door")
                                 {
 
                                     moveEnemyUp = true;
@@ -529,7 +536,8 @@ namespace DungeonCrawl
                                     positionManager[yCoord + 1, xCoord, floor].type != "enemy" &&
                                     positionManager[yCoord + 1, xCoord, floor].type != "upstairs" &&
                                     positionManager[yCoord + 1, xCoord, floor].type != "downstairs" &&
-                                    positionManager[yCoord + 1, xCoord, floor].type != "chest")
+                                    positionManager[yCoord + 1, xCoord, floor].type != "chest" &&
+                                    positionManager[yCoord + 1, xCoord, floor].type != "door")
                                 {
                                     moveEnemyDown = true;
                                     allowMove = false;
@@ -566,7 +574,8 @@ namespace DungeonCrawl
                             positionManager[yCoord - 1, xCoord, floor].type != "enemy" &&
                             positionManager[yCoord - 1, xCoord, floor].type != "upstairs" &&
                             positionManager[yCoord - 1, xCoord, floor].type != "downstairs" &&
-                            positionManager[yCoord - 1, xCoord, floor].type != "chest")
+                            positionManager[yCoord - 1, xCoord, floor].type != "chest" &&
+                            positionManager[yCoord - 1, xCoord, floor].type != "door")
                         {
 
                             moveEnemyUp = true;
@@ -579,7 +588,8 @@ namespace DungeonCrawl
                             positionManager[yCoord - 1, xCoord, floor].type == "enemy" ||
                             positionManager[yCoord - 1, xCoord, floor].type == "upstairs" ||
                             positionManager[yCoord - 1, xCoord, floor].type == "downstairs" ||
-                            positionManager[yCoord - 1, xCoord, floor].type == "chest")
+                            positionManager[yCoord - 1, xCoord, floor].type == "chest" ||
+                            positionManager[yCoord - 1, xCoord, floor].type == "door")
                         {
                             if (PlayerPos.X > xCoord) // kollar om spelaren är till höger om enemy.
                             {
@@ -604,7 +614,8 @@ namespace DungeonCrawl
                                     positionManager[yCoord, xCoord + 1, floor].type != "enemy" &&
                                     positionManager[yCoord, xCoord + 1, floor].type != "upstairs" &&
                                     positionManager[yCoord, xCoord + 1, floor].type != "downstairs" &&
-                                    positionManager[yCoord, xCoord + 1, floor].type != "chest")
+                                    positionManager[yCoord, xCoord + 1, floor].type != "chest" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "door")
                                 {
 
                                     moveEnemyrRight = true;
@@ -637,7 +648,8 @@ namespace DungeonCrawl
                                     positionManager[yCoord, xCoord - 1, floor].type != "enemy" &&
                                     positionManager[yCoord, xCoord - 1, floor].type != "upstairs" &&
                                     positionManager[yCoord, xCoord - 1, floor].type != "downstairs" &&
-                                    positionManager[yCoord, xCoord - 1, floor].type != "chest")
+                                    positionManager[yCoord, xCoord - 1, floor].type != "chest" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "door")
                                 {
                                     moveEnemyLeft = true;
                                     allowMove = false;
@@ -675,7 +687,8 @@ namespace DungeonCrawl
                             positionManager[yCoord + 1, xCoord, floor].type != "enemy" &&
                             positionManager[yCoord + 1, xCoord, floor].type != "upstairs" &&
                             positionManager[yCoord + 1, xCoord, floor].type != "downstairs" &&
-                            positionManager[yCoord + 1, xCoord, floor].type != "chest")
+                            positionManager[yCoord + 1, xCoord, floor].type != "chest" &&
+                            positionManager[yCoord + 1, xCoord, floor].type != "door")
                         {
                             moveEnemyDown = true;
                             allowMove = false;
@@ -687,7 +700,8 @@ namespace DungeonCrawl
                            positionManager[yCoord + 1, xCoord, floor].type == "enemy" ||
                            positionManager[yCoord + 1, xCoord, floor].type == "upstairs" ||
                            positionManager[yCoord + 1, xCoord, floor].type == "downstairs" ||
-                           positionManager[yCoord + 1, xCoord, floor].type == "chest")
+                           positionManager[yCoord + 1, xCoord, floor].type == "chest" ||
+                           positionManager[yCoord + 1, xCoord, floor].type == "door")
                         {
 
                             if (PlayerPos.X > xCoord) // kollar om spelaren är till höger om enemy.
@@ -713,7 +727,8 @@ namespace DungeonCrawl
                                     positionManager[yCoord, xCoord + 1, floor].type != "enemy" &&
                                     positionManager[yCoord, xCoord + 1, floor].type != "upstairs" &&
                                     positionManager[yCoord, xCoord + 1, floor].type != "downstairs" &&
-                                    positionManager[yCoord, xCoord + 1, floor].type != "chest")
+                                    positionManager[yCoord, xCoord + 1, floor].type != "chest" &&
+                                    positionManager[yCoord, xCoord + 1, floor].type != "door")
                                 {
 
                                     moveEnemyrRight = true;
@@ -746,7 +761,8 @@ namespace DungeonCrawl
                                     positionManager[yCoord, xCoord - 1, floor].type != "enemy" &&
                                     positionManager[yCoord, xCoord - 1, floor].type != "upstairs" &&
                                     positionManager[yCoord, xCoord - 1, floor].type != "downstairs" &&
-                                    positionManager[yCoord, xCoord - 1, floor].type != "chest")
+                                    positionManager[yCoord, xCoord - 1, floor].type != "chest" &&
+                                    positionManager[yCoord, xCoord - 1, floor].type != "door")
                                 {
                                     moveEnemyLeft = true;
                                     allowMove = false;

@@ -16,7 +16,7 @@ namespace DungeonCrawl
         {
             map[0] =
         "                                                    " + "\n" +
-        "   #####E###########                   ###          " + "\n" +
+        "   #################                   ###          " + "\n" +
         " ###....t..........###                ##.##         " + "\n" +
         " #....###########....#      ######### #.C.#         " + "\n" +
         " #....# ######  #....#      ##..#..## ##.## ####### " + "\n" +
@@ -449,7 +449,7 @@ namespace DungeonCrawl
                             objects.Add(new GameObj()
                             {
                                 Frame = 23,
-                                Position = new Vector2(currentPosition.X * 64, (currentPosition.Y * 64)-32 )
+                                Position = new Vector2(currentPosition.X * 64, (currentPosition.Y * 64) )
                             });
                             break;
                         case "chest":

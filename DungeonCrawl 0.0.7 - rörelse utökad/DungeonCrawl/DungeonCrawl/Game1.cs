@@ -38,11 +38,15 @@ namespace DungeonCrawl
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Random rnd = new Random();
-        enum GameState { NewGame, MainMenu, LoadGame, ChangeLevel, Game, GameOver, Victory, Pause, Information }
+        public enum GameState { NewGame, MainMenu, LoadGame, ChangeLevel, Game, GameOver, Victory, Pause, Information }
 
-        GameState currentGameState = GameState.MainMenu;    //Sätter start gamestatet
+        public GameState currentGameState = GameState.MainMenu;    //Sätter start gamestatet
 
         PositionManager[, ,] positionManager = new PositionManager[34, 52, 3]; //[x koordinat, y koordinat, våning]
+
+        FogOfWar fogOfWar1 = new FogOfWar();    //Ritar ut fog of war
+
+        ButtonKlick buttonKlick1 = new ButtonKlick();   //Klass för knapptryckningar
 
        //Vector2 cursorPos; //muspekar pos
         protected MouseState prevMs1; //håller koll på musens förra state
@@ -672,6 +676,8 @@ namespace DungeonCrawl
                      player.Update(gameTime, floor);
                      attack2.Update(gameTime, ref attackDone, ref attackDone2);
 
+                
+
                     bool updateEnemys = false;
                    
                      if (SpawnTimer <= 0)
@@ -736,6 +742,12 @@ namespace DungeonCrawl
 
             //Hp och hpbar uträkningar test
             Random tal = new Random();
+
+
+            buttonKlick1.Update(gameTime, ref player, ref saveAndLoadGame, ref floor, ref enemies, ref positionManager, ref hpBarBredd, ref playingamemusic
+                , ref playingamemusic, IngameTGU, ref levelManager, ref attackDone, ref attackDone2, ref attackDoneMiss, soundBank, attackSound, attackMiss
+                , ref attack2, ref playerDamgeDelt, ref hpBarPos, objects, tileset);
+
 
             //Öppnar ingamenyn
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape) && prevKs.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Escape))  //Knapptryckning för att röra sig ner
@@ -811,302 +823,302 @@ namespace DungeonCrawl
 
             }
 
-            if (attackDone == true)
-            {
-                attackDone2 = true;
-                attackDoneMiss = true;
-            }
+           // if (attackDone == true)
+           // {
+           //     attackDone2 = true;
+           //     attackDoneMiss = true;
+           // }
 
-            // TODO: Add your update logic here
+           // // TODO: Add your update logic here
 
-            //MessageBox.Show(positionManager[6,5,0].type);
+           // //MessageBox.Show(positionManager[6,5,0].type);
 
-            //positionManager[player.playerPosY, player.playerPosX, 0].type = "player"; //Tilldelar spelarens nuvarande positon i rutnätet.
-                                                                        //Varablerna tilldelas högs upp i Game1.cs, men borde läggas in som en variabel i Character klassen.
-            //Rörelse via tangentbordskontroller
-            if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D)) //Knapptryckning för att röra sig till höger
-           {
-               if (player.moveCharRight == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
-               {
-                   player.Frame = 6;   //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
+           // //positionManager[player.playerPosY, player.playerPosX, 0].type = "player"; //Tilldelar spelarens nuvarande positon i rutnätet.
+           //                                                             //Varablerna tilldelas högs upp i Game1.cs, men borde läggas in som en variabel i Character klassen.
+           // //Rörelse via tangentbordskontroller
+           // if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D)) //Knapptryckning för att röra sig till höger
+           //{
+           //    if (player.moveCharRight == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
+           //    {
+           //        player.Frame = 6;   //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
                   
-                   if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type == "enemy")
-                   {
-                       if (attackDone == true)
-                       {
-                           for (int i = 0; i < enemies.Count; i++)
-                           {
-                               if (enemies[i].xCoord == player.playerPosX + 1 && enemies[i].yCoord == player.playerPosY)
-                               {
-                                   int tempEnemyHp = enemies[i].hp;
-                                   attackDone = false;
-                                   player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
+           //        if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type == "enemy")
+           //        {
+           //            if (attackDone == true)
+           //            {
+           //                for (int i = 0; i < enemies.Count; i++)
+           //                {
+           //                    if (enemies[i].xCoord == player.playerPosX + 1 && enemies[i].yCoord == player.playerPosY)
+           //                    {
+           //                        int tempEnemyHp = enemies[i].hp;
+           //                        attackDone = false;
+           //                        player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                    
-                                   attack2.attackPos = new Vector2(player.playerPosX + 1, player.playerPosY);
-                                   attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                   //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                   int hpBefore = enemies[i].hp;
-                                   enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                   int hpAfter = enemies[i].hp;
+           //                        attack2.attackPos = new Vector2(player.playerPosX + 1, player.playerPosY);
+           //                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+           //                        //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+           //                        int hpBefore = enemies[i].hp;
+           //                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+           //                        int hpAfter = enemies[i].hp;
 
-                                   playerDamgeDelt = hpBefore - hpAfter;
-                                   //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                   player.allowButtonPress = true;
-                                   if (hpBefore == hpAfter)
-                                   {
-                                       attackDoneMiss = false;
-                                       attackDone2 = true;
-                                       soundBank.PlayCue("AttackMiss");
-                                   }
-                                   else if (hpBefore != hpAfter)
-                                   {
-                                       attackDoneMiss = true;
-                                       attackDone2 = false;
-                                       soundBank.PlayCue("AttackSound");
-                                   }
-                                   //MessageBox.Show(enemies[i].hp.ToString());
-                                   if (enemies[i].hp <= 0)
-                                   {
-                                       enemies.RemoveAt(i);
-                                       positionManager[player.playerPosY, player.playerPosX + 1, floor].type = "empty";
+           //                        playerDamgeDelt = hpBefore - hpAfter;
+           //                        //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
+           //                        player.allowButtonPress = true;
+           //                        if (hpBefore == hpAfter)
+           //                        {
+           //                            attackDoneMiss = false;
+           //                            attackDone2 = true;
+           //                            soundBank.PlayCue("AttackMiss");
+           //                        }
+           //                        else if (hpBefore != hpAfter)
+           //                        {
+           //                            attackDoneMiss = true;
+           //                            attackDone2 = false;
+           //                            soundBank.PlayCue("AttackSound");
+           //                        }
+           //                        //MessageBox.Show(enemies[i].hp.ToString());
+           //                        if (enemies[i].hp <= 0)
+           //                        {
+           //                            enemies.RemoveAt(i);
+           //                            positionManager[player.playerPosY, player.playerPosX + 1, floor].type = "empty";
 
-                                       player.Xp += 60;
-                                       if (player.Xp >= player.XpToLevel)
-                                       {
-                                           player.LevelUp(ref hpBarPos.Width);
+           //                            player.Xp += 60;
+           //                            if (player.Xp >= player.XpToLevel)
+           //                            {
+           //                                player.LevelUp(ref hpBarPos.Width);
                                            
                                            
-                                       }
-                                   }
-                               }
-                               else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
-                               {
+           //                            }
+           //                        }
+           //                    }
+           //                    else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
+           //                    {
 
-                               }
-                           }   
-                       }
-                   }
+           //                    }
+           //                }   
+           //            }
+           //        }
 
-                   else if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
-                   {
-                       player.moveCharRight = true;    //Gör så att man rör sig åt höger
-                       player.allowButtonPress = false;    //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
-                       player.playerPosX += 1;
+           //        else if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
+           //        {
+           //            player.moveCharRight = true;    //Gör så att man rör sig åt höger
+           //            player.allowButtonPress = false;    //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
+           //            player.playerPosX += 1;
                        
-                   }
-                   //if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type != "empty")
-                   //MessageBox.Show(positionManager[player.playerPosY, player.playerPosX + 1, floor].type);
+           //        }
+           //        //if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type != "empty")
+           //        //MessageBox.Show(positionManager[player.playerPosY, player.playerPosX + 1, floor].type);
                    
-               }
-           }
-            if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A) ) //Knapptryckning för att röra sig till vänster
-            {
-                if (player.moveCharLeft == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
-                {
-                    player.Frame = 3;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen                    
-                    if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type == "enemy")
-                    {
-                        if (attackDone == true)
-                        {
-                            for (int i = 0; i < enemies.Count; i++)
-                            {
-                                if (enemies[i].xCoord == player.playerPosX - 1 && enemies[i].yCoord == player.playerPosY)
-                                {
-                                    int tempEnemyHp = enemies[i].hp;
-                                    attackDone = false;
-                                    player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
-                                    attack2.attackPos = new Vector2(player.playerPosX - 1, player.playerPosY);
-                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpBefore = enemies[i].hp;
-                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpAfter = enemies[i].hp;
+           //    }
+           //}
+           // if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A) ) //Knapptryckning för att röra sig till vänster
+           // {
+           //     if (player.moveCharLeft == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
+           //     {
+           //         player.Frame = 3;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen                    
+           //         if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type == "enemy")
+           //         {
+           //             if (attackDone == true)
+           //             {
+           //                 for (int i = 0; i < enemies.Count; i++)
+           //                 {
+           //                     if (enemies[i].xCoord == player.playerPosX - 1 && enemies[i].yCoord == player.playerPosY)
+           //                     {
+           //                         int tempEnemyHp = enemies[i].hp;
+           //                         attackDone = false;
+           //                         player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
+           //                         attack2.attackPos = new Vector2(player.playerPosX - 1, player.playerPosY);
+           //                         attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+           //                         //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+           //                         int hpBefore = enemies[i].hp;
+           //                         enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+           //                         int hpAfter = enemies[i].hp;
 
-                                    playerDamgeDelt = hpBefore - hpAfter;
-                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                    player.allowButtonPress = true;
-                                    if (hpBefore == hpAfter)
-                                    {
-                                        attackDoneMiss = false;
-                                        attackDone2 = true;
-                                        soundBank.PlayCue("AttackMiss");
-                                    }
-                                    else if (hpBefore != hpAfter)
-                                    {
-                                        attackDoneMiss = true;
-                                        attackDone2 = false;
-                                        soundBank.PlayCue("AttackSound");
-                                    }
+           //                         playerDamgeDelt = hpBefore - hpAfter;
+           //                         //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
+           //                         player.allowButtonPress = true;
+           //                         if (hpBefore == hpAfter)
+           //                         {
+           //                             attackDoneMiss = false;
+           //                             attackDone2 = true;
+           //                             soundBank.PlayCue("AttackMiss");
+           //                         }
+           //                         else if (hpBefore != hpAfter)
+           //                         {
+           //                             attackDoneMiss = true;
+           //                             attackDone2 = false;
+           //                             soundBank.PlayCue("AttackSound");
+           //                         }
                                     
                                    
-                                    //MessageBox.Show(enemies[i].hp.ToString());
-                                    if (enemies[i].hp <= 0)
-                                    {
-                                        enemies.RemoveAt(i);
-                                        positionManager[player.playerPosY, player.playerPosX - 1, floor].type = "empty";
-                                        player.Xp += 60;
-                                        if (player.Xp >= player.XpToLevel)
-                                        {
-                                            player.LevelUp(ref hpBarPos.Width);
-                                        }
-                                    }
-                                }
-                                else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
-                                {
+           //                         //MessageBox.Show(enemies[i].hp.ToString());
+           //                         if (enemies[i].hp <= 0)
+           //                         {
+           //                             enemies.RemoveAt(i);
+           //                             positionManager[player.playerPosY, player.playerPosX - 1, floor].type = "empty";
+           //                             player.Xp += 60;
+           //                             if (player.Xp >= player.XpToLevel)
+           //                             {
+           //                                 player.LevelUp(ref hpBarPos.Width);
+           //                             }
+           //                         }
+           //                     }
+           //                     else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
+           //                     {
 
-                                }
-                            }
-                        }
-                    }
+           //                     }
+           //                 }
+           //             }
+           //         }
 
-                    else if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
-                    {
-                        player.moveCharLeft = true;    //Gör så att man rör sig åt vänster
-                        //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                        //positionManager[player.playerPosY, player.playerPosX - 1, 0].type = "player";    //Sätter rutan man rörde sig mot till player
-                        player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
-                        player.playerPosX -= 1;
-                    }                    
-                }
-            }
-            if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.W)) //Knapptryckning för att röra sig upp
-            {
-                if (player.moveCharUp == false && player.allowButtonPress == true)    //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
-                {                   
-                    player.Frame = 9;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
-                    if (positionManager[player.playerPosY -1 , player.playerPosX , floor].type == "enemy")
-                    {
-                        if (attackDone == true)
-                        {
-                            for (int i = 0; i < enemies.Count; i++)
-                            {
-                                if (enemies[i].xCoord == player.playerPosX  && enemies[i].yCoord == player.playerPosY - 1)
-                                {
-                                    int tempEnemyHp = enemies[i].hp;
-                                    attackDone = false;
-                                    player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
-                                    attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY - 1);
-                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpBefore = enemies[i].hp;
-                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpAfter = enemies[i].hp;
+           //         else if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
+           //         {
+           //             player.moveCharLeft = true;    //Gör så att man rör sig åt vänster
+           //             //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
+           //             //positionManager[player.playerPosY, player.playerPosX - 1, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+           //             player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
+           //             player.playerPosX -= 1;
+           //         }                    
+           //     }
+           // }
+           // if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.W)) //Knapptryckning för att röra sig upp
+           // {
+           //     if (player.moveCharUp == false && player.allowButtonPress == true)    //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
+           //     {                   
+           //         player.Frame = 9;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
+           //         if (positionManager[player.playerPosY -1 , player.playerPosX , floor].type == "enemy")
+           //         {
+           //             if (attackDone == true)
+           //             {
+           //                 for (int i = 0; i < enemies.Count; i++)
+           //                 {
+           //                     if (enemies[i].xCoord == player.playerPosX  && enemies[i].yCoord == player.playerPosY - 1)
+           //                     {
+           //                         int tempEnemyHp = enemies[i].hp;
+           //                         attackDone = false;
+           //                         player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
+           //                         attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY - 1);
+           //                         attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+           //                         //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+           //                         int hpBefore = enemies[i].hp;
+           //                         enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+           //                         int hpAfter = enemies[i].hp;
 
-                                    playerDamgeDelt = hpBefore - hpAfter;
-                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                    player.allowButtonPress = true;
-                                    if (hpBefore == hpAfter)
-                                    {
-                                        attackDoneMiss = false;
-                                        attackDone2 = true;
-                                        soundBank.PlayCue("AttackMiss");
-                                    }
-                                    else if (hpBefore != hpAfter)
-                                    {
-                                        attackDoneMiss = true;
-                                        attackDone2 = false;
-                                        soundBank.PlayCue("AttackSound");
-                                    }
-                                    //MessageBox.Show(enemies[i].hp.ToString());
-                                    if (enemies[i].hp <= 0)
-                                    {
-                                        enemies.RemoveAt(i);
-                                        positionManager[player.playerPosY - 1, player.playerPosX, floor].type = "empty";
-                                        player.Xp += 60;
-                                        if (player.Xp >= player.XpToLevel)
-                                        {
-                                            player.LevelUp(ref hpBarPos.Width);
-                                        }
-                                    }
-                                }
-                                else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
-                                {
+           //                         playerDamgeDelt = hpBefore - hpAfter;
+           //                         //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
+           //                         player.allowButtonPress = true;
+           //                         if (hpBefore == hpAfter)
+           //                         {
+           //                             attackDoneMiss = false;
+           //                             attackDone2 = true;
+           //                             soundBank.PlayCue("AttackMiss");
+           //                         }
+           //                         else if (hpBefore != hpAfter)
+           //                         {
+           //                             attackDoneMiss = true;
+           //                             attackDone2 = false;
+           //                             soundBank.PlayCue("AttackSound");
+           //                         }
+           //                         //MessageBox.Show(enemies[i].hp.ToString());
+           //                         if (enemies[i].hp <= 0)
+           //                         {
+           //                             enemies.RemoveAt(i);
+           //                             positionManager[player.playerPosY - 1, player.playerPosX, floor].type = "empty";
+           //                             player.Xp += 60;
+           //                             if (player.Xp >= player.XpToLevel)
+           //                             {
+           //                                 player.LevelUp(ref hpBarPos.Width);
+           //                             }
+           //                         }
+           //                     }
+           //                     else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
+           //                     {
 
-                                }
-                            }
-                        }
-                    }
+           //                     }
+           //                 }
+           //             }
+           //         }
                     
-                    else if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
-                    {
-                        player.moveCharUp = true;  //Gör så att man rör sig upp
-                        //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                        //positionManager[player.playerPosY - 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
-                        player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
-                        player.playerPosY -= 1;
-                    }
-                }
-            }
-            if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.S))  //Knapptryckning för att röra sig ner
-            {
-                if (player.moveCharDown == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
-                {
-                    player.Frame = 0; //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
+           //         else if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
+           //         {
+           //             player.moveCharUp = true;  //Gör så att man rör sig upp
+           //             //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
+           //             //positionManager[player.playerPosY - 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+           //             player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
+           //             player.playerPosY -= 1;
+           //         }
+           //     }
+           // }
+           // if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.S))  //Knapptryckning för att röra sig ner
+           // {
+           //     if (player.moveCharDown == false && player.allowButtonPress == true)  //Gör så att man enbart kan genomföra en ny rörelse om karaktären för tillfället inte rör sig åt något håll
+           //     {
+           //         player.Frame = 0; //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
 
-                    if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type == "enemy")
-                    {
-                        if (attackDone == true)
-                        {
-                            for (int i = 0; i < enemies.Count; i++)
-                            {
-                                if (enemies[i].xCoord == player.playerPosX && enemies[i].yCoord == player.playerPosY + 1)
-                                {
-                                    int tempEnemyHp = enemies[i].hp;
-                                    attackDone = false;
-                                    player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
-                                    attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY + 1);
-                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpBefore = enemies[i].hp;
-                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpAfter = enemies[i].hp;
+           //         if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type == "enemy")
+           //         {
+           //             if (attackDone == true)
+           //             {
+           //                 for (int i = 0; i < enemies.Count; i++)
+           //                 {
+           //                     if (enemies[i].xCoord == player.playerPosX && enemies[i].yCoord == player.playerPosY + 1)
+           //                     {
+           //                         int tempEnemyHp = enemies[i].hp;
+           //                         attackDone = false;
+           //                         player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
+           //                         attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY + 1);
+           //                         attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
+           //                         //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+           //                         int hpBefore = enemies[i].hp;
+           //                         enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
+           //                         int hpAfter = enemies[i].hp;
 
-                                    playerDamgeDelt = hpBefore - hpAfter;
-                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                    player.allowButtonPress = true;
-                                    if (hpBefore == hpAfter)
-                                    {
-                                        attackDoneMiss = false;
-                                        attackDone2 = true;
-                                        soundBank.PlayCue("AttackMiss");
-                                    }
-                                    else if (hpBefore != hpAfter)
-                                    {
-                                        attackDoneMiss = true;
-                                        attackDone2 = false;
-                                        soundBank.PlayCue("AttackSound");
-                                    }
-                                    //MessageBox.Show(enemies[i].hp.ToString());
-                                    if (enemies[i].hp <= 0)
-                                    {
-                                        enemies.RemoveAt(i);
-                                        positionManager[player.playerPosY + 1, player.playerPosX, floor].type = "empty";
-                                        player.Xp += 60;
-                                        if (player.Xp >= player.XpToLevel)
-                                        {
-                                            player.LevelUp(ref hpBarPos.Width);
-                                        }
-                                    }
-                                }
-                                else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
-                                {
+           //                         playerDamgeDelt = hpBefore - hpAfter;
+           //                         //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
+           //                         player.allowButtonPress = true;
+           //                         if (hpBefore == hpAfter)
+           //                         {
+           //                             attackDoneMiss = false;
+           //                             attackDone2 = true;
+           //                             soundBank.PlayCue("AttackMiss");
+           //                         }
+           //                         else if (hpBefore != hpAfter)
+           //                         {
+           //                             attackDoneMiss = true;
+           //                             attackDone2 = false;
+           //                             soundBank.PlayCue("AttackSound");
+           //                         }
+           //                         //MessageBox.Show(enemies[i].hp.ToString());
+           //                         if (enemies[i].hp <= 0)
+           //                         {
+           //                             enemies.RemoveAt(i);
+           //                             positionManager[player.playerPosY + 1, player.playerPosX, floor].type = "empty";
+           //                             player.Xp += 60;
+           //                             if (player.Xp >= player.XpToLevel)
+           //                             {
+           //                                 player.LevelUp(ref hpBarPos.Width);
+           //                             }
+           //                         }
+           //                     }
+           //                     else if (enemies[i].xCoord != player.playerPosX + 1 || enemies[i].yCoord != player.playerPosY)
+           //                     {
 
-                                }
-                            }
-                        }
-                    }
+           //                     }
+           //                 }
+           //             }
+           //         }
                     
-                    else if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
-                    {
-                        player.moveCharDown = true;    //Gör så att man rör sig ner
-                        //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                        //positionManager[player.playerPosY + 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
-                        player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
-                        player.playerPosY += 1;
-                    }
+           //         else if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
+           //         {
+           //             player.moveCharDown = true;    //Gör så att man rör sig ner
+           //             //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
+           //             //positionManager[player.playerPosY + 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+           //             player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
+           //             player.playerPosY += 1;
+           //         }
                    
-                }
-            }
+           //     }
+           // }
            prevKs = ks;
             
             
@@ -1734,7 +1746,10 @@ namespace DungeonCrawl
                     }
                     foreach (GameObj obj in objects)
                     {
-                        obj.Draw(spriteBatch, new Vector2(player.Position.X, player.Position.Y + 46), (0.9f / 34f) * (obj.Position.Y / 64f));
+                        if (positionManager[(int)obj.Position.Y/64,(int)obj.Position.X/64,floor].type == "door")
+                            obj.Draw(spriteBatch, new Vector2(player.Position.X, player.Position.Y + 78), ((0.9f / 34f) * ((obj.Position.Y / 64f)-0.0000001f)));
+                        else
+                            obj.Draw(spriteBatch, new Vector2(player.Position.X, player.Position.Y + 46), /*(0.9f / 34f) * (obj.Position.Y / 64f)*/ 1/100f);
                     }
 
                     
@@ -1837,298 +1852,10 @@ namespace DungeonCrawl
                         spriteBatch.Draw(treasureGfx, new Vector2(31 * 64, 4 * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.88f);
                     }
 
+                    //Ritar ut fog of war
+                    fogOfWar1.Draw(spriteBatch, new Vector2(0, 0), 0.89f, visionTileGfx, player, positionManager, floor);
 
-                    //Fog of war
-                    for (int i = -6; i < 7; i++)
-                    {
-
-                        for (int j = -7; j < 8; j++)
-                        {
-                            if (new Vector2(j,i) == new Vector2(-4, 0))//mitten
-                            { j += 9; }
-                            else if (new Vector2(j, i) == new Vector2(-3, -1))//mitten -1
-                            { j += 7; }
-                            else if (new Vector2(j, i) == new Vector2(-3, 1))//mitten +1
-                            { j += 7; }
-                            else if (new Vector2(j, i) == new Vector2(-2, 2))//mitten +2
-                            { j += 5; }
-                            else if (new Vector2(j, i) == new Vector2(-2, -2))//mitten -2
-                            { j += 5; }
-                            else if (new Vector2(j, i) == new Vector2(-1, -3))//mitten -3
-                            { j += 3; }
-                            else if (new Vector2(j, i) == new Vector2(-1, 3))//mitten +3
-                            { j += 3; }
-                            else if (new Vector2(j, i) == new Vector2(0, 4))//mitten +4
-                            { j += 1; }
-                            else if (new Vector2(j, i) == new Vector2(0, -4))//mitten -4
-                            { j += 1; }
-
-
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-
-                    }
-
-                    //Ritar ut fog of war om det är väggar över spelaren
-                    if (positionManager[player.playerPosY-1, player.playerPosX, floor].type == "wall")
-                    {
-                            for (int j = -7; j < 8; j++)
-                            {
-                                spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                                spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                                spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                                spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            }
-                    }
-                    else if (positionManager[player.playerPosY - 2, player.playerPosX, floor].type == "wall")
-                    {
-                        for (int j = -7; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY - 3, player.playerPosX, floor].type == "wall")
-                    {
-                        for (int j = -7; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    //Slut på utritning av fog of war över spelaren
-
-                    //Ritar ut fog of war om det är väggar under spelaren
-                    if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type == "wall")
-                    {
-                        for (int j = -7; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 1) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY + 2, player.playerPosX, floor].type == "wall")
-                    {
-                        for (int j = -7; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY + 3, player.playerPosX, floor].type == "wall")
-                    {
-                        for (int j = -7; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-
-                    //Kollar fog of war till vänster om spelaren om det är en vägg där
-
-                    if (positionManager[player.playerPosY , player.playerPosX -1, floor].type == "wall")
-                    {
-                        for (int i = -6; i < 7; i++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX -2) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY, player.playerPosX - 2, floor].type == "wall")
-                    {
-                        for (int i = -6; i < 7; i++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY, player.playerPosX - 3, floor].type == "wall")
-                    {
-                        for (int i = -6; i < 7; i++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX - 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                  //Slut på koll till vänster
-
-                    //Kollar fog of war till höger om spelaren om det är en vägg där
-
-                    if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type == "wall")
-                    {
-                        for (int i = -6; i < 7; i++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 1) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 2) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY, player.playerPosX + 2, floor].type == "wall")
-                    {
-                        for (int i = -6; i < 7; i++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 2) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY, player.playerPosX + 3, floor].type == "wall")
-                    {
-                        for (int i = -6; i < 7; i++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 3) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 4) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + 5) * 64, (player.playerPosY + i) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    //Slut på koll till höger
-
-                    //Kollar fog of war till vänster om spelaren och UPP en bit om det är en vägg där
-
-                    if (positionManager[player.playerPosY - 1, player.playerPosX-1, floor].type == "wall")
-                    {
-                        for (int j = -7; j < -1; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY - 2, player.playerPosX-1, floor].type == "wall")
-                    {
-                        for (int j = -7; j < -1; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY - 3, player.playerPosX-1, floor].type == "wall")
-                    {
-                        for (int j = -7; j < -1; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                   
-                    //Slut på koll till vänster
-
-                    //Kollar fog of war till höger om spelaren och UPP en bit om det är en vägg där
-
-                    if (positionManager[player.playerPosY - 1, player.playerPosX + 1, floor].type == "wall")
-                    {
-                        for (int j = 1; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY - 2, player.playerPosX + 1, floor].type == "wall")
-                    {
-                        for (int j = 1; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY - 3, player.playerPosX + 1, floor].type == "wall")
-                    {
-                        for (int j = 1; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY - 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-
-                    //Slut på koll till 
-
-                    //kollar vänster ner
-                    if (positionManager[player.playerPosY + 1, player.playerPosX - 1, floor].type == "wall")
-                    {
-                        for (int j = -7; j < -1; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 1) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY + 2, player.playerPosX - 1, floor].type == "wall")
-                    {
-                        for (int j = -7; j < -1; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY + 3, player.playerPosX - 1, floor].type == "wall")
-                    {
-                        for (int j = -7; j < -1; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    //slut koll
-
-                    //kollar höger ner
-                    if (positionManager[player.playerPosY + 1, player.playerPosX + 1, floor].type == "wall")
-                    {
-                        for (int j = 1; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 1) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY + 2, player.playerPosX + 1, floor].type == "wall")
-                    {
-                        for (int j = 1; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 2) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    else if (positionManager[player.playerPosY + 3, player.playerPosX + 1, floor].type == "wall")
-                    {
-                        for (int j = 1; j < 8; j++)
-                        {
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 3) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 4) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                            spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
-                        }
-                    }
-                    //slut koll
-
-
-
-
+                 
 
                     break;
                 case GameState.GameOver:
