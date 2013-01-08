@@ -37,12 +37,12 @@ Content\elf.xnb
 Content\orc.xnb
 Content\informationKnappcredits.xnb
 Content\informationmenu.xnb
-Content\hpfont.xnb
-Content\SpriteFont1.xnb
-Content\SpriteFont2.xnb
 Content\dark_elf.xnb
 Content\fel_orc.xnb
 Content\goblin_gross.xnb
+Content\hpfont.xnb
+Content\SpriteFont1.xnb
+Content\SpriteFont2.xnb
 Content\sounds.xgs
 Content\Wave Bank.xwb
 Content\Sound Bank.xsb

@@ -27,6 +27,7 @@ namespace DungeonCrawl
         Cue attackSound; // Attack ljud
         Cue attackMiss; // Attack miss ljud
         Cue buttonKlick; //Knapptrycks ljud
+        Cue Creditsmusic;
 
         bool playmenumusic = true;
         bool playingamemusic = true;
@@ -360,6 +361,7 @@ namespace DungeonCrawl
             attackSound = soundBank.GetCue("AttackSound");
             attackMiss = soundBank.GetCue("AttackMiss");
             buttonKlick = soundBank.GetCue("CLICK18B");
+            Creditsmusic = soundBank.GetCue("FO-EnemyShips");
             
 
             // TODO: use this.Content to load your game content here
@@ -392,6 +394,7 @@ namespace DungeonCrawl
                     
                     if (playmenumusic == true)
                     {
+                        MenyHT.Stop(AudioStopOptions.AsAuthored);
                         MenyHT = soundBank.GetCue("MENY.FO-HighTension");
                         MenyHT.Play();
                         playmenumusic = false;                        
@@ -863,6 +866,8 @@ namespace DungeonCrawl
 
            if (player.Victory == true)
            {
+               IngameTGU.Stop(AudioStopOptions.AsAuthored);
+               Creditsmusic.Play();
                currentGameState = GameState.Victory;
            }
 

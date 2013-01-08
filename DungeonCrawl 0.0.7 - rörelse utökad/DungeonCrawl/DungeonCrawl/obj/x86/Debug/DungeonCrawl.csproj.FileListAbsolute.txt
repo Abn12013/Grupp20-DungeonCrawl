@@ -606,3 +606,15 @@ C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\obj\x86\Debu
 C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\dark_elf.xnb
 C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\fel_orc.xnb
 C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\goblin_gross.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\goblin.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenyback.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenyknappresume.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenyknappsave.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenymenu.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\elf.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\orc.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\informationKnappcredits.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\informationmenu.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\dark_elf.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\fel_orc.xnb
+C:\Users\Adam\Desktop\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\goblin_gross.xnb

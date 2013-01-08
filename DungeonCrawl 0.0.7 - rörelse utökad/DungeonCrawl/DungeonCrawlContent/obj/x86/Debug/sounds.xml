@@ -9,8 +9,8 @@
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = &lt;none&gt;;
-    Bank Last Revised Low = 1807129141;
-    Bank Last Revised High = 30272122;
+    Bank Last Revised Low = 3592871386;
+    Bank Last Revised High = 30272937;
 
     Wave
     {
@@ -124,6 +124,29 @@
             File Type = 1;
             Last Modified Low = 3878362240;
             Last Modified High = 30271935;
+        }
+    }
+
+    Wave
+    {
+        Name = FO-EnemyShips;
+        File = FO-EnemyShips.wav;
+        Build Settings Last Modified Low = 3130504940;
+        Build Settings Last Modified High = 30272937;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 46;
+            Play Region Length = 5819904;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2978216229;
+            Last Modified High = 30272937;
         }
     }
 }
