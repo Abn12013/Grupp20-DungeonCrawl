@@ -539,7 +539,7 @@ namespace DungeonCrawl
                                     });
                                     break;
                                 case "fel_orc":
-                                    enemies.Add(new Enemy(50, 14, 4, 1, 200)
+                                    enemies.Add(new Enemy(200, 20, 4, 1, 200)
                                     {
                                         xCoord = (int)currentPosition.X,
                                         yCoord = (int)currentPosition.Y

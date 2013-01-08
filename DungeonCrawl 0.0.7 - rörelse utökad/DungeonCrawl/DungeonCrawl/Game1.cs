@@ -216,6 +216,9 @@ namespace DungeonCrawl
         Button buttonInformationCredits = new Button(564, 561, 171, 104);
         Button buttonInformationBack = new Button(74, 561, 171, 104);
 
+        Texture2D mainmenuBackGround;
+        Vector2  mainmenuBackGroundPos;
+
         public Game1()
         {
 
@@ -303,6 +306,8 @@ namespace DungeonCrawl
 
             //Laddar in grafik för huvudmenyns bakgrund
             mainMenuGfx = Content.Load<Texture2D>("mainmenu");
+            mainmenuBackGround = Content.Load<Texture2D>("mainmenuBackground");
+            mainmenuBackGroundPos = new Vector2(0, 0);
 
             //laddar in grafik för knappar i menyerna
             startKnappGfx = Content.Load<Texture2D>("startKnappNer");
@@ -391,6 +396,11 @@ namespace DungeonCrawl
             {
                 case GameState.MainMenu:
 
+                    mainmenuBackGroundPos.X -= 1;
+                    if (mainmenuBackGroundPos.X == -1200)
+                    {
+                        mainmenuBackGroundPos.X = 0;
+                    }
                     
                     if (playmenumusic == true)
                     {
@@ -1182,6 +1192,9 @@ namespace DungeonCrawl
                 case GameState.MainMenu:
 
                     spriteBatch.Draw(mainMenuGfx, new Vector2(0, 0), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.96f);
+
+
+                    spriteBatch.Draw(mainmenuBackGround, mainmenuBackGroundPos, null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.94f);
 
                     //ritaar ut knapptest
                     if (buttonMainMenu.pressed == true)//Gör så det ser ut som man trycker på knappen new game

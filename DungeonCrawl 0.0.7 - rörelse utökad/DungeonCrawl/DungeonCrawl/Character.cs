@@ -246,7 +246,7 @@ namespace DungeonCrawl
                     break;
                 case "Rogue":
                     Totstr += 3;
-                    Totdex += 4;
+                    Totdex += 6;
                     TotalHp += 3;
                     break;
                 case "Tank":

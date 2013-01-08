@@ -36,3 +36,4 @@ C:\Users\Holmis\Desktop\Backup senaste Fredag\DungeonCrawl 0.0.7 - rörelse utö
 C:\Users\Holmis\Desktop\Backup senaste Fredag\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\sounds.xml
 C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\sounds.xml
+C:\Users\Holmis\Documents\GitHub\Grupp20-DungeonCrawl\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawlContent\obj\x86\Debug\sounds.xml
