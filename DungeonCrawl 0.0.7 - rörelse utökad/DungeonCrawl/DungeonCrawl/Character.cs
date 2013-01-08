@@ -285,9 +285,11 @@ namespace DungeonCrawl
             moved += 4; //plussas på med 4 för vara tick av gametime.
 
             //animerar karaktären
-            if (moved > 1 && moved < 34)
+            if (moved > 1 && moved < 21)
             { Frame = 7; }
-            else if (moved > 34 && moved < 64)
+            else if (moved > 21 && moved < 42)
+            { Frame = 6; }
+            else if (moved > 42 && moved < 64)
             { Frame = 8; }
 
             else if (moved == 64)    // när man rört sig 64 pixlar så stannar gubben
@@ -301,9 +303,11 @@ namespace DungeonCrawl
             moved += 4; //plussas på med 4 för vara tick av gametime.
 
             //animerar karaktären
-            if (moved > 1 && moved < 34)
+            if (moved > 1 && moved < 21)
             { Frame = 4; }
-            else if (moved > 34 && moved < 64)
+            else if (moved > 21 && moved < 42)
+            { Frame = 3; }
+            else if (moved > 42 && moved < 64)
             { Frame = 5; }
 
             if (moved == 64)    // när man rört sig 64 pixlar så stannar gubben
@@ -375,7 +379,7 @@ namespace DungeonCrawl
             {
                 if (victoryConition == false)
                 {
-                    MessageBox.Show("skatten e din, add graphic adamplz, one job");
+                    //MessageBox.Show("skatten e din, add graphic adamplz, one job");
                 }
                 victoryConition = true;
             }
