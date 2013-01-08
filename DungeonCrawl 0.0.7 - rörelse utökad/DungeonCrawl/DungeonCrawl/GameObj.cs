@@ -16,6 +16,7 @@ namespace DungeonCrawl
 {
     class GameObj
     {
+        //Klass för skapandet av olika objekt som finns i spelet. Dett är även en klass som många andra klasser ärver ifrån, där position och draw är de viktigaste.
 
         public Vector2 Position //Objektets koordinat
         {

@@ -17,19 +17,20 @@ namespace DungeonCrawl
 {
     class Enemy : MovingGameObj
     {
-        public int hp;
-        public int dex;
-        public int str;
-        Random random = new Random();
-        Character character = new Character();
-        
-        int sight = 5;
-        // if sats för att kolla om Character är inom 5 rutor av Enemy. Enemy blir då Active.
-        int radX = 0;
-        int radY = 0;
+        //Ansvarig Albin Billman
 
-        int exp = 0;
-        int movespeed = 2; //måste vara delbart med 64
+        //Denna klass har som uppgift att skapa nya fiender. Denna innehåller alla des attribut, och det viktigaste dess ai och rörelse/attack.
+
+        public int hp;  //Fiendens hp
+        public int dex; //fiendens dex
+        public int str; //Fiendens str
+
+        Random random = new Random();
+        
+        int sight = 5;  //Så nära man måste vara, i koordinater för att fiendens skall bli aktiv
+
+        public int exp = 0; //Xp som fienden ger när den dör
+        int movespeed = 2; //måste vara delbart med 64, fiendens rörelsehastighet
 
         Random rndnr = new Random();
         public int randomnr;
@@ -40,28 +41,18 @@ namespace DungeonCrawl
         }
         public Enemy(int hp, int str, int dex, int speed, int exp)
         {
-            this.hp = hp;
-            this.str = str;
-            this.dex = dex;
-            movespeed = speed;
-            this.exp = exp;
-            //xCoord 
-            //yCoord 
+            this.hp = hp;   //Tilldelar hp
+            this.str = str; //Tilldelar str
+            this.dex = dex; //Tilldelar dex
+            movespeed = speed;  //Tilldelar rörelsefart
+            this.exp = exp; //Tilldelar xp
 
-            ActiveMove = false;
+            ActiveMove = false; //Den kan inte röra sig från början
 
             allowMove = true;
             attackMissed = true;
             attackDidDmg = true;
-
-           
-            //PlayerPos = playerPos;  //may work, annars placera om PlayerPos
-           
-            // if sats för att kolla om Character är inom 5 rutor av Enemy. Enemy blir då Active.
-
-            radX = xCoord - sight;
-            radY = yCoord - sight;
-
+       
             moveEnemyrRight = false;
             moveEnemyLeft = false;
             moveEnemyUp = false;
@@ -69,23 +60,21 @@ namespace DungeonCrawl
 
             Frame = 0;
 
-            
-
-
         }
 
+        //Konstruktor som kallar på den andra konstruktorn
         public Enemy(int hp, int str, int dex, Texture2D Gfx, int speed, int exp):this(hp, str, dex, speed, exp)
         {
             this.Gfx = Gfx;
         }
 
-        public int EnemyAttackCalc(int dex)
+        public int EnemyAttackCalc(int dex) //Fiendens attack uträkning
         {
+            //Denna fungerar på samma sätt som characterklassens attackkalk
+            int damage = 0; //Skadan som görs
+            resetAttack = false;    //Gör att man inte kan utföra en ny attack tills denna är klar
 
-            int damage = 0;
-            resetAttack = false;
-
-            if (random.NextDouble() > 1 / (1 + ((double)str / (double)dex) * 3))                         
+            if (random.NextDouble() > 1 / (1 + ((double)str / (double)dex) * 3))    //Samma som i characterklassen                       
             {
                 randomnr = rndnr.Next(1, 64);
                 damage = str - random.Next(0, str / 2);
@@ -100,40 +89,27 @@ namespace DungeonCrawl
                     damage = 0;
                 }
             
-            
-
-
             return damage;
-        
-
+       
         }
-        public int Frame
+        public int Frame    
         { get; set; }
 
         public Vector2 PlayerPos
         { get; set; }
 
-        public int xCoord
+        public int xCoord   //Xpos i koordinater
         { get; set; }
 
-        public int yCoord
+        public int yCoord   //Ypos i koordinater
         { get; set; }
 
-        public bool ActiveMove
+        public bool ActiveMove  //Bool för att kolla när fienden för röra sig
         { get; set; }
 
         
-
-
-
-        
-
-        public void CheckActive()
-        {
-            //int sight = 5;
-            //// if sats för att kolla om Character är inom 5 rutor av Enemy. Enemy blir då Active.
-            //int radX = xCoord - sight;
-            //int radY = yCoord - sight;
+        public void CheckActive()   //Metod som kollar när fienden skall bli aktiv
+        { 
 
             if (PlayerPos.X > (xCoord - sight) &&
                 PlayerPos.X < (xCoord + sight) &&
@@ -142,48 +118,7 @@ namespace DungeonCrawl
                 ActiveMove = true;
             
         }
-
-        //private bool Active()// Ska ha en Active metod som kollar om spelaren är tillräckligt nära fienden för att den ska aktiveras varje gång spelaren rör sig.
-        //{
-        //    int sight = 5;
-        //    // if sats för att kolla om Character är inom 5 rutor av Enemy. Enemy blir då Active.
-        //    int radX = xCoord - sight;
-        //    int radY = yCoord - sight;
-        //    Vector2 checkPosNow = new Vector2(radX, radY);
-
-        //    bool isITTURE = false;
-
-        //    for (int i = 0; i < 121; i++)
-        //    {
-
-        //        if (checkPosNow == PlayerPos)
-        //        {
-        //            isITTURE = true;
-        //        }
-        //        else
-        //        {
-        //            radX += 1;
-
-        //            if (radX == xCoord + sight)
-        //            {
-        //                radY++;
-        //                if (radY == yCoord + sight)
-        //                {
-        //                    break;
-        //                }
-        //            }
-        //        }
-               
-        //    }
-
-            
-
-        //    return true;
-            
-        //    // kolla om spelaren är tillräckligt nära för att fienden ska vara Active, 4*4 ruta runt spelaren.
-        //    // Detta gör den varje gång spelaren rör sig.   
-        //}
-
+       
         public bool moveEnemyrRight   //Om man tryckt på "D" för att röra sig åt höger.
         { get; set; }
         public bool moveEnemyLeft    //Om man tryckt på "A" för att röra sig åt vänster.  
@@ -203,23 +138,16 @@ namespace DungeonCrawl
         public bool attackDidDmg //ritar ut text om attack träffar
         { get; set; }
 
-        //public bool attackMissed //ritar ut text om attack missar
-        //{ get; set; }
-
-
-
         private bool allowMove;
 
 
         private int moved = 0;  //Håller koll på hur långt karaktären har rört sig, och stännar rörelsen när karaktären rört sig 64 pixlar.
         private int moved2 = 0;
 
-
         //Attack animation variabler
         private int movedattack = 0;
         public bool attackAnimationDone = false;
         public int attackFrame = 0;
-
 
         public void MoveRight2() //Medtod om man rör sig till höger
         {
@@ -290,7 +218,6 @@ namespace DungeonCrawl
 
         public void Update(GameTime gameTime,  ref PositionManager[,,]  positionManager, int floor, int playerdex, ref int skada, SoundBank soundBank, Cue attackHit, Cue attackMiss, int level, ref Character player1)
         {
-
             
             if (resetAttack == false)
             {
@@ -304,14 +231,9 @@ namespace DungeonCrawl
                 else if (moved2 > 48 && moved2 < 64)
                 { Frame = 3; }
 
-                if (moved2 == 64)    // när man rört sig 64 pixlar så stannar gubben
+                if (moved2 == 64) 
                 { moved2 = 0; Frame = 0; resetAttack = true; attackMissed = true; attackDidDmg = true; }   //olika variabler ändras så att man nu kan genomföra en ny rörelse
             }
-
-
-        //    private int movedattack = 0;
-        //public bool attackAnimationDone = false;
-        //public int attackFrame = 0;
 
             //attack animation
             if (attackAnimationDone == true)
@@ -332,9 +254,14 @@ namespace DungeonCrawl
 
 
 
-            CheckActive();
+            CheckActive();  //Kör metoden för att kolla när fienden skall aktiveras
 
-            if (allowMove)
+            //Detta ai fungerar så att fienden kollar var spelaren befinner sig i rutnätet. Först kollar den vart den är på X-leden, sedan rör den sig mot fienden tills den är 
+            //under den på y-leden. Efter det rör sig fienden mot spelaren på y. Om fienden befinner sig bredvid spelaren kommer den att försöka utföra en attack.
+            //Skulle en vägg komma ivägen om fienden exempelvis gick in i en vägg på x-leden kommer den i detta läge undersöka om fienden befinner sig längre upp eller ner
+            //på y och sedan röra sig mot spelaren på de viset. Samma sak om den går in i en vägg på y-leden, men då kommer den gå åt något håll på x-leden.
+
+            if (allowMove)  //Om den frå röras startar ai
             {
                 if (ActiveMove) // Fienden är aktiv och går mot spelaren samt attackerar om den kan.
                 {   // Enemy går mot spelaren om den är tillräckligt när för att attackera så gör den det istället.
@@ -353,7 +280,7 @@ namespace DungeonCrawl
                                 { soundBank.PlayCue("AttackSound"); }
                                 else if (skada == 0)
                                 { soundBank.PlayCue("AttackMiss");  }
-                                //attackAnimationDone = true; //Gör så att fiendens attackanimation
+
                                 player1.TotalHp = player1.TotalHp - skada;
 
                             }
@@ -789,7 +716,8 @@ namespace DungeonCrawl
                 
             }
 
-            if (moveEnemyrRight == true)
+            //Kallar på metod för att röra sig, beroende på vilket håll den valt i ai-uträkningarna
+            if (moveEnemyrRight == true)    
             {
                 MoveRight2();
             }
@@ -811,7 +739,7 @@ namespace DungeonCrawl
             base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer) //Ritar ut fiendens grafik
         {
             Rectangle tmp2 = new Rectangle((Frame % 3) * 56, (Frame / 3) * 56, 56, 56);
             spriteBatch.Draw(Gfx,
@@ -823,16 +751,15 @@ namespace DungeonCrawl
         public Texture2D Gfx2
         { get; set; }
 
-        public void AttackDraw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer, Vector2 attackpos)
+        public void AttackDraw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer, Vector2 attackpos) //ritr ut attackanimationen
         {
-
-            
+ 
                 Rectangle tmp2 = new Rectangle((attackFrame % 4) * 64, (attackFrame / 4) * 64, 64, 64);
                 spriteBatch.Draw(Gfx2, attackpos - DrawOffset + new Vector2(400, 350), tmp2, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, layer);
-            
 
         }
 
+        //Ritar ut text för hur mycket skada som gjorts
         public void DmgDraw(SpriteBatch spritebatch, SpriteFont font, string text, Vector2 pos, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float depth)
         {
             spritebatch.DrawString(font, text, pos, color, rotation, origin, scale, effects, depth);
@@ -847,11 +774,7 @@ namespace DungeonCrawl
         {
             return movespeed;
         }
-        //public override void Draw2(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)
-        //{
-        //    Rectangle tmp2 = new Rectangle((Frame % 4) * 64, (Frame / 4) * 64, 64, 64);
-        //    spriteBatch.Draw(Gfx, Position - DrawOffset + new Vector2(400, 350), tmp2, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, layer);
-        //}
+       
 
     }
 }

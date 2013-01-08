@@ -16,21 +16,18 @@ namespace DungeonCrawl
 {
     class Attack : MovingGameObj
     {
+        //Ansvarig: Adam Eriksson
 
-        Enemy enemy = new Enemy();
-        Character character = new Character();
+        //Denna klass hanterar uträkning och utritning av spelarens attacker
+
+
         public int str;//hämtas från character
         public int dex;//hämtas från character
         int damage;
-        float x;
-        float y;
         int moved = 0;
-        int moved2 = 0;
         Random random = new Random();
-        SpriteBatch spriteBatch;
-        //hämta int array för fiender
-        public int randomnr;
 
+        public int randomnr;
 
         public Attack()
         {
@@ -39,10 +36,7 @@ namespace DungeonCrawl
 
         public Attack(int str, int dex)
         {
-            this.str = character.Totstr;
-            this.dex = character.Totdex;
             Frame = 0;
-
         }
 
         public Vector2 attackPos
@@ -50,58 +44,29 @@ namespace DungeonCrawl
 
         private bool resetAttack = false;
 
-        public int CharAttackCalc(int str, int dex)                                     //Metod för karaktärens attack.  
+        public int CharAttackCalc(int str, int dex) //Metod för karaktärens attack.  
         {
             resetAttack = true;
 
-            //Måste man hämta arrayen för att veta vilken fiende som träffas, hämtas från Enemyklassen. 
-            if (random.NextDouble() > 1 / (1 + ((double)str / (double)dex) * 3)) //träff                         //Måste hämta dex och str från Characterklassen.
+            //Måste man hämta arrayen för att veta vilken fiende som träffas, hämtas från Enemyklassen.
+            //Ju mer str desto större chans att träffa
+            if (random.NextDouble() > 1 / (1 + ((double)str / (double)dex) * 3)) //träff  //Måste hämta dex och str från Characterklassen.
             {
-                randomnr = random.Next(1, 64);
-                damage = str - random.Next(0, str / 2);
+                randomnr = random.Next(1, 64);  //Randomnummer för var texten för hur mycket skada man gör ritas ut
+                damage = str - random.Next(0, str / 2); //Skadan är spelarens str - ett random tal mellan str/2 och 0
             }
                 else // miss
                 {
                     randomnr = random.Next(1, 64);
                     damage = 0;
                 }
-            //float Xpos = Position.X;    //Karaktärens nuvarande position på x-leden
-            //moved += movespeed; //plussas på med 4 för vara tick av gametime.
-
            
-            ////animerar karaktären
-            //if (moved > 1 && moved < 16)
-            //{ Frame = 0; }
-            //else if (moved > 16 && moved < 32)
-            //{ Frame = 1; }
-            //else if (moved > 32 && moved < 48)
-            //{ Frame = 2; }
-            //else if (moved > 48 && moved < 64)
-            //{ Frame = 3; }
-
-            //if (moved == 64)    // när man rört sig 64 pixlar så stannar gubben
-            //{ moved = 0; Frame = 0; canAttack = true; }   //olika variabler ändras så att man nu kan genomföra en ny rörelse
-
-            //if (resetAttack == false)
-            //{
-            //    canAttack = true;
-            //}
-            return damage;
-
-
-
+            return damage;  //Retunerar skadans 
         }
 
-
-
-        //public void AttackAnim(int AttackPos)  //Medtod om man rör sig till left
-        //{
-
-        //}
         public void Update(GameTime gameTime, ref bool canAttack, ref bool attackDone2)
         {
-            
-
+            //Bestämmer vlken bild som skall visas i attackanimationen
             moved += 2;
             if (moved > 1 && moved < 16)
             { Frame = 0; }
@@ -115,24 +80,13 @@ namespace DungeonCrawl
             if (moved == 64)    // när man rört sig 64 pixlar så stannar gubben
             { moved = 0; Frame = 0; resetAttack = false;  }   //olika variabler ändras så att man nu kan genomföra en ny rörelse
 
-            if (resetAttack == false)
+            if (resetAttack == false)  //gör att man kan utföra en ny attack
             {
                 canAttack = true;
             }
 
-            
-           
-
-
-
-
             base.Update(gameTime);
         }
-
-
-        public int Frame
-        { set; get; }
-
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)
         {

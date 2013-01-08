@@ -18,34 +18,33 @@ namespace DungeonCrawl
 {
     class Button
     {
+
+        //Klass för att enkelt skapa nya knappar. 
+
+
         public Rectangle buttonRect = new Rectangle();
         public Texture2D buttonIsPressed;
-        public Texture2D buttonIsNotPressed;
 
-        public int Xpos;
-        public int Ypos;
+        public int Xpos; //Pos på xled
+        public int Ypos; //Pos på yled
 
-        public bool pressed = false;
+        public bool pressed = false; //om knappen är nedtrycket eller ej
 
         public Button(int xPos, int yPos, int width, int height)
         {
             Xpos = xPos;
             Ypos = yPos;
 
-            buttonRect = new Rectangle(Xpos , Ypos , width, height);
+            buttonRect = new Rectangle(Xpos , Ypos , width, height);    //Skapar en ny rektangel för var knappen skall ritas ut
         }
 
         public void draw(SpriteBatch spritebatch ,  float layer, Texture2D buttonPressed)
         {
             
+                buttonIsPressed = buttonPressed;
 
-            buttonIsPressed = buttonPressed;
-
-            
-           
                 spritebatch.Draw(buttonIsPressed, new Vector2(Xpos, Ypos), null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, layer);
             
-
         }
 
     }

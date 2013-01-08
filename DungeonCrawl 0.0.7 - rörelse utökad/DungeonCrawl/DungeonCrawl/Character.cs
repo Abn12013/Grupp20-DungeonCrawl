@@ -17,64 +17,28 @@ namespace DungeonCrawl
 {
     class Character : MovingGameObj
     {
+        //Ansvarig Hannes Qwarnström
 
+        //Denna klass ansvarar för att skapa en spelare, samt att hålla koll på alla dess olika variabler. Dessa inkluderar bla: str, dex, hp, class, race, osv...
 
-        //int totDex = 0;
-        //int totStr = 0;
-        //int totHp = 0;
-        //int xp = 0;
-        //int level = 1;
-
-        //int classStr = 0;
-        //int classDex = 0;
-        //int classHp = 0;
-
-        //int raceStr = 0;
-        //int raceDex = 0;
-        //int raceHp = 0;
         public Character()
         {
         }
 
         public Character(int CStr, int CDex, int CHp, int RStr, int RDex, int RHp, string Pclass)
         {
-            hej = 19;
-
-            //ClassStr = CStr;
-            //ClassDex = CDex;
-            //ClassHp = CHp;
-
-            //RaceDex = RDex;
-            //RaceStr = RStr;
-            //RaceHp = RHp;
-
-            //Totstr = RaceStr + ClassStr;
-            //Totdex = RaceDex + ClassDex;
-            //TotalHp = RaceHp + ClassHp;
-
+           
             maximumHp = TotalHp;
 
             Position = new Vector2(300, 300);
 
-            Level = 1;
-            Xp = 0;
-            XpToLevel = 100;
+            Level = 1;  //Startlevel
+            Xp = 0;     //StartXP
+            XpToLevel = 100;    //Startxp som behövs för att levla upp
 
             //Klass vid start av spel
             playerClass = "Fighter";
             PlayerRace = "Orc";
-
-            //ClassStr = 10;
-            //ClassDex = 3;
-            //ClassHp = 13;
-
-            //RaceDex = RDex;
-            //RaceStr = RStr;
-            //RaceHp = RHp;
-
-            //Totstr = RaceStr + ClassStr;
-            //Totdex = RaceDex + ClassDex;
-            //TotalHp = RaceHp + ClassHp;
 
             victoryConition = false;
             Victory = false;
@@ -90,17 +54,16 @@ namespace DungeonCrawl
 
             SetNewGameStats();
 
-            //sätter startpositionen
+            //sätter startpositionen i rutnätet
             playerPosX = 8;
             playerPosY = 2;
-            //Position = new Vector2(playerPosX * 64, playerPosY * 64);
 
         }
 
-        public bool victoryConition
+        public bool victoryConition //Håller koll på om man har skatten
         { get; set; }
 
-        public bool Victory
+        public bool Victory //Gör så att man vinner om man tar skatten till startpositionen
         { get; set; }
 
         public int playerPosY   //Håller koll på spelarens Y pos i rutnätet
@@ -109,15 +72,9 @@ namespace DungeonCrawl
         public int playerPosX    //Håller koll på spelarens X pos i rutnätet
         { get; set; }
 
-        public float maximumHp
+        public float maximumHp  //Den totala mängden hp man kan ha för tillfället
         { get; set; }
-
-        public int hej
-        { get; set; }
-
-        //Vilken fram som skall visas
-        public int Frame
-        { get; set; }
+     
 
         //Sätter det unika klass str-värdet
         public int ClassStr
@@ -144,7 +101,6 @@ namespace DungeonCrawl
         //Sätter det unika race hp-värdet
         public int RaceHp
         { get; set; }
-
 
 
         //sätter eller hämtar karaktärens level
@@ -182,10 +138,10 @@ namespace DungeonCrawl
         { get; set; }
 
 
-        public void SetNewGameStats()
+        public void SetNewGameStats()   //Metod som går att kalla på om man vill reseta stats
         {
 
-            switch (playerClass)
+            switch (playerClass)    //Olika stats för varje klass
             { 
                 case "Fighter":
                     ClassStr = 10;
@@ -204,7 +160,7 @@ namespace DungeonCrawl
                     break;
             }
 
-            switch (PlayerRace)
+            switch (PlayerRace)     //Olika stats för varja ras
             { 
                 case "Dwarf":
                       RaceDex = 3;
@@ -223,7 +179,8 @@ namespace DungeonCrawl
                     break;
             }
 
-            TotalHp = RaceHp + ClassHp;
+            //Lägger ihop race och klass stats till en enda variabel
+            TotalHp = RaceHp + ClassHp; 
             Totdex = ClassDex + RaceDex;
             Totstr = ClassStr + RaceStr;
 
@@ -231,13 +188,12 @@ namespace DungeonCrawl
 
         }
 
+        public bool VisaLevelUp = false;    //Bool för att visa en ruta som säger att man har gått up i level
 
-        public bool VisaLevelUp = false;
-
-        public void LevelUp(ref int hpbarbredd)
+        public void LevelUp(ref int hpbarbredd)     //Metod som kalls på när man levelar upp
         {
-            Level++;
-            switch (playerClass)
+            Level++;    //Ökar leveln
+            switch (playerClass)    //Attributen ökar olika beroende på klass
             {
                 case "Fighter":
                     Totstr += 5;
@@ -255,12 +211,12 @@ namespace DungeonCrawl
                     TotalHp += 5;
                     break;
             }
-            TotalHp = (int)maximumHp + 5 * Level;
-            maximumHp = TotalHp;
-            Xp = Xp - XpToLevel;
-            XpToLevel = XpToLevel + 50 * Level;
-            hpbarbredd = 412;
-            VisaLevelUp = true;
+            TotalHp = (int)maximumHp + 5 * Level;   //Ökar hp
+            maximumHp = TotalHp;    //Sätter max hp till det nya tot hp
+            Xp = Xp - XpToLevel;       //Den xp som blev överflödig när man gick upp i level läggs till på nästa
+            XpToLevel = XpToLevel + 50 * Level;     //Ökar mängden xp som behös för att levla upp
+            hpbarbredd = 412;   //Återställer hpbar
+            VisaLevelUp = true; //Visar levelupfönster
             
         }
 
@@ -369,19 +325,16 @@ namespace DungeonCrawl
             {
                 if (victoryConition == true)
                 {
-                    MessageBox.Show("Add victory screen adam");
-                    Victory = true;
+                    
+                    Victory = true; //Gör att man vinner om man går till startpositionen
 
                 }
                 
             }
             if (playerPosX == 31 && playerPosY == 4 && floor1 == 2)
             {
-                if (victoryConition == false)
-                {
-                    //MessageBox.Show("skatten e din, add graphic adamplz, one job");
-                }
-                victoryConition = true;
+             
+                victoryConition = true;     //gör att man plockar upp skatten, vilket gör det möjligt att vinna
             }
 
 

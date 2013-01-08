@@ -14,12 +14,16 @@ namespace DungeonCrawl
 {
     class FogOfWar
     {
+        //Ansvarig: Jonas Holmberg
+
+        //Denna klass enda uppgift är att rita ut spelets "Fog of war" eller med andra ord begränsa spelarens synfält. Vad klassen gör enkelt är att den
+        //kollar om spelaren befinner sig nära eller mot en vägg, den ritar sedan ut 64x64 svarta rutor där spelaren inte skall kunna se, ex över en vägg.
 
         public void Draw(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer, Texture2D visionTileGfx, Character player, PositionManager[, ,] positionManager, int floor)
         {
 
             //Fog of war
-            for (int i = -6; i < 7; i++)
+            for (int i = -6; i < 7; i++)//Ritar ut det maximala synfältet
             {
 
                 for (int j = -7; j < 8; j++)
@@ -110,6 +114,7 @@ namespace DungeonCrawl
                     spriteBatch.Draw(visionTileGfx, new Vector2((player.playerPosX + j) * 64, (player.playerPosY + 5) * 64) - player.Position + new Vector2(400, 350), null, Color.White, 0, new Vector2(32, 32), 1.0f, SpriteEffects.None, 0.89f);
                 }
             }
+            //Slut på utritning av fog of war under spelaren
 
             //Kollar fog of war till vänster om spelaren om det är en vägg där
 

@@ -17,6 +17,9 @@ namespace DungeonCrawl
 {
     class LoadSave
     {
+        //Ansvarig: Jonas Holmberg
+
+
         //This class is responsible for the save and load functions of the program. It contains two methods, one that handle the save and another
         //that handle the load. The save game method gets calld from the Game1.cs and it takes a few arguments: The player class, a list class of the enemis
         //and what floor is he current one. Then it writes all the necessary information to a text file. Each information is written to its own row.
@@ -58,7 +61,7 @@ namespace DungeonCrawl
         //21: Öppnadekistor X position
         //22: Öppnadekistor Våning
 
-        public void resetGameStats(ref Character Player, ref int floor, ref List<Enemy> enemis, ref int bredd)
+        public void resetGameStats(ref Character Player, ref int floor, ref List<Enemy> enemis, ref int bredd)  //Metod som återställer viktiga variabler
         {
 
             Player.playerPosX = 8;
@@ -87,10 +90,12 @@ namespace DungeonCrawl
         
         }
 
-        public void SaveTheGame(Character Player, int floor, List<Enemy> enemis, float bredd, PositionManager[,,]positionManager)
+        public void SaveTheGame(Character Player, int floor, List<Enemy> enemis, float bredd, PositionManager[,,]positionManager)   //Metod för att spara spelet
         {
+            //alla värden måste sparas och laddas i exakt samma ordning. Annars kaos
+
             StreamWriter saveGame = new StreamWriter("save");
-            //Spelar värden
+            //Spelarvärden
             saveGame.WriteLine(Player.playerPosX);
             saveGame.WriteLine(Player.playerPosY);
             saveGame.WriteLine(floor);
@@ -156,7 +161,7 @@ namespace DungeonCrawl
             saveGame.Close();
         }
 
-        public void LoadTheGame(ref Character PlayerLoad, ref int floor, ref List<Enemy> enemis, ref PositionManager[,,] positionmanger, ref int bredd)
+        public void LoadTheGame(ref Character PlayerLoad, ref int floor, ref List<Enemy> enemis, ref PositionManager[,,] positionmanger, ref int bredd) //Metod för att ladda spelet
         {
             StreamReader loadGame = new StreamReader("save");
             //Spelar värden

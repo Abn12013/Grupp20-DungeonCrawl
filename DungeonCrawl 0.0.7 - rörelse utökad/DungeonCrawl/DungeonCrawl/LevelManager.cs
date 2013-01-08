@@ -8,12 +8,17 @@ namespace DungeonCrawl
 {
     class LevelManager
     {
+        //Ansvarig Antti Lindén
+        
+        //Denna klass ansvarar för att bygga upp banan och tilldela olika objekt deras positioner i rutntet. 
+
         private string[] map = new string[3];
         //E = Entry/Exit, # = Vägg, C = Chest, U = Upstairs, D = Downstairs, . = golv
 
 
         public LevelManager()
         {
+            //Sräng för kartan, vad olika saker skall befinna sig
             map[0] =
         "                                                    " + "\n" +
         "   #################                   ###          " + "\n" +
@@ -59,7 +64,7 @@ namespace DungeonCrawl
             "   #######.#.#.#.#...##....#........#........#...#  " + "\n" +
             "  ########.#.#.#.#...#######........#..........U.#  " + "\n" +
             "  #........#.#...#...##...##........#........#...#  " + "\n" +
-            "  #.########.#.###......U.######..####.############ " + "\n" +
+            "  #.########.#.###.g....U.######..####.############ " + "\n" +
             "  #.# #......#.#.#...##...#.......................# " + "\n" +
             "  #.# #.######.#.##########.......................# " + "\n" +
             "  #.# #.#    #...#..........########.....######.### " + "\n" +
@@ -125,7 +130,7 @@ namespace DungeonCrawl
         }
 
         //Läser in båda strängar till positionmanager
-        public void BuildGame(ref PositionManager[, ,] positionManager)
+        public void BuildGame(ref PositionManager[, ,] positionManager) //Metod som tilldelar rätt typ av objekt till poitionmanger
         {
             string level;
 
@@ -248,7 +253,7 @@ namespace DungeonCrawl
             }
         }
 
-        public void OpenChest(int floor, PositionManager[, ,] positionManager, ref List<GameObj> objects)
+        public void OpenChest(int floor, PositionManager[, ,] positionManager, ref List<GameObj> objects)   //Metod som körs när man öppnar en kista, den uppdaterar objects för att bytta grafik för kistor
         {
             objects.Clear();
             string currentObject;
@@ -267,7 +272,7 @@ namespace DungeonCrawl
                             objects.Add(new GameObj()
                             {
                                 Frame = 23,
-                                Position = new Vector2(currentPosition.X * 64, (currentPosition.Y * 64) - 32)
+                                Position = new Vector2(currentPosition.X * 64, (currentPosition.Y * 64))
                             });
                             break;
                         case "chest":
@@ -309,14 +314,16 @@ namespace DungeonCrawl
 
         }
 
+        // Medotd som körs när man startar ett spel eller om man byter våning.
+        // Vad den gör är att den lägger till rätt objekt på rätt ställe, den kollar även vilken textur som ska användas
         public void ChangeFloor(int floor, PositionManager[, ,] positionManager, ref List<GameObj> floortiles,
-            ref List<GameObj> walls, ref List<GameObj> objects, ref GameObj entry, ref List<Enemy> enemies)
+            ref List<GameObj> walls, ref List<GameObj> objects, ref List<Enemy> enemies)
         {
             floortiles.Clear();
             walls.Clear();
             objects.Clear();
             enemies.Clear();
-            entry.Position = new Vector2(-50, -50);
+            
 
             string currentMONSTER;
             string currentObject;
@@ -339,10 +346,7 @@ namespace DungeonCrawl
                         });
                     }
 
-                    if (positionManager[y, x, floor].entry == true)
-                    {
-                        entry.Position = currentPosition;
-                    }
+                   
 
                     switch (currentObject)
                     {

@@ -16,9 +16,10 @@ namespace DungeonCrawl
 {
     class ButtonKlick: MovingGameObj
     {
+        //klass för knapptryckningar och musklick som hanterar rörese och attack. Knapparna som används i denna klass är " WASD".
+
         protected KeyboardState prevKs;
         protected MouseState prevMs1;
-         enum GameState { NewGame, MainMenu, LoadGame, ChangeLevel, Game, GameOver, Victory, Pause, Information }
         
         public ButtonKlick()
         {
@@ -32,25 +33,17 @@ namespace DungeonCrawl
         {
             
             KeyboardState ks = Keyboard.GetState();
-            KeyboardState prks;
 
             //Hp och hpbar uträkningar test
             Random tal = new Random();
             
-            
-
-            if (attackDone == true)
+            //När en attack är klar sätts dessa till true
+            if (attackDone == true)    //Gör så att man enbart kan genomföra en atack åt gången
             {
                 attackDone2 = true;
                 attackDoneMiss = true;
             }
 
-            // TODO: Add your update logic here
-
-            //MessageBox.Show(positionManager[6,5,0].type);
-
-            //positionManager[player.playerPosY, player.playerPosX, 0].type = "player"; //Tilldelar spelarens nuvarande positon i rutnätet.
-            //Varablerna tilldelas högs upp i Game1.cs, men borde läggas in som en variabel i Character klassen.
             //Rörelse via tangentbordskontroller
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D)) //Knapptryckning för att röra sig till höger
             {
@@ -60,48 +53,50 @@ namespace DungeonCrawl
 
                     if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type == "enemy")
                     {
-                        if (attackDone == true)
+                        if (attackDone == true)    //Gör så att man enbart kan genomföra en atack åt gången
                         {
-                            for (int i = 0; i < enemies.Count; i++)
+                            for (int i = 0; i < enemies.Count; i++)   //Kollar igenom alla fiender
                             {
                                 if (enemies[i].xCoord == player.playerPosX + 1 && enemies[i].yCoord == player.playerPosY)
                                 {
-                                    int tempEnemyHp = enemies[i].hp;
+                                    
                                     attackDone = false;
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
 
                                     attack2.attackPos = new Vector2(player.playerPosX + 1, player.playerPosY);
-                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpBefore = enemies[i].hp;
-                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpAfter = enemies[i].hp;
+                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);   //Ritar ut attackanimationen i rätt ruta
+                                    
+                                    int hpBefore = enemies[i].hp;   //Fiendens hp innan utförd attack
+                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);   //Kör spelarens attackuträkning på fienden
+                                    int hpAfter = enemies[i].hp;   //Fiendens hp efter attack
 
-                                    playerDamgeDelt = hpBefore - hpAfter;
-                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                    player.allowButtonPress = true;
-                                    if (hpBefore == hpAfter)
+                                    playerDamgeDelt = hpBefore - hpAfter;   //Skadan som fienden tog
+                                    
+                                    player.allowButtonPress = true;   //Gör att man får trycka på en knapp igen
+                                    if (hpBefore == hpAfter)   //Då har attacken missat
                                     {
-                                        attackDoneMiss = false;
+                                        attackDoneMiss = false;   //Gör att texten för miss ritas ut
                                         attackDone2 = true;
-                                        soundBank.PlayCue("AttackMiss");
+                                        soundBank.PlayCue("AttackMiss");   //Spelar upp ljud för miss
                                     }
-                                    else if (hpBefore != hpAfter)
+                                    else if (hpBefore != hpAfter)   //Ifall attacken träffar
                                     {
                                         attackDoneMiss = true;
-                                        attackDone2 = false;
-                                        soundBank.PlayCue("AttackSound");
+                                        attackDone2 = false;   //gör så att attackanimationen får ritas ut
+                                        soundBank.PlayCue("AttackSound");   //Spelar upp ljud för träff
                                     }
-                                    //MessageBox.Show(enemies[i].hp.ToString());
-                                    if (enemies[i].hp <= 0)
+                                    
+                                    if (enemies[i].hp <= 0)   //Ifall fienden dör
                                     {
-                                        enemies.RemoveAt(i);
-                                        positionManager[player.playerPosY, player.playerPosX + 1, floor].type = "empty";
+                                        
+                                        positionManager[player.playerPosY, player.playerPosX + 1, floor].type = "empty";   //Sätter positionen den var på till empty
 
-                                        player.Xp += 60;
-                                        if (player.Xp >= player.XpToLevel)
+                                        player.Xp += enemies[i].ReturnExp();
+                                        enemies.RemoveAt(i);  //Tar bort fienden
+
+                                        if (player.Xp >= player.XpToLevel)   //Gör så att man går upp i level
                                         {
-                                            player.LevelUp(ref hpBarPos.Width);
+                                            player.LevelUp(ref hpBarPos.Width);   //Återställer spelarens hpbar
 
 
                                         }
@@ -122,9 +117,7 @@ namespace DungeonCrawl
                         player.playerPosX += 1;
 
                     }
-                    //if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type != "empty")
-                    //MessageBox.Show(positionManager[player.playerPosY, player.playerPosX + 1, floor].type);
-
+                    
                 }
             }
             if (ks.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A)) //Knapptryckning för att röra sig till vänster
@@ -134,48 +127,49 @@ namespace DungeonCrawl
                     player.Frame = 3;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen                    
                     if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type == "enemy")
                     {
-                        if (attackDone == true)
+                        if (attackDone == true)    //Gör så att man enbart kan genomföra en atack åt gången
                         {
-                            for (int i = 0; i < enemies.Count; i++)
+                            for (int i = 0; i < enemies.Count; i++)   //Kollar igenom alla fiender
                             {
                                 if (enemies[i].xCoord == player.playerPosX - 1 && enemies[i].yCoord == player.playerPosY)
                                 {
-                                    int tempEnemyHp = enemies[i].hp;
+                                    
                                     attackDone = false;
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                     attack2.attackPos = new Vector2(player.playerPosX - 1, player.playerPosY);
-                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpBefore = enemies[i].hp;
-                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpAfter = enemies[i].hp;
+                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);   //Ritar ut attackanimationen i rätt ruta
+                                    
+                                    int hpBefore = enemies[i].hp;   //Fiendens hp innan utförd attack
+                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);   //Kör spelarens attackuträkning på fienden
+                                    int hpAfter = enemies[i].hp;   //Fiendens hp efter attack
 
-                                    playerDamgeDelt = hpBefore - hpAfter;
-                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                    player.allowButtonPress = true;
-                                    if (hpBefore == hpAfter)
+                                    playerDamgeDelt = hpBefore - hpAfter;   //Skadan som fienden tog
+                                    
+                                    player.allowButtonPress = true;   //Gör att man får trycka på en knapp igen
+                                    if (hpBefore == hpAfter)   //Då har attacken missat
                                     {
-                                        attackDoneMiss = false;
+                                        attackDoneMiss = false;   //Gör att texten för miss ritas ut
                                         attackDone2 = true;
-                                        soundBank.PlayCue("AttackMiss");
+                                        soundBank.PlayCue("AttackMiss");   //Spelar upp ljud för miss
                                     }
-                                    else if (hpBefore != hpAfter)
+                                    else if (hpBefore != hpAfter)   //Ifall attacken träffar
                                     {
                                         attackDoneMiss = true;
-                                        attackDone2 = false;
-                                        soundBank.PlayCue("AttackSound");
+                                        attackDone2 = false;   //gör så att attackanimationen får ritas ut
+                                        soundBank.PlayCue("AttackSound");   //Spelar upp ljud för träff
                                     }
 
 
-                                    //MessageBox.Show(enemies[i].hp.ToString());
-                                    if (enemies[i].hp <= 0)
+                                    
+                                    if (enemies[i].hp <= 0)   //Ifall fienden dör
                                     {
-                                        enemies.RemoveAt(i);
+                                        
                                         positionManager[player.playerPosY, player.playerPosX - 1, floor].type = "empty";
-                                        player.Xp += 60;
-                                        if (player.Xp >= player.XpToLevel)
+                                        player.Xp += enemies[i].ReturnExp();
+                                        enemies.RemoveAt(i);  //Tar bort fienden
+                                        if (player.Xp >= player.XpToLevel)   //Gör så att man går upp i level
                                         {
-                                            player.LevelUp(ref hpBarPos.Width);
+                                            player.LevelUp(ref hpBarPos.Width);   //Återställer spelarens hpbar
                                         }
                                     }
                                 }
@@ -190,8 +184,7 @@ namespace DungeonCrawl
                     else if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
                     {
                         player.moveCharLeft = true;    //Gör så att man rör sig åt vänster
-                        //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                        //positionManager[player.playerPosY, player.playerPosX - 1, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+                       
                         player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
                         player.playerPosX -= 1;
                     }
@@ -204,46 +197,46 @@ namespace DungeonCrawl
                     player.Frame = 9;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
                     if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type == "enemy")
                     {
-                        if (attackDone == true)
+                        if (attackDone == true)    //Gör så att man enbart kan genomföra en atack åt gången
                         {
-                            for (int i = 0; i < enemies.Count; i++)
+                            for (int i = 0; i < enemies.Count; i++)   //Kollar igenom alla fiender
                             {
                                 if (enemies[i].xCoord == player.playerPosX && enemies[i].yCoord == player.playerPosY - 1)
                                 {
-                                    int tempEnemyHp = enemies[i].hp;
+                                    
                                     attackDone = false;
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                     attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY - 1);
-                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpBefore = enemies[i].hp;
-                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpAfter = enemies[i].hp;
+                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);   //Ritar ut attackanimationen i rätt ruta
+                                    
+                                    int hpBefore = enemies[i].hp;   //Fiendens hp innan utförd attack
+                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);   //Kör spelarens attackuträkning på fienden
+                                    int hpAfter = enemies[i].hp;   //Fiendens hp efter attack
 
-                                    playerDamgeDelt = hpBefore - hpAfter;
-                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                    player.allowButtonPress = true;
-                                    if (hpBefore == hpAfter)
+                                    playerDamgeDelt = hpBefore - hpAfter;   //Skadan som fienden tog
+                                    
+                                    player.allowButtonPress = true;   //Gör att man får trycka på en knapp igen
+                                    if (hpBefore == hpAfter)   //Då har attacken missat
                                     {
-                                        attackDoneMiss = false;
+                                        attackDoneMiss = false;   //Gör att texten för miss ritas ut
                                         attackDone2 = true;
-                                        soundBank.PlayCue("AttackMiss");
+                                        soundBank.PlayCue("AttackMiss");   //Spelar upp ljud för miss
                                     }
-                                    else if (hpBefore != hpAfter)
+                                    else if (hpBefore != hpAfter)   //Ifall attacken träffar
                                     {
                                         attackDoneMiss = true;
-                                        attackDone2 = false;
-                                        soundBank.PlayCue("AttackSound");
+                                        attackDone2 = false;   //gör så att attackanimationen får ritas ut
+                                        soundBank.PlayCue("AttackSound");   //Spelar upp ljud för träff
                                     }
-                                    //MessageBox.Show(enemies[i].hp.ToString());
-                                    if (enemies[i].hp <= 0)
+                                    
+                                    if (enemies[i].hp <= 0)   //Ifall fienden dör
                                     {
                                         positionManager[player.playerPosY - 1, player.playerPosX, floor].type = "empty";
                                         player.Xp += enemies[i].ReturnExp();
-                                        enemies.RemoveAt(i);
-                                        if (player.Xp >= player.XpToLevel)
+                                        enemies.RemoveAt(i);  //Tar bort fienden
+                                        if (player.Xp >= player.XpToLevel)   //Gör så att man går upp i level
                                         {
-                                            player.LevelUp(ref hpBarPos.Width);
+                                            player.LevelUp(ref hpBarPos.Width);   //Återställer spelarens hpbar
                                         }
                                     }
                                 }
@@ -258,8 +251,7 @@ namespace DungeonCrawl
                     else if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
                     {
                         player.moveCharUp = true;  //Gör så att man rör sig upp
-                        //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                        //positionManager[player.playerPosY - 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+                       
                         player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
                         player.playerPosY -= 1;
                     }
@@ -273,46 +265,47 @@ namespace DungeonCrawl
 
                     if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type == "enemy")
                     {
-                        if (attackDone == true)
+                        if (attackDone == true)    //Gör så att man enbart kan genomföra en atack åt gången
                         {
-                            for (int i = 0; i < enemies.Count; i++)
+                            for (int i = 0; i < enemies.Count; i++)   //Kollar igenom alla fiender
                             {
                                 if (enemies[i].xCoord == player.playerPosX && enemies[i].yCoord == player.playerPosY + 1)
                                 {
-                                    int tempEnemyHp = enemies[i].hp;
+                                    
                                     attackDone = false;
                                     player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                     attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY + 1);
-                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                    //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpBefore = enemies[i].hp;
-                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                    int hpAfter = enemies[i].hp;
+                                    attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);   //Ritar ut attackanimationen i rätt ruta
+                                    
+                                    int hpBefore = enemies[i].hp;   //Fiendens hp innan utförd attack
+                                    enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);   //Kör spelarens attackuträkning på fienden
+                                    int hpAfter = enemies[i].hp;   //Fiendens hp efter attack
 
-                                    playerDamgeDelt = hpBefore - hpAfter;
-                                    //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                    player.allowButtonPress = true;
-                                    if (hpBefore == hpAfter)
+                                    playerDamgeDelt = hpBefore - hpAfter;   //Skadan som fienden tog
+                                    
+                                    player.allowButtonPress = true;   //Gör att man får trycka på en knapp igen
+                                    if (hpBefore == hpAfter)   //Då har attacken missat
                                     {
-                                        attackDoneMiss = false;
+                                        attackDoneMiss = false;   //Gör att texten för miss ritas ut
                                         attackDone2 = true;
-                                        soundBank.PlayCue("AttackMiss");
+                                        soundBank.PlayCue("AttackMiss");   //Spelar upp ljud för miss
                                     }
-                                    else if (hpBefore != hpAfter)
+                                    else if (hpBefore != hpAfter)   //Ifall attacken träffar
                                     {
                                         attackDoneMiss = true;
-                                        attackDone2 = false;
-                                        soundBank.PlayCue("AttackSound");
+                                        attackDone2 = false;   //gör så att attackanimationen får ritas ut
+                                        soundBank.PlayCue("AttackSound");   //Spelar upp ljud för träff
                                     }
-                                    //MessageBox.Show(enemies[i].hp.ToString());
-                                    if (enemies[i].hp <= 0)
+                                    
+                                    if (enemies[i].hp <= 0)   //Ifall fienden dör
                                     {
-                                        enemies.RemoveAt(i);
+                                      
                                         positionManager[player.playerPosY + 1, player.playerPosX, floor].type = "empty";
-                                        player.Xp += 60;
-                                        if (player.Xp >= player.XpToLevel)
+                                        player.Xp += enemies[i].ReturnExp();
+                                        enemies.RemoveAt(i);  //Tar bort fienden
+                                        if (player.Xp >= player.XpToLevel)   //Gör så att man går upp i level
                                         {
-                                            player.LevelUp(ref hpBarPos.Width);
+                                            player.LevelUp(ref hpBarPos.Width);   //Återställer spelarens hpbar
                                         }
                                     }
                                 }
@@ -327,8 +320,7 @@ namespace DungeonCrawl
                     else if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
                     {
                         player.moveCharDown = true;    //Gör så att man rör sig ner
-                        //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                        //positionManager[player.playerPosY + 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+                       
                         player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
                         player.playerPosY += 1;
                     }
@@ -356,46 +348,47 @@ namespace DungeonCrawl
                         player.Frame = 9;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
                         if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type == "enemy")
                         {
-                            if (attackDone == true)
+                            if (attackDone == true)    //Gör så att man enbart kan genomföra en atack åt gången
                             {
-                                for (int i = 0; i < enemies.Count; i++)
+                                for (int i = 0; i < enemies.Count; i++)   //Kollar igenom alla fiender
                                 {
                                     if (enemies[i].xCoord == player.playerPosX && enemies[i].yCoord == player.playerPosY - 1)
                                     {
-                                        int tempEnemyHp = enemies[i].hp;
+                                        
                                         attackDone = false;
                                         player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                         attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY - 1);
-                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                        //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                        int hpBefore = enemies[i].hp;
-                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                        int hpAfter = enemies[i].hp;
+                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);   //Ritar ut attackanimationen i rätt ruta
+                                        
+                                        int hpBefore = enemies[i].hp;   //Fiendens hp innan utförd attack
+                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);   //Kör spelarens attackuträkning på fienden
+                                        int hpAfter = enemies[i].hp;   //Fiendens hp efter attack
 
-                                        playerDamgeDelt = hpBefore - hpAfter;
-                                        //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                        player.allowButtonPress = true;
-                                        if (hpBefore == hpAfter)
+                                        playerDamgeDelt = hpBefore - hpAfter;   //Skadan som fienden tog
+                                        
+                                        player.allowButtonPress = true;   //Gör att man får trycka på en knapp igen
+                                        if (hpBefore == hpAfter)   //Då har attacken missat
                                         {
-                                            attackDoneMiss = false;
+                                            attackDoneMiss = false;   //Gör att texten för miss ritas ut
                                             attackDone2 = true;
-                                            soundBank.PlayCue("AttackMiss");
+                                            soundBank.PlayCue("AttackMiss");   //Spelar upp ljud för miss
                                         }
-                                        else if (hpBefore != hpAfter)
+                                        else if (hpBefore != hpAfter)   //Ifall attacken träffar
                                         {
                                             attackDoneMiss = true;
-                                            attackDone2 = false;
-                                            soundBank.PlayCue("AttackSound");
+                                            attackDone2 = false;   //gör så att attackanimationen får ritas ut
+                                            soundBank.PlayCue("AttackSound");   //Spelar upp ljud för träff
                                         }
-                                        //MessageBox.Show(enemies[i].hp.ToString());
-                                        if (enemies[i].hp <= 0)
+                                        
+                                        if (enemies[i].hp <= 0)   //Ifall fienden dör
                                         {
-                                            enemies.RemoveAt(i);
+                                            
                                             positionManager[player.playerPosY - 1, player.playerPosX, floor].type = "empty";
-                                            player.Xp += 60;
-                                            if (player.Xp >= player.XpToLevel)
+                                            player.Xp += enemies[i].ReturnExp();
+                                            enemies.RemoveAt(i);  //Tar bort fienden
+                                            if (player.Xp >= player.XpToLevel)   //Gör så att man går upp i level
                                             {
-                                                player.LevelUp(ref hpBarPos.Width);
+                                                player.LevelUp(ref hpBarPos.Width);   //Återställer spelarens hpbar
                                             }
                                         }
                                     }
@@ -410,8 +403,7 @@ namespace DungeonCrawl
                         else if (positionManager[player.playerPosY - 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
                         {
                             player.moveCharUp = true;  //Gör så att man rör sig upp
-                            //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                            //positionManager[player.playerPosY - 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+                         
                             player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
                             player.playerPosY -= 1;
                         }
@@ -429,46 +421,47 @@ namespace DungeonCrawl
 
                         if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type == "enemy")
                         {
-                            if (attackDone == true)
+                            if (attackDone == true)    //Gör så att man enbart kan genomföra en atack åt gången
                             {
-                                for (int i = 0; i < enemies.Count; i++)
+                                for (int i = 0; i < enemies.Count; i++)   //Kollar igenom alla fiender
                                 {
                                     if (enemies[i].xCoord == player.playerPosX && enemies[i].yCoord == player.playerPosY + 1)
                                     {
-                                        int tempEnemyHp = enemies[i].hp;
+                                        
                                         attackDone = false;
                                         player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
                                         attack2.attackPos = new Vector2(player.playerPosX, player.playerPosY + 1);
-                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                        //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                        int hpBefore = enemies[i].hp;
-                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                        int hpAfter = enemies[i].hp;
+                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);   //Ritar ut attackanimationen i rätt ruta
+                                        
+                                        int hpBefore = enemies[i].hp;   //Fiendens hp innan utförd attack
+                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);   //Kör spelarens attackuträkning på fienden
+                                        int hpAfter = enemies[i].hp;   //Fiendens hp efter attack
 
-                                        playerDamgeDelt = hpBefore - hpAfter;
-                                        //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                        player.allowButtonPress = true;
-                                        if (hpBefore == hpAfter)
+                                        playerDamgeDelt = hpBefore - hpAfter;   //Skadan som fienden tog
+                                        
+                                        player.allowButtonPress = true;   //Gör att man får trycka på en knapp igen
+                                        if (hpBefore == hpAfter)   //Då har attacken missat
                                         {
-                                            attackDoneMiss = false;
+                                            attackDoneMiss = false;   //Gör att texten för miss ritas ut
                                             attackDone2 = true;
-                                            soundBank.PlayCue("AttackMiss");
+                                            soundBank.PlayCue("AttackMiss");   //Spelar upp ljud för miss
                                         }
-                                        else if (hpBefore != hpAfter)
+                                        else if (hpBefore != hpAfter)   //Ifall attacken träffar
                                         {
                                             attackDoneMiss = true;
-                                            attackDone2 = false;
-                                            soundBank.PlayCue("AttackSound");
+                                            attackDone2 = false;   //gör så att attackanimationen får ritas ut
+                                            soundBank.PlayCue("AttackSound");   //Spelar upp ljud för träff
                                         }
-                                        //MessageBox.Show(enemies[i].hp.ToString());
-                                        if (enemies[i].hp <= 0)
+                                        
+                                        if (enemies[i].hp <= 0)   //Ifall fienden dör
                                         {
-                                            enemies.RemoveAt(i);
+                                            
                                             positionManager[player.playerPosY + 1, player.playerPosX, floor].type = "empty";
-                                            player.Xp += 60;
-                                            if (player.Xp >= player.XpToLevel)
+                                            player.Xp += enemies[i].ReturnExp();
+                                            enemies.RemoveAt(i);  //Tar bort fienden
+                                            if (player.Xp >= player.XpToLevel)   //Gör så att man går upp i level
                                             {
-                                                player.LevelUp(ref hpBarPos.Width);
+                                                player.LevelUp(ref hpBarPos.Width);   //Återställer spelarens hpbar
                                             }
                                         }
                                     }
@@ -483,8 +476,7 @@ namespace DungeonCrawl
                         else if (positionManager[player.playerPosY + 1, player.playerPosX, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
                         {
                             player.moveCharDown = true;    //Gör så att man rör sig ner
-                            //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                            //positionManager[player.playerPosY + 1, player.playerPosX, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+                           
                             player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
                             player.playerPosY += 1;
                         }
@@ -502,45 +494,46 @@ namespace DungeonCrawl
                         player.Frame = 3;  //sätter framen till det håll man försöker gå åt, ifall det är en vägg ivägen körs inte animationen men karaktären vänder sig mot väggen
                         if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type == "enemy")
                         {
-                            if (attackDone == true)
+                            if (attackDone == true)    //Gör så att man enbart kan genomföra en atack åt gången
                             {
-                                for (int i = 0; i < enemies.Count; i++)
+                                for (int i = 0; i < enemies.Count; i++)   //Kollar igenom alla fiender
                                 {
                                     if (enemies[i].xCoord == player.playerPosX + 1 && enemies[i].yCoord == player.playerPosY)
                                     {
-                                        int tempEnemyHp = enemies[i].hp;
+                                        
                                         attackDone = false;
                                         player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
 
-                                        //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                        int hpBefore = enemies[i].hp;
-                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                        int hpAfter = enemies[i].hp;
+                                        
+                                        int hpBefore = enemies[i].hp;   //Fiendens hp innan utförd attack
+                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);   //Kör spelarens attackuträkning på fienden
+                                        int hpAfter = enemies[i].hp;   //Fiendens hp efter attack
 
-                                        playerDamgeDelt = hpBefore - hpAfter;
-                                        //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                        player.allowButtonPress = true;
-                                        if (hpBefore == hpAfter)
+                                        playerDamgeDelt = hpBefore - hpAfter;   //Skadan som fienden tog
+                                        
+                                        player.allowButtonPress = true;   //Gör att man får trycka på en knapp igen
+                                        if (hpBefore == hpAfter)   //Då har attacken missat
                                         {
-                                            attackDoneMiss = false;
+                                            attackDoneMiss = false;   //Gör att texten för miss ritas ut
                                             attackDone2 = true;
-                                            soundBank.PlayCue("AttackMiss");
+                                            soundBank.PlayCue("AttackMiss");   //Spelar upp ljud för miss
                                         }
-                                        else if (hpBefore != hpAfter)
+                                        else if (hpBefore != hpAfter)   //Ifall attacken träffar
                                         {
                                             attackDoneMiss = true;
-                                            attackDone2 = false;
-                                            soundBank.PlayCue("AttackSound");
+                                            attackDone2 = false;   //gör så att attackanimationen får ritas ut
+                                            soundBank.PlayCue("AttackSound");   //Spelar upp ljud för träff
                                         }
-                                        if (enemies[i].hp <= 0)
+                                        if (enemies[i].hp <= 0)   //Ifall fienden dör
                                         {
-                                            enemies.RemoveAt(i);
-                                            positionManager[player.playerPosY, player.playerPosX + 1, floor].type = "empty";
+                                            
+                                            positionManager[player.playerPosY, player.playerPosX + 1, floor].type = "empty";   //Sätter positionen den var på till empty
 
-                                            player.Xp += 60;
-                                            if (player.Xp >= player.XpToLevel)
+                                            player.Xp += enemies[i].ReturnExp();
+                                            enemies.RemoveAt(i);  //Tar bort fienden
+                                            if (player.Xp >= player.XpToLevel)   //Gör så att man går upp i level
                                             {
-                                                player.LevelUp(ref hpBarPos.Width);
+                                                player.LevelUp(ref hpBarPos.Width);   //Återställer spelarens hpbar
                                             }
                                         }
                                     }
@@ -554,8 +547,7 @@ namespace DungeonCrawl
                         else if (positionManager[player.playerPosY, player.playerPosX - 1, floor].type != "wall")   //Kollar om det är en vägg framför karaktären, om detta är fallet utförs ingen rörelse
                         {
                             player.moveCharLeft = true;    //Gör så att man rör sig åt vänster
-                            //positionManager[player.playerPosY, player.playerPosX, 0].type = "empty";   //Sätter sin förra position i 2d-arrayen till "null"
-                            //positionManager[player.playerPosY, player.playerPosX -= 1, 0].type = "player";    //Sätter rutan man rörde sig mot till player
+                          
                             player.playerPosX -= 1;
                             player.allowButtonPress = false;   //Gör så att man inte kan trycka på någon annan knapp medans en rörelse genomförs
                         }
@@ -573,48 +565,49 @@ namespace DungeonCrawl
 
                         if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type == "enemy")
                         {
-                            if (attackDone == true)
+                            if (attackDone == true)    //Gör så att man enbart kan genomföra en atack åt gången
                             {
-                                for (int i = 0; i < enemies.Count; i++)
+                                for (int i = 0; i < enemies.Count; i++)   //Kollar igenom alla fiender
                                 {
                                     if (enemies[i].xCoord == player.playerPosX + 1 && enemies[i].yCoord == player.playerPosY)
                                     {
-                                        int tempEnemyHp = enemies[i].hp;
+                                        
                                         attackDone = false;
                                         player.allowButtonPress = false; //Gör så man ej kan göra någon annan rörelse eller attack medans man genomför nuvarande attack
 
                                         attack2.attackPos = new Vector2(player.playerPosX + 1, player.playerPosY);
-                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);
-                                        //playerdmg = attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                        int hpBefore = enemies[i].hp;
-                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);
-                                        int hpAfter = enemies[i].hp;
+                                        attack2.Position = new Vector2(attack2.attackPos.X * 64, attack2.attackPos.Y * 64);   //Ritar ut attackanimationen i rätt ruta
+                                        
+                                        int hpBefore = enemies[i].hp;   //Fiendens hp innan utförd attack
+                                        enemies[i].hp -= attack2.CharAttackCalc(player.Totstr, enemies[i].dex);   //Kör spelarens attackuträkning på fienden
+                                        int hpAfter = enemies[i].hp;   //Fiendens hp efter attack
 
-                                        playerDamgeDelt = hpBefore - hpAfter;
-                                        //MessageBox.Show(hpBefore.ToString() +" " + hpAfter.ToString()+" " + playerDamgeDelt.ToString());
-                                        player.allowButtonPress = true;
-                                        if (hpBefore == hpAfter)
+                                        playerDamgeDelt = hpBefore - hpAfter;   //Skadan som fienden tog
+                                        
+                                        player.allowButtonPress = true;   //Gör att man får trycka på en knapp igen
+                                        if (hpBefore == hpAfter)   //Då har attacken missat
                                         {
-                                            attackDoneMiss = false;
+                                            attackDoneMiss = false;   //Gör att texten för miss ritas ut
                                             attackDone2 = true;
-                                            soundBank.PlayCue("AttackMiss");
+                                            soundBank.PlayCue("AttackMiss");   //Spelar upp ljud för miss
                                         }
-                                        else if (hpBefore != hpAfter)
+                                        else if (hpBefore != hpAfter)   //Ifall attacken träffar
                                         {
                                             attackDoneMiss = true;
-                                            attackDone2 = false;
-                                            soundBank.PlayCue("AttackSound");
+                                            attackDone2 = false;   //gör så att attackanimationen får ritas ut
+                                            soundBank.PlayCue("AttackSound");   //Spelar upp ljud för träff
                                         }
-                                        //MessageBox.Show(enemies[i].hp.ToString());
-                                        if (enemies[i].hp <= 0)
+                                        
+                                        if (enemies[i].hp <= 0)   //Ifall fienden dör
                                         {
-                                            enemies.RemoveAt(i);
-                                            positionManager[player.playerPosY, player.playerPosX + 1, floor].type = "empty";
+                                            
+                                            positionManager[player.playerPosY, player.playerPosX + 1, floor].type = "empty";   //Sätter positionen den var på till empty
 
-                                            player.Xp += 60;
-                                            if (player.Xp >= player.XpToLevel)
+                                            player.Xp += enemies[i].ReturnExp();
+                                            enemies.RemoveAt(i);  //Tar bort fienden
+                                            if (player.Xp >= player.XpToLevel)   //Gör så att man går upp i level
                                             {
-                                                player.LevelUp(ref hpBarPos.Width);
+                                                player.LevelUp(ref hpBarPos.Width);   //Återställer spelarens hpbar
 
 
                                             }
@@ -635,16 +628,10 @@ namespace DungeonCrawl
                             player.playerPosX += 1;
 
                         }
-                        //if (positionManager[player.playerPosY, player.playerPosX + 1, floor].type != "empty")
-                        //MessageBox.Show(positionManager[player.playerPosY, player.playerPosX + 1, floor].type);
-
+                      
                     }
                 }
             }
-
-
-
-
 
             prevMs1 = mousestate1;
 
