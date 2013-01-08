@@ -67,7 +67,7 @@ namespace DungeonCrawl
         List<GameObj> walls = new List<GameObj>();
         List<GameObj> objects = new List<GameObj>();
         Texture2D tileset;
-        Texture2D enemyGFX;
+        Texture2D goblinGFX, darkelfGFX, felorcGFX, gGoblinGFX;
         int floor = 0;
         int skada;
         GameObj entry = new GameObj()
@@ -319,8 +319,11 @@ namespace DungeonCrawl
             player.Gfx2 = Content.Load<Texture2D>("orc");
             player.Gfx3 = Content.Load<Texture2D>("elf");
 
-            //Laddar in grafiken för fienden
-            enemyGFX = Content.Load<Texture2D>("goblin");
+            //Laddar in grafiken för fienderna
+            goblinGFX = Content.Load<Texture2D>("goblin");
+            darkelfGFX = Content.Load<Texture2D>("dark_elf");
+            felorcGFX = Content.Load<Texture2D>("fel_orc");
+            gGoblinGFX = Content.Load<Texture2D>("goblin_gross");
 
             //Laddar in grafiken för attackanimationen
             attack2.Gfx = Content.Load<Texture2D>("animation2");
@@ -597,6 +600,13 @@ namespace DungeonCrawl
                     //Ifall man kör load gam istället för new game
                     if (loadgameTrueorFalse == true)
                     {
+                        for (int y = 0; y < 34; y++)
+                            for (int x = 0; x < 50; x++)
+                                for (int z = 0; z < 3; z++)
+                                {
+                                    if (positionManager[y,x,z].type == "enemy")
+                                        positionManager[y,x,z].type = "empty";
+                                }
                         saveAndLoadGame.LoadTheGame(ref player, ref floor, ref enemies, ref positionManager, ref hpBarPos.Width);
                     }
 
@@ -636,7 +646,21 @@ namespace DungeonCrawl
                     }
                     foreach (Enemy enemy in enemies)
                     {
-                        enemy.Gfx = enemyGFX;
+                        switch (enemy.ReturnExp())
+                        {
+                            case 60:
+                                enemy.Gfx = goblinGFX;
+                                break;
+                            case 30:
+                                enemy.Gfx = gGoblinGFX;
+                                break;
+                            case 80:
+                                enemy.Gfx = darkelfGFX;
+                                break;
+                            case 200:
+                                enemy.Gfx = felorcGFX;
+                                break;
+                        }
                         enemy.Position = new Vector2(enemy.xCoord * 64, enemy.yCoord * 64);
                     }
                     entry.Gfx = tileset;
@@ -678,8 +702,7 @@ namespace DungeonCrawl
 
                 
 
-                    bool updateEnemys = false;
-                   
+                    
                      if (SpawnTimer <= 0)
                      {
                          AddEnemy();
@@ -717,7 +740,6 @@ namespace DungeonCrawl
 
                      if (player.TotalHp <= 0)
                      {
-                         MessageBox.Show("game over son");
                          currentGameState = GameState.GameOver;
                      }
                     //
@@ -1066,13 +1088,43 @@ namespace DungeonCrawl
 
         protected void AddEnemy()
         {
-            int enemyhptemp = 20 + (player.Level * 3);
-            int enemyhp = enemyhptemp;
-            int enemystrtemp = 8 + (player.Level*2);
-            int enemystr = enemystrtemp;
-            int enemydextemp = 12 + (player.Level*3);
-            int enemydex = (int) enemydextemp;
+            int HPtemp = 0;
+            int STRtemp = 0;
+            int DEXtemp = 0;
+            int enemySpeed = 0;
+            int enemyEXP = 0;
+            Texture2D tempGFX = goblinGFX;
+            switch (rnd.Next(3))
+            {
+                case 0:
+                    HPtemp = 4;
+                    STRtemp = 3;
+                    DEXtemp = 12;
+                    enemySpeed = 8;
+                    enemyEXP = 30;
+                    tempGFX = gGoblinGFX;
+                    break;
+                case 1:
+                    HPtemp = 20; 
+                    STRtemp = 8; 
+                    DEXtemp = 12; 
+                    enemySpeed = 2;
+                    enemyEXP = 60;
+                    break;
+                case 2:
+                    HPtemp = 14;
+                    STRtemp = 8; 
+                    DEXtemp = 8; 
+                    enemySpeed = 4;
+                    enemyEXP = 80;
+                    tempGFX = darkelfGFX;
+                    break;
+            }
 
+            int enemyhp = HPtemp + (player.Level * 3);
+            int enemystr = DEXtemp + (player.Level*2);
+            int enemydex = STRtemp + (player.Level*3);
+            
             int temp = rnd.Next(floortiles.Count - 1);
             int pSight = 8;
             if (!(((floortiles.ElementAt(temp).Position.X) / 64 > player.playerPosX - pSight) &&
@@ -1081,14 +1133,28 @@ namespace DungeonCrawl
             ((floortiles.ElementAt(temp).Position.Y) / 64 > player.playerPosY - pSight)) &&
             (positionManager[(int)(floortiles.ElementAt(temp).Position.Y) / 64, (int)(floortiles.ElementAt(temp).Position.X) / 64, floor].type == "empty"))
             {
-                enemies.Add(new Enemy(enemyhp, enemystr, enemydex)
+                enemies.Add(new Enemy(enemyhp, enemystr, enemydex, tempGFX, enemySpeed, enemyEXP)
                 {
                     xCoord = ((int)floortiles.ElementAt(temp).Position.X) / 64,
                     yCoord = ((int)floortiles.ElementAt(temp).Position.Y) / 64,
-                    Gfx = enemyGFX,
                     Position = new Vector2(floortiles.ElementAt(temp).Position.X, floortiles.ElementAt(temp).Position.Y)
                 });
                 positionManager[((int)floortiles.ElementAt(temp).Position.Y) / 64, ((int)floortiles.ElementAt(temp).Position.X) / 64, floor].type = "enemy";
+                switch (enemyEXP)
+                {
+                    case 30:
+                        positionManager[((int)floortiles.ElementAt(temp).Position.Y) / 64, ((int)floortiles.ElementAt(temp).Position.X) / 64, floor].monster = "g_goblin";
+                        break;
+                    case 60:
+                        positionManager[((int)floortiles.ElementAt(temp).Position.Y) / 64, ((int)floortiles.ElementAt(temp).Position.X) / 64, floor].monster = "goblin";
+                        break;
+                    case 80:
+                        positionManager[((int)floortiles.ElementAt(temp).Position.Y) / 64, ((int)floortiles.ElementAt(temp).Position.X) / 64, floor].monster = "dark_elf";
+                        break;
+                    case 200:
+                        positionManager[((int)floortiles.ElementAt(temp).Position.Y) / 64, ((int)floortiles.ElementAt(temp).Position.X) / 64, floor].monster = "fel_orc";
+                        break;
+                }
             }
 
 

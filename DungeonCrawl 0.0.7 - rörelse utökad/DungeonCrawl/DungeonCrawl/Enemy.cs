@@ -22,13 +22,13 @@ namespace DungeonCrawl
         public int str;
         Random random = new Random();
         Character character = new Character();
-        string gfx;
-
+        
         int sight = 5;
         // if sats för att kolla om Character är inom 5 rutor av Enemy. Enemy blir då Active.
         int radX = 0;
         int radY = 0;
 
+        int exp = 0;
         int movespeed = 2; //måste vara delbart med 64
 
         Random rndnr = new Random();
@@ -38,12 +38,13 @@ namespace DungeonCrawl
         {
 
         }
-        public Enemy(int hp, int str, int dex)
+        public Enemy(int hp, int str, int dex, int speed, int exp)
         {
             this.hp = hp;
             this.str = str;
             this.dex = dex;
-            this.gfx = gfx;
+            movespeed = speed;
+            this.exp = exp;
             //xCoord 
             //yCoord 
 
@@ -71,6 +72,11 @@ namespace DungeonCrawl
             
 
 
+        }
+
+        public Enemy(int hp, int str, int dex, Texture2D Gfx, int speed, int exp):this(hp, str, dex, speed, exp)
+        {
+            this.Gfx = Gfx;
         }
 
         public int EnemyAttackCalc(int dex)
@@ -363,11 +369,11 @@ namespace DungeonCrawl
 
                             moveEnemyrRight = true;
                             allowMove = false;
-                            positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                            positionManager[yCoord, xCoord +1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                            positionManager[yCoord, xCoord + 1, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                            positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                             xCoord++;
                         }
-                            //Alternativ när fienden går in i en vägg
+                        //Alternativ när fienden går in i en vägg
                         else if (positionManager[yCoord, xCoord + 1, floor].type == "wall" ||
                            positionManager[yCoord, xCoord + 1, floor].type == "enemy" ||
                            positionManager[yCoord, xCoord + 1, floor].type == "upstairs" ||
@@ -387,7 +393,7 @@ namespace DungeonCrawl
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
                                         player1.TotalHp = player1.TotalHp - skada;
-                                       
+
                                     }
                                 }
                                 // kod för att gå up.
@@ -401,8 +407,8 @@ namespace DungeonCrawl
 
                                     moveEnemyUp = true;
                                     allowMove = false;
-                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                                    positionManager[yCoord - 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord - 1, xCoord, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                                     yCoord--;
                                 }
                             }
@@ -418,7 +424,7 @@ namespace DungeonCrawl
                                         else if (skada == 0)
                                         { soundBank.PlayCue("AttackMiss"); }
                                         player1.TotalHp = player1.TotalHp - skada;
-                                        
+
                                     }
 
                                 }
@@ -432,8 +438,8 @@ namespace DungeonCrawl
                                 {
                                     moveEnemyDown = true;
                                     allowMove = false;
-                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                                    positionManager[yCoord + 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord + 1, xCoord, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                                     yCoord++;
                                 }
                             }
@@ -471,8 +477,8 @@ namespace DungeonCrawl
                         {
                             moveEnemyLeft = true;
                             allowMove = false;
-                            positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                            positionManager[yCoord, xCoord - 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                            positionManager[yCoord, xCoord - 1, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                            positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                             xCoord--;
                         }
 
@@ -509,8 +515,8 @@ namespace DungeonCrawl
 
                                     moveEnemyUp = true;
                                     allowMove = false;
-                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                                    positionManager[yCoord - 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord - 1, xCoord, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                                     yCoord--;
                                 }
 
@@ -541,8 +547,8 @@ namespace DungeonCrawl
                                 {
                                     moveEnemyDown = true;
                                     allowMove = false;
-                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                                    positionManager[yCoord + 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord + 1, xCoord, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                                     yCoord++;
                                 }
                             }
@@ -580,8 +586,8 @@ namespace DungeonCrawl
 
                             moveEnemyUp = true;
                             allowMove = false;
-                            positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                            positionManager[yCoord - 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                            positionManager[yCoord - 1, xCoord, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                            positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                             yCoord--;
                         }
                         else if (positionManager[yCoord - 1, xCoord, floor].type == "wall" ||
@@ -620,8 +626,8 @@ namespace DungeonCrawl
 
                                     moveEnemyrRight = true;
                                     allowMove = false;
-                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                                    positionManager[yCoord, xCoord + 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord + 1, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true};    //Sätter sin förra position i 2d-arrayen till "null"
                                     xCoord++;
                                 }
 
@@ -653,8 +659,8 @@ namespace DungeonCrawl
                                 {
                                     moveEnemyLeft = true;
                                     allowMove = false;
-                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                                    positionManager[yCoord, xCoord - 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord - 1, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                                     xCoord--;
                                 }
                             }
@@ -692,8 +698,8 @@ namespace DungeonCrawl
                         {
                             moveEnemyDown = true;
                             allowMove = false;
-                            positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                            positionManager[yCoord + 1, xCoord, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                            positionManager[yCoord + 1, xCoord, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                            positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                             yCoord++;
                         }
                         else if (positionManager[yCoord + 1, xCoord, floor].type == "wall" ||
@@ -733,8 +739,8 @@ namespace DungeonCrawl
 
                                     moveEnemyrRight = true;
                                     allowMove = false;
-                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                                    positionManager[yCoord, xCoord + 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord + 1, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                                     xCoord++;
                                 }
 
@@ -766,8 +772,8 @@ namespace DungeonCrawl
                                 {
                                     moveEnemyLeft = true;
                                     allowMove = false;
-                                    positionManager[yCoord, xCoord, floor].type = "empty";    //Sätter sin förra position i 2d-arrayen till "null"
-                                    positionManager[yCoord, xCoord - 1, floor].type = "enemy"; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord - 1, floor] = positionManager[yCoord, xCoord, floor]; //Sätter rutan man rörde sig mot till player
+                                    positionManager[yCoord, xCoord, floor] = new PositionManager { type = "empty", floor = true };    //Sätter sin förra position i 2d-arrayen till "null"
                                     xCoord--;
                                 }
                             }
@@ -830,6 +836,16 @@ namespace DungeonCrawl
         public void DmgDraw(SpriteBatch spritebatch, SpriteFont font, string text, Vector2 pos, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float depth)
         {
             spritebatch.DrawString(font, text, pos, color, rotation, origin, scale, effects, depth);
+        }
+
+        public int ReturnExp()
+        {
+            return exp;
+        }
+
+        public int ReturnSpeed()
+        {
+            return movespeed;
         }
         //public override void Draw2(SpriteBatch spriteBatch, Vector2 DrawOffset, float layer)
         //{

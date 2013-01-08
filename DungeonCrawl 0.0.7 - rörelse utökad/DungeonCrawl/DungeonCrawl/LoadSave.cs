@@ -109,9 +109,11 @@ namespace DungeonCrawl
             saveGame.WriteLine(enemis.Count );
             for (int i = 0; i < enemis.Count; i++) //sparar data för varje fiende
             {
+                saveGame.WriteLine(enemis[i].hp);
+                saveGame.WriteLine(enemis[i].ReturnExp());
+                saveGame.WriteLine(enemis[i].ReturnSpeed());
                 saveGame.WriteLine(enemis[i].xCoord);
                 saveGame.WriteLine(enemis[i].yCoord);
-                saveGame.WriteLine(enemis[i].hp);
             }
 
             //överiga saker
@@ -176,19 +178,54 @@ namespace DungeonCrawl
             int numberOfEnemis = int.Parse(loadGame.ReadLine());
             for (int i = 0; i < numberOfEnemis; i++)
             {
-                int enemyhptemp = 20 + (PlayerLoad.Level * 3);
-                int enemyhp = enemyhptemp;
-                int enemystrtemp = 8 + (PlayerLoad.Level * 2);
-                int enemystr = enemystrtemp;
-                int enemydextemp = 12 + (PlayerLoad.Level * 3);
-                int enemydex = (int)enemydextemp;
-                enemis.Add(new Enemy(enemyhp, enemystr, enemydex));
+                int enemyhp = int.Parse(loadGame.ReadLine());
+                int enemyXP = int.Parse(loadGame.ReadLine());
+                int enemySpeed = int.Parse(loadGame.ReadLine());
+
+                int enemystr = 0;
+                int enemydex = 0;
+
+                switch (enemyXP)
+                {
+                    case 30:
+                        enemystr = 3;
+                        enemydex = 12;
+                        break;
+                    case 60:
+                        enemystr = 8;
+                        enemydex = 12;
+                        break;
+                    case 80:
+                        enemystr = 8;
+                        enemydex = 18;
+                        break;
+                    case 200:
+                        enemystr = 14;
+                        enemydex = 4;
+                        break;
+                }
+
+                enemis.Add(new Enemy(enemyhp, enemystr, enemydex, enemySpeed, enemyXP));
                 
                 enemis[i].xCoord = int.Parse(loadGame.ReadLine());
                 enemis[i].yCoord = int.Parse(loadGame.ReadLine());
                 
                 positionmanger[enemis[i].yCoord, enemis[i].xCoord, floor].type = "enemy";
-                enemis[i].hp = int.Parse(loadGame.ReadLine());
+                switch (enemyXP)
+                {
+                    case 30:
+                        positionmanger[enemis[i].yCoord, enemis[i].xCoord, floor].monster = "g_goblin";
+                        break;
+                    case 60:
+                        positionmanger[enemis[i].yCoord, enemis[i].xCoord, floor].monster = "goblin";
+                        break;
+                    case 80:
+                        positionmanger[enemis[i].yCoord, enemis[i].xCoord, floor].monster = "dark_elf";
+                        break;
+                    case 200:
+                        positionmanger[enemis[i].yCoord, enemis[i].xCoord, floor].monster = "fel_orc";
+                        break;
+                }
 
             }
 

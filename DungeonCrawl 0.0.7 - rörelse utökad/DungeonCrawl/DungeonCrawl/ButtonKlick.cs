@@ -238,9 +238,9 @@ namespace DungeonCrawl
                                     //MessageBox.Show(enemies[i].hp.ToString());
                                     if (enemies[i].hp <= 0)
                                     {
-                                        enemies.RemoveAt(i);
                                         positionManager[player.playerPosY - 1, player.playerPosX, floor].type = "empty";
-                                        player.Xp += 60;
+                                        player.Xp += enemies[i].ReturnExp();
+                                        enemies.RemoveAt(i);
                                         if (player.Xp >= player.XpToLevel)
                                         {
                                             player.LevelUp(ref hpBarPos.Width);

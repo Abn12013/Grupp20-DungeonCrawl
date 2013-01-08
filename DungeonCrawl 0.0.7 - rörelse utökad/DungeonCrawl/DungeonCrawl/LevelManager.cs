@@ -20,7 +20,7 @@ namespace DungeonCrawl
         " ###....t..........###                ##.##         " + "\n" +
         " #....###########....#      ######### #.C.#         " + "\n" +
         " #....# ######  #....#      ##..#..## ##.## ####### " + "\n" +
-        " #.e..###....#  #....#      #.......###...###.....# " + "\n" +
+        " #.g..###....#  #....#      #.......###...###.....# " + "\n" +
         " #........C..#  #....###### #...C...##.....##..D..# " + "\n" +
         " #....###....####....##...# ##.....##.......#.....# " + "\n" +
         " #....# #...............D.# #.......#.......#.....# " + "\n" +
@@ -63,25 +63,25 @@ namespace DungeonCrawl
             "  #.# #......#.#.#...##...#.......................# " + "\n" +
             "  #.# #.######.#.##########.......................# " + "\n" +
             "  #.# #.#    #...#..........########.....######.### " + "\n" +
-            "  #.# #.##########...........#.#...#.....#...#....# " + "\n" +
+            "  #.# #.##########...........#.#...#.d.d.#...#....# " + "\n" +
             "  #####.#C...###############.#.#.C.#.....#...####.# " + "\n" +
             "    #...#....##............#.#.#.............#..#.# " + "\n" +
-            "    #.#####.###............#.#.#...#.....#...#..#.# " + "\n" +
+            "    #.#####.###............#.#.#...#.d.d.#...#..#.# " + "\n" +
             "    #.# #................U.#.#.#...#.....#...#....# " + "\n" +
             "    #.###.#####............#.#.#####.....#####..#.# " + "\n" +
             "    #.....#   #............#.#....U#.....#......### " + "\n" +
             "    ########################.#.######...#########.# " + "\n" +
             "    ##############........#..#..#..#.....#..#.....# " + "\n" +
-            "   ##U..........##.######.#####.#..........C###.### " + "\n" +
+            "   ##U..G....G..##.######.#####.#..........C###.### " + "\n" +
             "   #.............#.#....#.......#..#.....#..#.....# " + "\n" +
             "   #...#######...#.#....#############...#####.#.#.# " + "\n" +
             "   #..##     ##..#...##.#.......#..#.....#..#.....# " + "\n" +
-            "   #..#       #..#...##.#.#.#.#.#...........#.#.#.# " + "\n" +
+            "   #.G#       #G.#...##.#.#.#.#.#...........#.#.#.# " + "\n" +
             "   #..#       #..#...##.......###..#.....#..#.....# " + "\n" +
             "   #..##     ##..#.#.##.......#######...#####.#.#.# " + "\n" +
-            "   #...#######...#.#....#.#.#.#D#..#.....#..#.....# " + "\n" +
-            "   #.............#.#....#.......##............#.#.# " + "\n" +
-            "   ##...........##.############################.### " + "\n" +
+            "   #.G.#######G..#.#....#.#.#.#D#..#.....#..#.....# " + "\n" +
+            "   #.....G.......#.#....#.......##............#.#.# " + "\n" +
+            "   ##.........G.##.############################.### " + "\n" +
             "    ##############..............................#   " + "\n" +
             "                 ################################   " + "\n" +
             "                                                    ";
@@ -97,8 +97,8 @@ namespace DungeonCrawl
             "                          #.........#               " + "\n" +
             "                     ######.........######          " + "\n" +
             "                    ##...######.######...##         " + "\n" +
-            "                    #.....#...#.#...#.....#         " + "\n" +
-            "                    #.........#.#.........#         " + "\n" +
+            "                    #.....#...#f#...#.....#         " + "\n" +
+            "                    #..d......#.#......d..#         " + "\n" +
             "                    #.....#...#.#...#.....#         " + "\n" +
             "                    ##...###.##.##.###...##         " + "\n" +
             "                     ##.##...........##.##          " + "\n" +
@@ -112,7 +112,7 @@ namespace DungeonCrawl
             "                     ##.##...........##.##          " + "\n" +
             "                    ##...###.##.##.###...##         " + "\n" +
             "                    #.....#...#.#...#.....#         " + "\n" +
-            "                    #.........#.#.........#         " + "\n" +
+            "                    #..d......#.#......d..#         " + "\n" +
             "                    #.....#...#.#...#.....#         " + "\n" +
             "                    ##...######.######...##         " + "\n" +
             "                     #####   #...#   #####          " + "\n" +
@@ -161,10 +161,38 @@ namespace DungeonCrawl
                             };
                             temp.X++;
                             break;
-                        case 'e':
+                        case 'g':
                             positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
                             {
                                 type = "enemy",
+                                monster = "goblin",
+                                floor = true
+                            };
+                            temp.X++;
+                            break;
+                        case 'G':
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
+                            {
+                                type = "enemy",
+                                monster = "g_goblin",
+                                floor = true
+                            };
+                            temp.X++;
+                            break;
+                        case 'd':
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
+                            {
+                                type = "enemy",
+                                monster = "dark_elf",
+                                floor = true
+                            };
+                            temp.X++;
+                            break;
+                        case 'f':
+                            positionManager[(int)temp.Y, (int)temp.X, floor] = new PositionManager
+                            {
+                                type = "enemy",
+                                monster = "fel_orc",
                                 floor = true
                             };
                             temp.X++;
@@ -290,6 +318,7 @@ namespace DungeonCrawl
             enemies.Clear();
             entry.Position = new Vector2(-50, -50);
 
+            string currentMONSTER;
             string currentObject;
             Vector2 currentPosition;
 
@@ -298,6 +327,7 @@ namespace DungeonCrawl
                 for (int x = 0; x < 52; x++)
                 {
                     currentObject = positionManager[y, x, floor].type;
+                    currentMONSTER = positionManager[y, x, floor].monster;
                     currentPosition = new Vector2(x, y);
 
                     if (positionManager[y, x, floor].floor == true)
@@ -485,11 +515,44 @@ namespace DungeonCrawl
                             });
                             break;
                         case "enemy":
-                            enemies.Add(new Enemy(20, 8, 12)
+                            switch (currentMONSTER)
                             {
-                                xCoord = (int)currentPosition.X,
-                                yCoord = (int)currentPosition.Y
-                            });
+                                case "goblin":
+                                    enemies.Add(new Enemy(20, 8, 12, 2, 60)
+                                    {
+                                        xCoord = (int)currentPosition.X,
+                                        yCoord = (int)currentPosition.Y
+                                    });
+                                    break;
+                                case "dark_elf":
+                                    enemies.Add(new Enemy(14, 8, 18, 2, 80)
+                                    {
+                                        xCoord = (int)currentPosition.X,
+                                        yCoord = (int)currentPosition.Y
+                                    });
+                                    break;
+                                case "g_goblin":
+                                    enemies.Add(new Enemy(4, 3, 12, 8, 30)
+                                    {
+                                        xCoord = (int)currentPosition.X,
+                                        yCoord = (int)currentPosition.Y
+                                    });
+                                    break;
+                                case "fel_orc":
+                                    enemies.Add(new Enemy(50, 14, 4, 1, 200)
+                                    {
+                                        xCoord = (int)currentPosition.X,
+                                        yCoord = (int)currentPosition.Y
+                                    });
+                                    break;
+                                default:
+                                    enemies.Add(new Enemy(20, 8, 12, 2, 60)
+                                    {
+                                        xCoord = (int)currentPosition.X,
+                                        yCoord = (int)currentPosition.Y
+                                    });
+                                    break;
+                            }
                             break;
                         default:
                             break;

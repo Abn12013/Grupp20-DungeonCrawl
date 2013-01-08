@@ -8,6 +8,7 @@ namespace DungeonCrawl
         public int hp; //hälsa av objekt
         public bool floor;
         public bool entry;
+        public string monster;
         //Lägg till fler värden efter behov
 
 

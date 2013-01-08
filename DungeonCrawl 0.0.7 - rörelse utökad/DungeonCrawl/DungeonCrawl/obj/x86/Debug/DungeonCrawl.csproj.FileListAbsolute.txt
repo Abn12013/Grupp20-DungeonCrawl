@@ -552,3 +552,57 @@ C:\Users\Holmis\Desktop\Backup senaste Fredag\DungeonCrawl 0.0.7 - rörelse utö
 C:\Users\Holmis\Desktop\Backup senaste Fredag\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Holmis\Desktop\Backup senaste Fredag\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
 C:\Users\Holmis\Desktop\Backup senaste Fredag\DungeonCrawl 0.0.7 - rörelse utökad\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Namnlös.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\level.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\char_test.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\hpbar.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\tiles_completed.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\test_a_animation.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\gameinterface.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\xpbar.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\animation.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\startKnappNer.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\mainmenu.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\LoadKnappNer.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\infoKnappNer.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\exitKnappNer.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\newgame.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\newgamenutton.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\newgamebutton.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\newGameStart.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\newGameBack.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\visiontile.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\skatt.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\animation2.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\popupLevel.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\gameover.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\menuKnappNer.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\creditsFirst.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\creditsLast.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\creditsMiddle.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\victory.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\dwarf_male.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\goblin.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenyback.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenyknappresume.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenyknappsave.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\ingamemenymenu.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\elf.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\orc.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\informationKnappcredits.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\informationmenu.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\hpfont.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\SpriteFont1.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\SpriteFont2.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\sounds.xgs
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Wave Bank.xwb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\Sound Bank.xsb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.exe
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\DungeonCrawl.pdb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.exe
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\obj\x86\Debug\DungeonCrawl.pdb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\dark_elf.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\fel_orc.xnb
+C:\Users\Anttichama\Desktop\DCRAWL 0.1.25\DungeonCrawl\DungeonCrawl\bin\x86\Debug\Content\goblin_gross.xnb
